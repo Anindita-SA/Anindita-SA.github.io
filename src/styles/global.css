@@ -27,34 +27,82 @@
     --border: #1F2937;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
-    @apply font-body transition-colors duration-300;
     background-color: var(--bg);
     color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
   }
 
-  ::selection {
-    background: var(--amber);
-    color: #000;
-  }
+  ::selection { background: #FCBA04; color: #000; }
 }
 
 @layer components {
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.625rem;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .tag-renewables {
+    background-color: rgba(0, 35, 102, 0.1);
+    color: #002366;
+    border: 1px solid rgba(0, 35, 102, 0.2);
+  }
+  .dark .tag-renewables {
+    background-color: rgba(0, 35, 102, 0.25);
+    color: #93c5fd;
+    border-color: rgba(0, 35, 102, 0.4);
+  }
+
+  .tag-electronics {
+    background-color: rgba(253, 21, 27, 0.1);
+    color: #FD151B;
+    border: 1px solid rgba(253, 21, 27, 0.2);
+  }
+  .dark .tag-electronics {
+    background-color: rgba(253, 21, 27, 0.15);
+    color: #fca5a5;
+    border-color: rgba(253, 21, 27, 0.3);
+  }
+
   .tag-product {
-  @apply tag border;
-  background-color: rgba(252, 186, 4, 0.15);
-  color: #92400e;
-  border-color: rgba(252, 186, 4, 0.3);
-}
-.dark .tag-product {
-  background-color: rgba(252, 186, 4, 0.1);
-  color: #FCBA04;
-  border-color: rgba(252, 186, 4, 0.3);
-}
+    background-color: rgba(252, 186, 4, 0.15);
+    color: #92400e;
+    border: 1px solid rgba(252, 186, 4, 0.3);
+  }
+  .dark .tag-product {
+    background-color: rgba(252, 186, 4, 0.1);
+    color: #FCBA04;
+    border-color: rgba(252, 186, 4, 0.3);
+  }
+
+  .tag-research {
+    background-color: #FFE6E8;
+    color: #be123c;
+    border: 1px solid #FFE6E8;
+  }
+  .dark .tag-research {
+    background-color: rgba(255, 230, 232, 0.1);
+    color: #fda4af;
+    border-color: rgba(255, 230, 232, 0.2);
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+  }
 
   .animate-on-scroll {
     opacity: 0;
