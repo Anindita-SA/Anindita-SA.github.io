@@ -44,29 +44,17 @@
 }
 
 @layer components {
-  .tag {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-sm text-xs font-mono font-medium uppercase tracking-wider;
-  }
-
-  .tag-renewables {
-    @apply tag bg-royal/10 text-royal dark:bg-royal/20 dark:text-blue-300 border border-royal/20;
-  }
-
-  .tag-electronics {
-    @apply tag bg-crimson/10 text-crimson dark:bg-crimson/20 dark:text-red-300 border border-crimson/20;
-  }
-
   .tag-product {
-    @apply tag bg-amber/20 text-amber-700 dark:bg-amber/10 dark:text-amber border border-amber/30;
-  }
-
-  .tag-research {
-    @apply tag bg-blush text-rose-700 dark:bg-blush/10 dark:text-rose-300 border border-blush;
-  }
-
-  .section-label {
-    @apply font-mono text-xs uppercase tracking-[0.2em] opacity-50;
-  }
+  @apply tag border;
+  background-color: rgba(252, 186, 4, 0.15);
+  color: #92400e;
+  border-color: rgba(252, 186, 4, 0.3);
+}
+.dark .tag-product {
+  background-color: rgba(252, 186, 4, 0.1);
+  color: #FCBA04;
+  border-color: rgba(252, 186, 4, 0.3);
+}
 
   .animate-on-scroll {
     opacity: 0;
