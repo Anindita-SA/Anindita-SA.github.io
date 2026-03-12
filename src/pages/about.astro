@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const skills = {
+  'Engineering': ['Renewable Energy Systems', 'Circuit Design', 'Embedded Systems', 'Power Electronics'],
+  'Design': ['Design Thinking', 'Systems Design', 'Product Prototyping', 'User Research'],
+  'Tools': ['Python', 'MATLAB', 'KiCad', 'Fusion 360', 'LaTeX'],
+  'Methods': ['First Principles', 'Iterative Prototyping', 'Cross-domain Research'],
+};
+
+const skillColors = {
+  'Engineering': 'royal',
+  'Design': 'amber',
+  'Tools': 'crimson',
+  'Methods': 'blush',
+};
+---
+
+<BaseLayout title="About — Your Name" description="Multidisciplinary engineer and design thinker.">
+  <section class="max-w-5xl mx-auto px-6 py-16">
+
+    <div class="grid md:grid-cols-[1fr_2fr] gap-16">
+
+      <!-- Left column -->
+      <div>
+        <p class="section-label mb-8">About</p>
+
+        <!-- Avatar placeholder -->
+        <div class="w-40 h-40 mb-8 relative">
+          <div class="w-full h-full border-2" style="border-color: var(--royal);">
+            <div class="absolute -bottom-2 -right-2 w-full h-full border" style="border-color: var(--amber);"></div>
+          </div>
+          <p class="font-mono text-xs opacity-30 mt-4">Add photo → /public/avatar.jpg</p>
+        </div>
+
+        <h1 class="font-display text-3xl font-extrabold mb-2">Your Name</h1>
+        <p class="font-mono text-sm opacity-50 mb-6">Engineer · Design Thinker · Builder</p>
+
+        <div class="flex flex-col gap-2 text-sm">
+          <a href="mailto:your@email.com" class="opacity-50 hover:opacity-100 transition-opacity font-mono text-xs">
+            your@email.com
+          </a>
+          <a href="https://github.com/YOUR_USERNAME" class="opacity-50 hover:opacity-100 transition-opacity font-mono text-xs" target="_blank">
+            github.com/YOUR_USERNAME
+          </a>
+          <a href="https://YOUR_SUBSTACK.substack.com" class="opacity-50 hover:opacity-100 transition-opacity font-mono text-xs" target="_blank">
+            Substack ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div>
+        <div class="space-y-6 mb-12 animate-on-scroll">
+          <p class="font-body text-lg leading-relaxed opacity-80">
+            I'm a multidisciplinary engineer who thinks in systems. My work lives at the intersection of renewable energy, electronics, and design — not because I couldn't pick a lane, but because the most interesting problems rarely fit neatly into one.
+          </p>
+          <p class="font-body text-lg leading-relaxed opacity-80">
+            Design thinking isn't a methodology I apply — it's a lens I can't take off. Whether I'm sizing a solar array, designing a circuit, or prototyping a product, I start with the human context and work outward toward the technical constraints. This tends to produce work that's actually useful, not just technically correct.
+          </p>
+          <p class="font-body text-lg leading-relaxed opacity-80">
+            I write about ideas that don't fit into research papers over on Substack — the half-formed thoughts, the questions I can't shake, the observations from working across fields. If you're interested in that side, it's worth a read.
+          </p>
+        </div>
+
+        <!-- Substack CTA -->
+        <a href="https://YOUR_SUBSTACK.substack.com" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-3 px-5 py-3 border transition-all hover:opacity-70 mb-12 animate-on-scroll"
+           style="border-color: var(--amber);">
+          <span class="font-display text-sm font-semibold">Read the Substack</span>
+          <span class="font-mono text-xs opacity-50">Non-technical writing ↗</span>
+        </a>
+
+        <!-- Skills -->
+        <div class="animate-on-scroll">
+          <p class="section-label mb-6">Skills & Tools</p>
+          <div class="grid grid-cols-2 gap-6">
+            {Object.entries(skills).map(([category, items]) => (
+              <div>
+                <p class="font-mono text-xs uppercase tracking-widest opacity-40 mb-3">{category}</p>
+                <div class="flex flex-wrap gap-2">
+                  {items.map(skill => (
+                    <span class="font-mono text-xs px-2 py-1 border" style="border-color: var(--border);">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</BaseLayout>

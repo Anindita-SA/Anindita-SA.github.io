@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+
+const tagClass: Record<string, string> = {
+  Renewables: 'tag-renewables',
+  Electronics: 'tag-electronics',
+  'Product Design': 'tag-product',
+  Research: 'tag-research',
+};
+---
+
+<BaseLayout title={`${project.data.title} — Your Name`} description={project.data.description}>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+
+    <!-- Back -->
+    <a href="/projects" class="font-mono text-xs opacity-40 hover:opacity-100 transition-opacity inline-flex items-center gap-2 mb-12">
+      ← All projects
+    </a>
+
+    <!-- Header -->
+    <div class="mb-12">
+      <div class="flex flex-wrap gap-2 mb-6">
+        {project.data.domain.map((d: string) => (
+          <span class={tagClass[d] || 'tag'}>{d}</span>
+        ))}
+        <span class="font-mono text-xs opacity-40 ml-2 self-center">
+          {new Date(project.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
+        </span>
+      </div>
+
+      <h1 class="font-display text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+        {project.data.title}
+      </h1>
+      <p class="font-body text-xl opacity-60 leading-relaxed">
+        {project.data.description}
+      </p>
+    </div>
+
+    <!-- Divider -->
+    <div class="flex gap-1 mb-12">
+      <div class="h-1 w-12" style="background: var(--royal);"></div>
+      <div class="h-1 w-4" style="background: var(--crimson);"></div>
+      <div class="h-1 w-2" style="background: var(--amber);"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="prose-content">
+      <Content />
+    </div>
+
+  </article>
+</BaseLayout>
+
+<style>
+  .prose-content :global(h2) {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+  .prose-content :global(h3) {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+  }
+  .prose-content :global(p) {
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    opacity: 0.8;
+  }
+  .prose-content :global(ul) {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+  }
+  .prose-content :global(ul li)::before {
+    content: '→ ';
+    color: var(--crimson);
+    font-weight: 600;
+  }
+  .prose-content :global(code) {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875em;
+    background-color: var(--bg-surface);
+    padding: 0.125rem 0.375rem;
+    border-radius: 2px;
+  }
+  .prose-content :global(strong) {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .prose-content :global(blockquote) {
+    border-left: 3px solid var(--amber);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    opacity: 0.7;
+    font-style: italic;
+  }
+</style>

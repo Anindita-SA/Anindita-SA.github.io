@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = (await getCollection('projects'))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const domains = ['All', 'Renewables', 'Electronics', 'Product Design', 'Research'];
+
+const tagClass: Record<string, string> = {
+  Renewables: 'tag-renewables',
+  Electronics: 'tag-electronics',
+  'Product Design': 'tag-product',
+  Research: 'tag-research',
+};
+---
+
+<BaseLayout title="Projects — Your Name" description="Engineering and design projects across renewables, electronics, and product design.">
+
+  <section class="max-w-5xl mx-auto px-6 py-16">
+    <p class="section-label mb-4">Work</p>
+    <h1 class="font-display text-5xl font-extrabold mb-4">Projects</h1>
+    <p class="font-body text-lg opacity-60 max-w-xl mb-12">
+      A collection of things I've built, researched, and shipped — across disciplines, on purpose.
+    </p>
+
+    <!-- Filter tabs -->
+    <div class="flex flex-wrap gap-2 mb-12" id="filter-tabs">
+      {domains.map(domain => (
+        <button
+          data-filter={domain}
+          class={`font-mono text-xs px-4 py-2 border transition-all duration-200 filter-btn ${domain === 'All' ? 'active' : ''}`}
+          style="border-color: var(--border);"
+        >
+          {domain}
+        </button>
+      ))}
+    </div>
+
+    <!-- Projects grid -->
+    <div class="grid gap-4" id="projects-grid">
+      {allProjects.map((project, i) => (
+        <a
+          href={`/projects/${project.slug}`}
+          data-domains={project.data.domain.join(',')}
+          class="project-card group block p-6 border transition-all duration-300 hover:translate-y-[-2px] animate-on-scroll"
+          style={`border-color: var(--border); animation-delay: ${i * 0.05}s;`}
+        >
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex-1">
+              <div class="flex flex-wrap gap-2 mb-3">
+                {project.data.domain.map((d: string) => (
+                  <span class={tagClass[d] || 'tag'}>{d}</span>
+                ))}
+                {project.data.status === 'active' && (
+                  <span class="tag bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800">
+                    Active
+                  </span>
+                )}
+              </div>
+              <h2 class="font-display text-lg font-bold mb-1 group-hover:opacity-70 transition-opacity">
+                {project.data.title}
+              </h2>
+              <p class="font-body text-sm opacity-60">{project.data.description}</p>
+            </div>
+            <span class="font-mono text-xs opacity-30 shrink-0">
+              {new Date(project.data.date).getFullYear()} →
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .filter-btn.active {
+    background-color: var(--royal);
+    color: white;
+    border-color: var(--royal);
+  }
+  .dark .filter-btn.active {
+    background-color: var(--amber);
+    color: #000;
+    border-color: var(--amber);
+  }
+  .project-card.hidden {
+    display: none;
+  }
+</style>
+
+<script is:inline>
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.project-card');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        const domains = card.dataset.domains || '';
+        if (filter === 'All' || domains.includes(filter)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

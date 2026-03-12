@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .filter(p => p.data.featured)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+
+const tagClass: Record<string, string> = {
+  Renewables: 'tag-renewables',
+  Electronics: 'tag-electronics',
+  'Product Design': 'tag-product',
+  Research: 'tag-research',
+};
+---
+
+<BaseLayout title="Your Name — Engineer & Design Thinker">
+
+  <!-- Hero -->
+  <section class="min-h-[90vh] max-w-5xl mx-auto px-6 flex flex-col justify-center relative">
+
+    <!-- Decorative grid line -->
+    <div class="absolute top-0 right-0 w-px h-full opacity-10" style="background: var(--royal);"></div>
+
+    <div class="max-w-2xl">
+      <p class="section-label mb-6 animate-on-scroll">Engineer · Designer · Builder</p>
+
+      <h1 class="font-display text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
+        <span>Your Name</span>
+        <span class="block mt-2" style="color: var(--crimson);">_</span>
+      </h1>
+
+      <p class="font-body text-lg md:text-xl leading-relaxed opacity-70 max-w-xl mb-10 animate-on-scroll" style="animation-delay: 0.2s;">
+        I work across the boundaries of renewable energy systems, electronics, and design — not despite the breadth, but because of it. The connections between disciplines are where interesting things happen.
+      </p>
+
+      <div class="flex flex-wrap gap-4 animate-on-scroll" style="animation-delay: 0.3s;">
+        <a href="/projects"
+           class="font-display font-semibold text-sm px-6 py-3 transition-all duration-200 hover:translate-y-[-2px]"
+           style="background: var(--royal); color: white;">
+          View Projects →
+        </a>
+        <a href="/about"
+           class="font-display font-semibold text-sm px-6 py-3 transition-all duration-200 hover:opacity-70"
+           style="border: 1px solid var(--border);">
+          About Me
+        </a>
+      </div>
+    </div>
+
+    <!-- Corner accent -->
+    <div class="absolute bottom-12 right-6 hidden md:flex flex-col items-end gap-1 opacity-30">
+      <div class="w-8 h-px" style="background: var(--amber);"></div>
+      <div class="w-4 h-px" style="background: var(--amber);"></div>
+    </div>
+  </section>
+
+  <!-- Domain tags strip -->
+  <section class="border-y py-4" style="border-color: var(--border);">
+    <div class="max-w-5xl mx-auto px-6 flex items-center gap-6 overflow-x-auto no-scrollbar">
+      <span class="section-label shrink-0">Focus areas</span>
+      <span class="tag-renewables shrink-0">Renewable Energy</span>
+      <span class="tag-electronics shrink-0">Electronics</span>
+      <span class="tag-product shrink-0">Product Design</span>
+      <span class="tag-research shrink-0">Research</span>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  {projects.length > 0 && (
+    <section class="max-w-5xl mx-auto px-6 py-20">
+      <div class="flex items-end justify-between mb-12">
+        <div>
+          <p class="section-label mb-3">Selected work</p>
+          <h2 class="font-display text-3xl font-bold">Featured Projects</h2>
+        </div>
+        <a href="/projects" class="font-mono text-xs opacity-50 hover:opacity-100 transition-opacity hidden md:block">
+          All projects →
+        </a>
+      </div>
+
+      <div class="grid gap-6">
+        {projects.map((project, i) => (
+          <a href={`/projects/${project.slug}`}
+             class="group block p-6 border transition-all duration-300 hover:border-opacity-100 hover:translate-y-[-2px] animate-on-scroll"
+             style={`border-color: var(--border); animation-delay: ${i * 0.1}s;`}>
+            <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+              <div class="flex-1">
+                <div class="flex flex-wrap gap-2 mb-3">
+                  {project.data.domain.map((d: string) => (
+                    <span class={tagClass[d] || 'tag'}>{d}</span>
+                  ))}
+                </div>
+                <h3 class="font-display text-xl font-bold mb-2 group-hover:opacity-70 transition-opacity">
+                  {project.data.title}
+                </h3>
+                <p class="font-body text-sm leading-relaxed opacity-60">{project.data.description}</p>
+              </div>
+              <span class="font-mono text-xs opacity-30 group-hover:opacity-70 transition-opacity shrink-0 mt-1">
+                {new Date(project.data.date).getFullYear()}
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Philosophy strip -->
+  <section class="border-y py-16" style="border-color: var(--border); background-color: var(--bg-surface);">
+    <div class="max-w-5xl mx-auto px-6">
+      <blockquote class="font-display text-2xl md:text-3xl font-semibold leading-relaxed max-w-3xl animate-on-scroll">
+        <span class="opacity-30 text-5xl leading-none">"</span>
+        Jack of all trades, master of none — often times better than a master of one.
+      </blockquote>
+      <p class="font-mono text-xs opacity-30 mt-4 ml-6">The frame through which I work</p>
+    </div>
+  </section>
+
+</BaseLayout>
