@@ -15,7 +15,7 @@ export default {
         muted: '#1F2937',
       },
       fontFamily: {
-        display: ['"Syne"', 'sans-serif'],
+        display: ['"Graviton"', 'sans-serif'],
         body: ['"DM Sans"', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
