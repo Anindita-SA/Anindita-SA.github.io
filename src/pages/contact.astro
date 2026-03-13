@@ -3,37 +3,158 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Contact — Anindita Sarker Aloka">
-  <section class="max-w-5xl mx-auto px-6 py-16 min-h-[70vh] flex flex-col justify-center">
-    <p class="section-label mb-6">Get in touch</p>
-    <h1 class="font-display text-5xl font-extrabold mb-6">Let's talk.</h1>
-    <p class="font-body text-lg opacity-60 max-w-lg mb-12 leading-relaxed">
-      I'm open to conversations about research collaborations, interesting engineering problems, and product design work. I'm not looking for generic outreach — but if you have something specific in mind, I'd like to hear it.
-    </p>
 
-    <div class="flex flex-col gap-4 mb-16">
-      <a href="mailto:107123013@nitt.edu"
-         class="inline-flex items-center gap-4 group w-fit">
-        <span class="font-mono text-xs opacity-40 w-20">Email</span>
-        <span class="font-display text-lg font-semibold group-hover:opacity-60 transition-opacity">
-          my@email.com →
-        </span>
-      </a>
-      <a href="https://www.linkedin.com/in/aninditasarker-aloka/" target="_blank" rel="noopener"
-         class="inline-flex items-center gap-4 group w-fit">
-        <span class="font-mono text-xs opacity-40 w-20">LinkedIn</span>
-        <span class="font-display text-lg font-semibold group-hover:opacity-60 transition-opacity">
-          linkedin.com/in/aninditasarker-aloka/ →
-        </span>
-      </a>
-      <a href="https://github.com/Anindita-SA" target="_blank" rel="noopener"
-         class="inline-flex items-center gap-4 group w-fit">
-        <span class="font-mono text-xs opacity-40 w-20">GitHub</span>
-        <span class="font-display text-lg font-semibold group-hover:opacity-60 transition-opacity">
-          github.com/Anindita-SA →
-        </span>
-      </a>
+  <!-- Hex background pattern (same as about) -->
+  <div class="hex-bg-wrapper" aria-hidden="true">
+    <svg class="hex-bg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <defs>
+        <pattern id="hexPattern2" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
+          <polygon points="30,2 58,17 58,47 30,62 2,47 2,17" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+          <polygon points="60,28 88,43 88,73 60,88 32,73 32,43" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        </pattern>
+        <linearGradient id="fadeGrad2" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="white" stop-opacity="0"/>
+          <stop offset="60%" stop-color="white" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="white" stop-opacity="1"/>
+        </linearGradient>
+        <mask id="fadeMask2">
+          <rect width="100%" height="100%" fill="url(#fadeGrad2)"/>
+        </mask>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#hexPattern2)" mask="url(#fadeMask2)"/>
+    </svg>
+  </div>
+
+  <section class="max-w-5xl mx-auto px-6 py-16 min-h-[70vh] relative z-10">
+    <div class="max-w-2xl">
+      <p class="section-label mb-6">Get in touch</p>
+      <h1 class="font-display text-5xl font-extrabold mb-6">Let's talk.</h1>
+      <p class="font-body text-lg opacity-60 max-w-lg mb-12 leading-relaxed">
+        I'm open to conversations about research collaborations, interesting engineering problems, and product design work. If you have something specific in mind, I'd like to hear it.
+      </p>
+
+      <!-- Social links -->
+      <div class="flex flex-col gap-4 mb-16">
+        <a href="https://linkedin.com/in/YOUR_USERNAME" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-4 group w-fit">
+          <span class="font-mono text-xs opacity-40 w-20">LinkedIn</span>
+          <span class="font-display text-lg font-semibold group-hover:opacity-60 transition-opacity">
+            linkedin.com/in/YOU →
+          </span>
+        </a>
+        <a href="https://github.com/Anindita-SA" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-4 group w-fit">
+          <span class="font-mono text-xs opacity-40 w-20">GitHub</span>
+          <span class="font-display text-lg font-semibold group-hover:opacity-60 transition-opacity">
+            github.com/Anindita-SA →
+          </span>
+        </a>
+      </div>
+
+      <!-- Contact form -->
+      <div class="border p-8" style="border-color: var(--border);">
+        <p class="section-label mb-6">Send a message</p>
+
+        <form id="contact-form" action="https://formspree.io/f/xzdjgwno" method="POST" class="flex flex-col gap-5">
+          <div>
+            <label class="font-mono text-xs opacity-50 block mb-2">Name</label>
+            <input
+              type="text"
+              name="name"
+              required
+              placeholder="Your name"
+              class="w-full px-4 py-3 font-body text-sm border outline-none transition-all focus:border-opacity-100"
+              style="background: var(--bg-surface); border-color: var(--border); color: var(--text-primary);"
+            />
+          </div>
+
+          <div>
+            <label class="font-mono text-xs opacity-50 block mb-2">Email</label>
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="your@email.com"
+              class="w-full px-4 py-3 font-body text-sm border outline-none transition-all"
+              style="background: var(--bg-surface); border-color: var(--border); color: var(--text-primary);"
+            />
+          </div>
+
+          <div>
+            <label class="font-mono text-xs opacity-50 block mb-2">Message</label>
+            <textarea
+              name="message"
+              required
+              rows="5"
+              placeholder="What's on your mind?"
+              class="w-full px-4 py-3 font-body text-sm border outline-none transition-all resize-none"
+              style="background: var(--bg-surface); border-color: var(--border); color: var(--text-primary);"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="font-display font-semibold text-sm px-6 py-3 transition-all duration-200 hover:opacity-80 w-fit"
+            style="background: var(--royal); color: white;"
+          >
+            Send message →
+          </button>
+
+          <p id="form-status" class="font-mono text-xs opacity-0 transition-opacity"></p>
+        </form>
+      </div>
+
+      <div class="h-px w-24 mt-12" style="background: var(--crimson);"></div>
     </div>
-
-    <div class="h-px w-24" style="background: var(--crimson);"></div>
   </section>
 </BaseLayout>
+
+<style>
+  .hex-bg-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    transform: scaleX(-1);
+    opacity: 0.5;
+    color: var(--amber);
+  }
+  .dark .hex-bg-wrapper { opacity: 0.12; }
+  .hex-bg { width: 100%; height: 100%; }
+
+  input:focus, textarea:focus {
+    border-color: var(--royal) !important;
+  }
+  .dark input:focus, .dark textarea:focus {
+    border-color: var(--amber) !important;
+  }
+</style>
+
+<script is:inline>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      status.textContent = '✓ Message sent — I\'ll get back to you soon.';
+      status.style.opacity = '1';
+      status.style.color = 'var(--royal)';
+      form.reset();
+    } else {
+      status.textContent = '✗ Something went wrong. Try emailing directly.';
+      status.style.opacity = '1';
+      status.style.color = 'var(--crimson)';
+    }
+  });
+</script>

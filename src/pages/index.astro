@@ -18,26 +18,29 @@ const tagClass: Record<string, string> = {
 <BaseLayout title="Anindita Sarker Aloka — Engineer & Design Thinker">
 
   <!-- Hero -->
-  <section class="min-h-[90vh] max-w-5xl mx-auto px-6 flex flex-col justify-center relative">
+<section class="min-h-[90vh] max-w-5xl mx-auto px-6 flex flex-col justify-center relative">
 
-    <!-- Decorative grid line -->
-    <div class="absolute top-0 right-0 w-px h-full opacity-10" style="background: var(--royal);"></div>
+  <div class="absolute top-0 right-0 w-px h-full opacity-10" style="background: var(--royal);"></div>
 
-    <div class="max-w-2xl">
+  <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+
+    <!-- Left: text -->
+    <div class="max-w-xl w-full">
       <p class="section-label mb-6 animate-on-scroll">Engineer · Designer · Builder</p>
 
       <h1 class="font-display text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
-        <span>Anindita Sarker Aloka</span>
-        <span class="block mt-2" style="color: var(--crimson);">_</span>
+        Anindita Sarker Aloka
       </h1>
 
-      <p class="font-body text-lg md:text-xl leading-relaxed opacity-70 max-w-xl mb-10 animate-on-scroll" style="animation-delay: 0.2s;">
+      <div class="h-1 w-12 mb-8 animate-on-scroll" style="background: var(--crimson); animation-delay: 0.15s;"></div>
+
+      <p class="font-body text-lg leading-relaxed opacity-70 mb-10 animate-on-scroll" style="animation-delay: 0.2s;">
         I work across the boundaries of renewable energy systems, electronics, and design — not despite the breadth, but because of it. The connections between disciplines are where interesting things happen.
       </p>
 
       <div class="flex flex-wrap gap-4 animate-on-scroll" style="animation-delay: 0.3s;">
         <a href="/projects"
-           class="font-display font-semibold text-sm px-6 py-3 transition-all duration-200 hover:translate-y-[-2px]"
+           class="font-display font-semibold text-sm px-6 py-3 transition-all duration-200 hover:opacity-80"
            style="background: var(--royal); color: white;">
           View Projects →
         </a>
@@ -49,23 +52,18 @@ const tagClass: Record<string, string> = {
       </div>
     </div>
 
-    <!-- Corner accent -->
-    <div class="absolute bottom-12 right-6 hidden md:flex flex-col items-end gap-1 opacity-30">
-      <div class="w-8 h-px" style="background: var(--amber);"></div>
-      <div class="w-4 h-px" style="background: var(--amber);"></div>
+    <!-- Right: hex photo — shows on all sizes, stacks below on mobile -->
+    <div class="shrink-0">
+      <div class="hex-hero-wrap">
+        <div class="hex-hero-ring"></div>
+        <div class="hex-hero">
+          <img src="/Profile Picture.png" alt="Anindita Sarker Aloka" />
+        </div>
+      </div>
     </div>
-  </section>
 
-  <!-- Domain tags strip -->
-  <section class="border-y py-4" style="border-color: var(--border);">
-    <div class="max-w-5xl mx-auto px-6 flex items-center gap-6 overflow-x-auto no-scrollbar">
-      <span class="section-label shrink-0">Focus areas</span>
-      <span class="tag-renewables shrink-0">Renewable Energy</span>
-      <span class="tag-electronics shrink-0">Electronics</span>
-      <span class="tag-product shrink-0">Product Design</span>
-      <span class="tag-research shrink-0">Research</span>
-    </div>
-  </section>
+  </div>
+</section>
 
   <!-- Featured Projects -->
   {projects.length > 0 && (
@@ -119,3 +117,62 @@ const tagClass: Record<string, string> = {
   </section>
 
 </BaseLayout>
+<style>
+  .hex-hero-wrap {
+  position: relative;
+  width: min(380px, 80vw);
+  height: calc(min(380px, 80vw) * 1.13);
+}
+.hex-hero {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: calc(min(380px, 80vw) - 12px);
+  height: calc((min(380px, 80vw) * 1.13) - 12px);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  overflow: hidden;
+  z-index: 2;
+}
+.hex-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+.hex-hero-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(380px, 80vw);
+  height: calc(min(380px, 80vw) * 1.13);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: #FCBA04;
+  z-index: 1;
+}
+  .hex-hero {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 288px;
+    height: 326px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    overflow: hidden;
+    z-index: 2;
+  }
+  .hex-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .hex-hero-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 338px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: #FCBA04;
+    z-index: 1;
+  }
+</style>

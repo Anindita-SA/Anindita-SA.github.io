@@ -7,30 +7,44 @@ const skills = {
   'Tools': ['Python', 'MATLAB', 'KiCad', 'Fusion 360', 'LaTeX'],
   'Methods': ['First Principles', 'Iterative Prototyping', 'Cross-domain Research'],
 };
-
-const skillColors = {
-  'Engineering': 'royal',
-  'Design': 'amber',
-  'Tools': 'crimson',
-  'Methods': 'blush',
-};
 ---
 
 <BaseLayout title="About — Anindita Sarker Aloka" description="Multidisciplinary engineer and design thinker.">
-  <section class="max-w-5xl mx-auto px-6 py-16">
 
+  <!-- Hex background pattern -->
+  <div class="hex-bg-wrapper" aria-hidden="true">
+    <svg class="hex-bg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+      <defs>
+        <pattern id="hexPattern" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
+          <polygon points="30,2 58,17 58,47 30,62 2,47 2,17" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+          <polygon points="60,28 88,43 88,73 60,88 32,73 32,43" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        </pattern>
+        <linearGradient id="fadeGrad" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="white" stop-opacity="0"/>
+          <stop offset="60%" stop-color="white" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="white" stop-opacity="1"/>
+        </linearGradient>
+        <mask id="fadeMask">
+          <rect width="100%" height="100%" fill="url(#fadeGrad)"/>
+        </mask>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#hexPattern)" mask="url(#fadeMask)"/>
+    </svg>
+  </div>
+
+  <section class="max-w-5xl mx-auto px-6 py-16 relative z-10">
     <div class="grid md:grid-cols-[1fr_2fr] gap-16">
 
       <!-- Left column -->
       <div>
         <p class="section-label mb-8">About</p>
 
-        <!-- Avatar placeholder -->
-        <div class="w-40 h-40 mb-8 relative">
-          <div class="w-full h-full border-2" style="border-color: var(--royal);">
-            <div class="absolute -bottom-2 -right-2 w-full h-full border" style="border-color: var(--amber);"></div>
+        <!-- Hexagon avatar -->
+        <div class="hex-avatar-wrap mb-8">
+          <div class="hex-avatar-ring"></div>
+          <div class="hex-avatar">
+            <img src="/Profile Picture.png" alt="Anindita Sarker Aloka" />
           </div>
-          <p class="font-mono text-xs opacity-30 mt-4">Add photo → /public/avatar.jpg</p>
         </div>
 
         <h1 class="font-display text-3xl font-extrabold mb-2">Anindita Sarker Aloka</h1>
@@ -38,10 +52,10 @@ const skillColors = {
 
         <div class="flex flex-col gap-2 text-sm">
           <a href="mailto:107123013@nitt.edu" class="opacity-50 hover:opacity-100 transition-opacity font-mono text-xs">
-            Email ↗
+            Email to reach out ↗
           </a>
           <a href="https://github.com/Anindita-SA" class="opacity-50 hover:opacity-100 transition-opacity font-mono text-xs" target="_blank">
-            Github ↗
+            Github @ Anindita-SA↗
           </a>
           <a href="https://aniinstudio.substack.com/" class="opacity-50 hover:opacity-100 transition-opacity font-mono text-xs" target="_blank">
             Substack ↗
@@ -53,17 +67,16 @@ const skillColors = {
       <div>
         <div class="space-y-6 mb-12 animate-on-scroll">
           <p class="font-body text-lg leading-relaxed opacity-80">
-            I'm a multidisciplinary engineer who thinks in systems. My work lives at the intersection of renewable energy, electronics, and design; not because I couldn't pick a lane, but because the most interesting problems rarely fit neatly into one.
+            I'm a multidisciplinary engineer who thinks in systems. My work lives at the intersection of renewable energy, electronics, and design — not because I couldn't pick a lane, but because the most interesting problems rarely fit neatly into one.
           </p>
           <p class="font-body text-lg leading-relaxed opacity-80">
-            Design thinking isn't a methodology I apply, it's a lens I can't take off. Whether I'm sizing a solar array, designing a circuit, or prototyping a product, I start with the human context and work outward toward the technical constraints. This tends to produce work that's actually useful, not just technically correct.
+            Design thinking isn't a methodology I apply — it's a lens I can't take off. Whether I'm sizing a solar array, designing a circuit, or prototyping a product, I start with the human context and work outward toward the technical constraints. This tends to produce work that's actually useful, not just technically correct.
           </p>
           <p class="font-body text-lg leading-relaxed opacity-80">
-            I write about ideas that don't fit into research papers over on Substack, the half-formed thoughts, the questions I can't shake, the observations from working across fields. If you're interested in that side, it's worth a read.
+            I write about ideas that don't fit into research papers over on Substack — the half-formed thoughts, the questions I can't shake, the observations from working across fields. If you're interested in that side, it's worth a read.
           </p>
         </div>
 
-        <!-- Substack CTA -->
         <a href="https://aniinstudio.substack.com/" target="_blank" rel="noopener"
            class="inline-flex items-center gap-3 px-5 py-3 border transition-all hover:opacity-70 mb-12 animate-on-scroll"
            style="border-color: var(--amber);">
@@ -71,7 +84,6 @@ const skillColors = {
           <span class="font-mono text-xs opacity-50">Non-technical writing ↗</span>
         </a>
 
-        <!-- Skills -->
         <div class="animate-on-scroll">
           <p class="section-label mb-6">Skills & Tools</p>
           <div class="grid grid-cols-2 gap-6">
@@ -91,6 +103,54 @@ const skillColors = {
         </div>
       </div>
     </div>
-
   </section>
 </BaseLayout>
+
+<style>
+  .hex-bg-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    transform: scaleX(-1);
+    opacity: 0.5;
+    color: var(--amber);
+  }
+  .dark .hex-bg-wrapper { opacity: 0.12; }
+  .hex-bg { width: 100%; height: 100%; }
+
+  .hex-avatar-wrap {
+    position: relative;
+    width: 160px;
+    height: 180px;
+  }
+  .hex-avatar {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 152px;
+    height: 172px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    overflow: hidden;
+    z-index: 2;
+  }
+  .hex-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .hex-avatar-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160px;
+    height: 180px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: var(--amber);
+    z-index: 1;
+  }
+</style>
