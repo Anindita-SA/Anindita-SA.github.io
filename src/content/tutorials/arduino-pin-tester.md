@@ -21,7 +21,7 @@ Before wiring up a complex circuit, it's worth knowing which pins on your Arduin
 - An LED + 220Ω resistor, or just the built-in LED
 
 ## Arduino Nano Pinout
-![Arduino Nano Pinout](https://github.com/Anindita-SA.github.io/public/tutorials/arduino-pin-tester/arduino_nano_pinout.png)
+![Arduino Nano Pinout](public/tutorials/arduino-pin-tester/arduino_nano_pinout.png)
 
 ## Explanation
 
@@ -101,7 +101,7 @@ void loop() {
   delay(5000);
 }
 ```
-<a href="https://github.com/Anindita-SA.github.io/public/tutorials/arduino-pin-tester/pin_integrity_tester.ino" download>📋Download .ino file</a>
+<a href="public/tutorials/arduino-pin-tester/pin_integrity_tester.ino" download>📋Download .ino file</a>
 
 ## How the Code Actually Works
 This script performs a Loop-Back Test. It essentially asks Pin 2 to "listen" while it tells another pin to "talk," verifying if the message gets through the jumper wire.
