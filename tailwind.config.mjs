@@ -16,7 +16,7 @@ export default {
       },
       fontFamily: {
         display: ['"Graviton"', 'sans-serif'],
-        body: ['"DM Sans"', 'sans-serif'],
+        body: ['"Google Sans"', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       animation: {

@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const tutorials = (await getCollection('tutorials'))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const difficultyColor: Record<string, string> = {
+  Beginner: 'background-color: rgba(0,35,102,0.1); color: #002366; border: 1px solid rgba(0,35,102,0.2);',
+  Intermediate: 'background-color: rgba(252,186,4,0.15); color: #92400e; border: 1px solid rgba(252,186,4,0.3);',
+  Advanced: 'background-color: rgba(253,21,27,0.1); color: #FD151B; border: 1px solid rgba(253,21,27,0.2);',
+};
+---
+
+<BaseLayout title="Tutorials — Anindita Sarker Aloka" description="Technical guides, concept explainers, and tool walkthroughs.">
+  <section class="max-w-5xl mx-auto px-6 py-16">
+    <p class="section-label mb-4">Resources</p>
+    <h1 class="font-display text-5xl font-extrabold mb-4">Tutorials</h1>
+    <p class="font-body text-lg opacity-60 max-w-xl mb-16">
+      Step-by-step guides, concept explainers, and tool walkthroughs: things I've built, debugged, or figured out and thought worth documenting.
+    </p>
+
+    <div class="grid gap-4">
+      {tutorials.map((tutorial, i) => (
+        <a
+          href={`/resources/tutorials/${tutorial.slug}`}
+          class="group block p-6 border transition-all duration-300 hover:translate-y-[-2px] animate-on-scroll"
+          style={`border-color: var(--border); animation-delay: ${i * 0.05}s;`}
+        >
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex-1">
+              <div class="flex flex-wrap gap-2 mb-3">
+                {tutorial.data.tags.map((tag: string) => (
+                  <span class="tag" style="background-color: var(--bg-surface); border: 1px solid var(--border);">
+                    {tag}
+                  </span>
+                ))}
+                <span class="tag" style={difficultyColor[tutorial.data.difficulty]}>
+                  {tutorial.data.difficulty}
+                </span>
+              </div>
+              <h2 class="font-display text-lg font-bold mb-1 group-hover:opacity-70 transition-opacity">
+                {tutorial.data.title}
+              </h2>
+              <p class="font-body text-sm opacity-60">{tutorial.data.description}</p>
+            </div>
+            <div class="flex flex-col items-end gap-1 shrink-0">
+              {tutorial.data.duration && (
+                <span class="font-mono text-xs opacity-30">{tutorial.data.duration}</span>
+              )}
+              <span class="font-mono text-xs opacity-30 group-hover:opacity-70 transition-opacity">
+                {new Date(tutorial.data.date).getFullYear()} →
+              </span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    {tutorials.length === 0 && (
+      <div class="py-24 text-center border border-dashed" style="border-color: var(--border);">
+        <p class="font-mono text-xs opacity-30">Tutorials coming soon.</p>
+      </div>
+    )}
+  </section>
+</BaseLayout>

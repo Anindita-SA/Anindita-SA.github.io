@@ -27,4 +27,17 @@ const publications = defineCollection({
   }),
 });
 
-export const collections = { projects, publications };
+const tutorials = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    category: z.array(z.enum(['Step-by-Step', 'Concept', 'Tool Walkthrough', 'Project Breakdown'])),
+    tags: z.array(z.string()),
+    date: z.string(),
+    difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).default('Beginner'),
+    duration: z.string().optional(),
+  }),
+});
+
+export const collections = { projects, publications, tutorials };
