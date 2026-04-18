@@ -19,6 +19,7 @@ const { title, description = "Multidisciplinary engineer and design thinker." } 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/player/essential_audio.css" />
     <title>{title}</title>
     <ViewTransitions />
   </head>
@@ -36,7 +37,6 @@ const { title, description = "Multidisciplinary engineer and design thinker." } 
       if (stored === 'dark' || (!stored && prefersDark)) {
         document.documentElement.classList.add('dark');
       }
-
       document.addEventListener('astro:page-load', () => {
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
@@ -48,9 +48,7 @@ const { title, description = "Multidisciplinary engineer and design thinker." } 
     </script>
 
     <!-- Music Player -->
-    <div id="yt-player" transition:persist style="position:fixed;bottom:-100px;left:-100px;width:1px;height:1px;"></div>
-
-    <button id="music-btn" transition:persist title="Now Playing" style="
+    <button id="music-btn" transition:persist aria-label="Now Playing" style="
       position: fixed !important;
       bottom: 24px !important;
       left: 24px !important;
@@ -65,17 +63,27 @@ const { title, description = "Multidisciplinary engineer and design thinker." } 
       align-items: center;
       justify-content: center;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      transition: transform 0.2s;
       outline: none;
-    ">🎵</button>
+      transition: transform 0.2s;
+    ">
+      <!-- Music note icon (shown when stopped/paused) -->
+      <span id="btn-note" style="font-size:20px;">🎵</span>
+      <!-- Animated bars (shown when playing) -->
+      <div id="btn-bars" style="display:none;align-items:flex-end;gap:2px;height:20px;">
+        <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;animation:musicBar 0.8s ease-in-out infinite alternate;animation-delay:0s;"></span>
+        <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;animation:musicBar 0.8s ease-in-out infinite alternate;animation-delay:0.2s;"></span>
+        <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;animation:musicBar 0.8s ease-in-out infinite alternate;animation-delay:0.4s;"></span>
+        <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;animation:musicBar 0.8s ease-in-out infinite alternate;animation-delay:0.1s;"></span>
+      </div>
+    </button>
 
     <div id="music-popup" transition:persist style="
       position: fixed !important;
-      bottom: 5rem !important;
+      bottom: 84px !important;
       left: 24px !important;
       z-index: 99999 !important;
-      width: 240px;
-      padding: 1rem 1.25rem;
+      width: 260px;
+      padding: 1.25rem;
       border: 1px solid var(--border);
       background: var(--bg);
       box-shadow: 0 8px 32px rgba(0,0,0,0.2);
@@ -83,112 +91,93 @@ const { title, description = "Multidisciplinary engineer and design thinker." } 
       flex-direction: column;
       gap: 0.75rem;
     ">
-      <p style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;opacity:0.4;margin:0;">Now Playing</p>
+      <!-- Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <p style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;opacity:0.4;margin:0;">Now Playing</p>
+        <button id="close-popup" style="background:none;border:none;cursor:pointer;opacity:0.4;font-size:1rem;line-height:1;padding:0;" aria-label="Close">✕</button>
+      </div>
+
+      <!-- Track info -->
       <div style="display:flex;align-items:center;gap:0.75rem;">
-        <div id="music-bars" style="display:flex;align-items:flex-end;gap:2px;height:20px;">
+        <div id="popup-bars" style="display:flex;align-items:flex-end;gap:2px;height:20px;">
           <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;height:8px;"></span>
           <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;height:14px;"></span>
           <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;height:10px;"></span>
           <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;height:16px;"></span>
         </div>
         <div>
-          <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin:0;color:var(--text-primary);">The Usual Mode</p>
-          <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;opacity:0.5;margin:0;">Dr. Stone OST</p>
+          <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin:0;color:var(--text-primary);">Smooth Lovin</p>
+          <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;opacity:0.5;margin:0;">Kevin MacLeod</p>
         </div>
       </div>
-      <div style="display:flex;gap:0.5rem;">
-        <button id="play-btn" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.35rem 0.75rem;background:#002366;color:white;border:none;cursor:pointer;flex:1;">▶ Play</button>
-        <button id="stop-btn" style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.35rem 0.75rem;background:transparent;color:var(--text-primary);border:1px solid #D4D0C8;cursor:pointer;flex:1;">■ Stop</button>
-      </div>
+
+      <!-- Essential Audio Player -->
+      <div class="essential_audio" id="eap-player" data-url="/src/content/music/Smooth Lovin.mp3" data-loop></div>
+
+      <!-- Credit -->
+      <p style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;opacity:0.3;margin:0;">Licensed under Creative Commons Attribution</p>
     </div>
 
+    <script is:inline src="/player/essential_audio.js"></script>
+
     <script is:inline>
-      // ── Music player ──────────────────────────────────────
       function initMusicPlayer() {
-        const musicBtn = document.getElementById('music-btn');
-        const musicPopup = document.getElementById('music-popup');
-        if (!musicBtn || !musicPopup) return;
+        const btn = document.getElementById('music-btn');
+        const popup = document.getElementById('music-popup');
+        const closeBtn = document.getElementById('close-popup');
+        const btnNote = document.getElementById('btn-note');
+        const btnBars = document.getElementById('btn-bars');
+        const popupBars = document.getElementById('popup-bars');
+        if (!btn || !popup) return;
 
-        musicBtn.onclick = function(e) {
+        // Toggle popup open/close
+        btn.onclick = function(e) {
           e.stopPropagation();
-          musicPopup.style.display = musicPopup.style.display === 'flex' ? 'none' : 'flex';
+          popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
         };
 
-        document.addEventListener('click', function(e) {
-          if (!musicBtn.contains(e.target) && !musicPopup.contains(e.target)) {
-            musicPopup.style.display = 'none';
-          }
-        });
-
-        document.getElementById('play-btn').onclick = function() {
-          if (!window.ytPlayer) return;
-          if (window.ytPlayer.getPlayerState() === 1) window.ytPlayer.pauseVideo();
-          else window.ytPlayer.playVideo();
-        };
-
-        document.getElementById('stop-btn').onclick = function() {
-          if (window.ytPlayer) window.ytPlayer.stopVideo();
-        };
-      }
-
-      function createYTPlayer() {
-        window.ytPlayer = new YT.Player('yt-player', {
-          height: '1',
-          width: '1',
-          videoId: 'VEpysfI5Frk',
-          playerVars: { autoplay: 0, loop: 1, playlist: 'VEpysfI5Frk' },
-          events: {
-            onReady: function() {
-              if (window.wasPlaying) window.ytPlayer.playVideo();
-            },
-            onStateChange: function(e) {
-              const bars = document.getElementById('music-bars');
-              if (!bars) return;
-              const spans = bars.querySelectorAll('span');
-              const pb = document.getElementById('play-btn');
-              if (e.data === 1) {
-                window.wasPlaying = true;
-                if (pb) pb.textContent = '⏸ Pause';
-                spans.forEach((b, i) => {
-                  b.style.animation = 'musicBar 0.8s ease-in-out infinite alternate';
-                  b.style.animationDelay = (i * 0.15) + 's';
-                });
-              } else {
-                if (e.data === 0 || e.data === 2) window.wasPlaying = false;
-                if (pb) pb.textContent = '▶ Play';
-                spans.forEach(b => b.style.animation = 'none');
-              }
-            }
-          }
-        });
-      }
-
-      if (!window.ytApiLoaded) {
-        window.ytApiLoaded = true;
-        window.wasPlaying = false;
-        var ytScript = document.createElement('script');
-        ytScript.src = "https://www.youtube.com/iframe_api";
-        document.head.appendChild(ytScript);
-        window.onYouTubeIframeAPIReady = createYTPlayer;
-      }
-
-      document.addEventListener('astro:page-load', () => {
-        initMusicPlayer();
-        // Re-create player if it was destroyed by navigation
-        if (window.wasPlaying && window.YT && window.YT.Player) {
-          setTimeout(() => {
-            if (!window.ytPlayer || !window.ytPlayer.playVideo) {
-              createYTPlayer();
-            } else {
-              window.ytPlayer.playVideo();
-            }
-          }, 1000);
+        // Close button
+        if (closeBtn) {
+          closeBtn.onclick = function(e) {
+            e.stopPropagation();
+            popup.style.display = 'none';
+          };
         }
-      });
 
-      initMusicPlayer();
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!btn.contains(e.target) && !popup.contains(e.target)) {
+            popup.style.display = 'none';
+          }
+        });
 
-      // ── Nav ───────────────────────────────────────────────
+        // Watch for play state changes via Essential Audio Player API
+        function updatePlayState() {
+          const isPlaying = Essential_Audio && Essential_Audio.active();
+          if (isPlaying) {
+            // Show animated bars in button
+            btnNote.style.display = 'none';
+            btnBars.style.display = 'flex';
+            // Animate popup bars
+            popupBars.querySelectorAll('span').forEach((s, i) => {
+              s.style.animation = 'musicBar 0.8s ease-in-out infinite alternate';
+              s.style.animationDelay = (i * 0.15) + 's';
+            });
+          } else {
+            // Show music note in button
+            btnNote.style.display = 'block';
+            btnBars.style.display = 'none';
+            // Stop popup bars animation
+            popupBars.querySelectorAll('span').forEach(s => s.style.animation = 'none');
+          }
+        }
+
+        // Poll play state every 500ms
+        if (window._musicPollInterval) clearInterval(window._musicPollInterval);
+        window._musicPollInterval = setInterval(updatePlayState, 500);
+      }
+
+      // Nav init
       function initNav() {
         const themeBtn = document.getElementById('theme-toggle');
         const menuBtn = document.getElementById('menu-toggle');
@@ -216,8 +205,17 @@ const { title, description = "Multidisciplinary engineer and design thinker." } 
         }
       }
 
-      document.addEventListener('astro:page-load', initNav);
+      document.addEventListener('astro:page-load', () => {
+        initNav();
+        initMusicPlayer();
+        // Re-init Essential Audio Player on page transition
+        if (typeof Essential_Audio !== 'undefined') {
+          Essential_Audio.init();
+        }
+      });
+
       initNav();
+      initMusicPlayer();
     </script>
 
     <style>
@@ -226,6 +224,25 @@ const { title, description = "Multidisciplinary engineer and design thinker." } 
         to { transform: scaleY(2); }
       }
       #music-btn:hover { transform: scale(1.1); }
+
+      /* Style Essential Audio Player to match site */
+      #eap-player > div:nth-child(1) div {
+        background-color: #002366 !important;
+        width: 32px !important;
+        height: 32px !important;
+        margin-top: -15px !important;
+      }
+      #eap-player > div:nth-child(1) div.play {
+        background-color: #002366 !important;
+      }
+      #eap-player > div:nth-child(2):after {
+        background-color: var(--border) !important;
+        opacity: 1 !important;
+      }
+      #eap-player > div:nth-child(2) div {
+        background-color: #FCBA04 !important;
+      }
+
       body.hex-bg-body {
         background-color: #F7F5F0;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23fcba04' fill-opacity='0.13' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
@@ -236,10 +253,8 @@ const { title, description = "Multidisciplinary engineer and design thinker." } 
       }
       .hex-fade {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
         pointer-events: none;
         z-index: 0;
         background: linear-gradient(to bottom right, var(--bg) 40%, transparent 120%);

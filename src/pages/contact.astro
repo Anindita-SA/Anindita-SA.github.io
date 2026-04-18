@@ -4,27 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="Contact — Anindita Sarker Aloka">
 
-  <!-- Hex background pattern (same as about) -->
-  <div class="hex-bg-wrapper" aria-hidden="true">
-    <svg class="hex-bg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-      <defs>
-        <pattern id="hexPattern2" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
-          <polygon points="30,2 58,17 58,47 30,62 2,47 2,17" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
-          <polygon points="60,28 88,43 88,73 60,88 32,73 32,43" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
-        </pattern>
-        <linearGradient id="fadeGrad2" x1="1" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="white" stop-opacity="0"/>
-          <stop offset="60%" stop-color="white" stop-opacity="0.5"/>
-          <stop offset="100%" stop-color="white" stop-opacity="1"/>
-        </linearGradient>
-        <mask id="fadeMask2">
-          <rect width="100%" height="100%" fill="url(#fadeGrad2)"/>
-        </mask>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#hexPattern2)" mask="url(#fadeMask2)"/>
-    </svg>
-  </div>
-
   <section class="max-w-5xl mx-auto px-6 py-16 min-h-[70vh] relative z-10">
     <div class="max-w-2xl">
       <p class="section-label mb-6">Get in touch</p>
@@ -55,7 +34,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="border p-8" style="border-color: var(--border);">
         <p class="section-label mb-6">Send a message</p>
 
-        <form id="contact-form" action="https://formspree.io/f/xzdjgwno" method="POST" class="flex flex-col gap-5">
+        <form id="contact-form" action="https://formspree.io/f/xreykvze" method="POST" class="flex flex-col gap-5">
           <div>
             <label class="font-mono text-xs opacity-50 block mb-2">Name</label>
             <input
@@ -110,20 +89,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
-  .hex-bg-wrapper {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 70%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    transform: scaleX(-1);
-    opacity: 0.5;
-    color: var(--amber);
-  }
-  .dark .hex-bg-wrapper { opacity: 0.12; }
-  .hex-bg { width: 100%; height: 100%; }
 
   input:focus, textarea:focus {
     border-color: var(--royal) !important;
