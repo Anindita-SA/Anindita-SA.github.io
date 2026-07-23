@@ -5,7 +5,7 @@ const projects = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    domain: z.array(z.enum(['Renewables', 'Electronics', 'Product Design', 'Research'])),
+    domain: z.array(z.enum(['Renewables', 'Electronics', 'Product Design', 'Research', 'UX Design', 'Software Design', 'Health Tech'])),
     featured: z.boolean().default(false),
     date: z.string(),
     thumbnail: z.string().optional(),

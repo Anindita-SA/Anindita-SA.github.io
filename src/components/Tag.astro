@@ -1,0 +1,21 @@
+---
+export interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+
+const tagClass: Record<string, string> = {
+  Renewables: 'tag-renewables',
+  Electronics: 'tag-electronics',
+  'Product Design': 'tag-product',
+  Research: 'tag-research',
+  'UX Design': 'tag-ux',
+  'Software Design': 'tag-software',
+  'Health Tech': 'tag-health',
+};
+
+const className = `tag ${tagClass[name] || ''}`;
+---
+
+<span class={className.trim()}>{name}</span>

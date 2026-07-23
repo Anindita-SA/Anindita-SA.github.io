@@ -1,18 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import Tag from '../../components/Tag.astro';
 
 const allProjects = (await getCollection('projects'))
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 const domains = ['All', 'Renewables', 'Electronics', 'Product Design', 'Research'];
-
-const tagClass: Record<string, string> = {
-  Renewables: 'tag-renewables',
-  Electronics: 'tag-electronics',
-  'Product Design': 'tag-product',
-  Research: 'tag-research',
-};
 ---
 
 <BaseLayout title="Projects — Your Name" description="Engineering and design projects across renewables, electronics, and product design.">
@@ -49,8 +43,8 @@ const tagClass: Record<string, string> = {
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div class="flex-1">
               <div class="flex flex-wrap gap-2 mb-3">
-                {project.data.domain.map((d: string) => (
-                  <span class={tagClass[d] || 'tag'}>{d}</span>
+                {project.data.domain.map((d) => (
+                  <Tag name={d} />
                 ))}
                 {project.data.status === 'active' && (
                   <span class="tag bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800">

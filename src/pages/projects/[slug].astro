@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
+import Tag from '../../components/Tag.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -16,13 +17,6 @@ interface Props {
 
 const { project } = Astro.props;
 const { Content } = await project.render();
-
-const tagClass: Record<string, string> = {
-  Renewables: 'tag-renewables',
-  Electronics: 'tag-electronics',
-  'Product Design': 'tag-product',
-  Research: 'tag-research',
-};
 ---
 
 <BaseLayout title={`${project.data.title} — Your Name`} description={project.data.description}>
@@ -36,8 +30,8 @@ const tagClass: Record<string, string> = {
     <!-- Header -->
     <div class="mb-12">
       <div class="flex flex-wrap gap-2 mb-6">
-        {project.data.domain.map((d: string) => (
-          <span class={tagClass[d] || 'tag'}>{d}</span>
+        {project.data.domain.map((d) => (
+          <Tag name={d} />
         ))}
         <span class="font-mono text-xs opacity-40 ml-2 self-center">
           {new Date(project.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
