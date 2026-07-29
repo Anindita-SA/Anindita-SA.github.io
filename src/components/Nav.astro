@@ -1,9 +1,39 @@
 ---
+import { getCollection } from 'astro:content';
+
 const currentPath = Astro.url.pathname;
+
+const allProjects = await getCollection('projects');
+const allPublications = await getCollection('publications');
+const allTutorials = await getCollection('tutorials');
+
+const searchIndex = [
+  ...allProjects.map(p => ({
+    title: p.data.title,
+    description: p.data.description,
+    type: 'Project',
+    url: `/projects/${p.slug}`,
+    tags: p.data.domain,
+  })),
+  ...allPublications.map(pub => ({
+    title: pub.data.title,
+    description: `${pub.data.authors.join(', ')} - ${pub.data.venue} (${pub.data.year})`,
+    type: 'Publication',
+    url: `/publications`,
+    tags: pub.data.venue ? [pub.data.venue] : [],
+  })),
+  ...allTutorials.map(t => ({
+    title: t.data.title,
+    description: t.data.description,
+    type: 'Tutorial',
+    url: `/resources/tutorials/${t.slug}`,
+    tags: t.data.tags,
+  })),
+];
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-colors duration-300"
-     style="background-color: color-mix(in srgb, var(--bg) 85%, transparent); border-color: var(--border);">
+<nav class="fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-300"
+     style="background-color: var(--bg); border-color: var(--border);">
   <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
 
     <!-- Wordmark -->
@@ -18,6 +48,7 @@ const currentPath = Astro.url.pathname;
       <a href="/" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Home</a>
       <a href="/projects" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Projects</a>
       <a href="/publications" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Publications</a>
+      <a href="/side-quests" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Side Quests</a>
 
       <!-- Resources dropdown -->
       <div class="relative" id="resources-menu">
@@ -39,8 +70,18 @@ const currentPath = Astro.url.pathname;
       <a href="/contact" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Contact</a>
     </div>
 
-    <!-- Right: theme toggle + hamburger -->
+    <!-- Right: theme toggle + search button + hamburger -->
     <div class="flex items-center gap-3">
+      <!-- Search button -->
+      <button id="search-toggle" aria-label="Open search"
+              class="w-8 h-8 flex items-center justify-center rounded-full transition-all hover:opacity-70 text-[var(--text-primary)]"
+              style="border: 1px solid var(--border);">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </button>
+
+      <!-- Theme button -->
       <button id="theme-toggle" aria-label="Toggle theme"
               class="w-8 h-8 flex items-center justify-center rounded-full transition-all hover:opacity-70"
               style="border: 1px solid var(--border);">
@@ -71,6 +112,7 @@ const currentPath = Astro.url.pathname;
       <a href="/" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Home</a>
       <a href="/projects" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Projects</a>
       <a href="/publications" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Publications</a>
+      <a href="/side-quests" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Side Quests</a>
       <a href="/resources/tutorials" class="font-body text-sm opacity-50 hover:opacity-100 transition-all pl-3 border-l" style="border-color: var(--amber);">↳ Tutorials</a>
       <a href="/about" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">About</a>
       <a href="/contact" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Contact</a>
@@ -80,3 +122,205 @@ const currentPath = Astro.url.pathname;
 
 <div class="h-14"></div>
 
+<!-- Search Modal Overlay -->
+<div id="search-modal" class="fixed inset-0 z-[100] hidden flex items-start justify-center p-4 md:p-12 backdrop-blur-md search-overlay">
+  <div class="w-full max-w-2xl border p-6 md:p-8 mt-12 shadow-2xl relative flex flex-col max-h-[80vh]"
+       style="background-color: var(--bg); border-color: var(--border);">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between border-b pb-4 mb-6" style="border-color: var(--border);">
+      <div class="flex items-center gap-3 flex-1">
+        <svg class="w-5 h-5 opacity-40 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="color: var(--text-primary);">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input type="text" id="search-input" placeholder="Search projects, tutorials, papers..."
+               class="w-full bg-transparent outline-none text-lg md:text-xl font-display text-[var(--text-primary)]" />
+      </div>
+      <button id="search-close" class="font-mono text-xs opacity-40 hover:opacity-100 transition-opacity ml-4 shrink-0">
+        [ESC] CLOSE
+      </button>
+    </div>
+
+    <!-- Results list (Scrollable) -->
+    <div id="search-results" class="overflow-y-auto flex-1 flex flex-col gap-2 pr-1">
+      <p class="font-mono text-xs opacity-30 text-center py-12">Type to search...</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .search-overlay {
+    background-color: rgba(247, 245, 240, 0.75);
+  }
+  .dark .search-overlay {
+    background-color: rgba(9, 12, 20, 0.8);
+  }
+  
+  #resources-btn svg {
+    transition: transform 0.2s ease;
+  }
+</style>
+
+<script is:inline define:vars={{ searchIndex }}>
+  // Make the search index available globally
+  window.__searchIndex = searchIndex;
+
+  function initSearchSystem() {
+    const searchToggle = document.getElementById('search-toggle');
+    const searchModal = document.getElementById('search-modal');
+    const searchClose = document.getElementById('search-close');
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+
+    if (!searchToggle || !searchModal || !searchClose || !searchInput || !searchResults) return;
+
+    let selectedIndex = -1;
+    let currentResults = [];
+
+    const openSearch = () => {
+      searchModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      searchInput.value = '';
+      searchResults.innerHTML = '<p class="font-mono text-xs opacity-30 text-center py-12">Type to search...</p>';
+      selectedIndex = -1;
+      currentResults = [];
+      setTimeout(() => searchInput.focus(), 50);
+    };
+
+    const closeSearch = () => {
+      searchModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    };
+
+    // Remove existing event listeners to avoid duplicates on hot reloading
+    searchToggle.replaceWith(searchToggle.cloneNode(true));
+    searchClose.replaceWith(searchClose.cloneNode(true));
+
+    const newSearchToggle = document.getElementById('search-toggle');
+    const newSearchClose = document.getElementById('search-close');
+
+    newSearchToggle.addEventListener('click', openSearch);
+    newSearchClose.addEventListener('click', closeSearch);
+
+    // Close on overlay click
+    searchModal.onclick = (e) => {
+      if (e.target === searchModal) closeSearch();
+    };
+
+    // Global keyboard listener
+    const keydownHandler = (e) => {
+      // Open with "/"
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        // Only trigger if no modal is active
+        if (searchModal.classList.contains('hidden')) {
+          e.preventDefault();
+          openSearch();
+        }
+      }
+      // Close with "Escape"
+      if (e.key === 'Escape' && !searchModal.classList.contains('hidden')) {
+        closeSearch();
+      }
+    };
+    window.removeEventListener('keydown', window._searchKeydownHandler);
+    window._searchKeydownHandler = keydownHandler;
+    window.addEventListener('keydown', keydownHandler);
+
+    // Input changes
+    searchInput.oninput = (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      if (!query) {
+        searchResults.innerHTML = '<p class="font-mono text-xs opacity-30 text-center py-12">Type to search...</p>';
+        selectedIndex = -1;
+        currentResults = [];
+        return;
+      }
+
+      currentResults = window.__searchIndex.filter(item => {
+        const titleMatch = item.title.toLowerCase().includes(query);
+        const descMatch = item.description.toLowerCase().includes(query);
+        const tagMatch = item.tags.some(tag => tag.toLowerCase().includes(query));
+        return titleMatch || descMatch || tagMatch;
+      });
+
+      selectedIndex = -1;
+      renderResults();
+    };
+
+    const renderResults = () => {
+      if (currentResults.length === 0) {
+        searchResults.innerHTML = '<p class="font-mono text-xs opacity-30 text-center py-12">No results found.</p>';
+        return;
+      }
+
+      searchResults.innerHTML = currentResults.map((item, index) => {
+        let typeBadgeClass = 'border-royal text-royal dark:border-blue-400 dark:text-blue-400';
+        if (item.type === 'Publication') {
+          typeBadgeClass = 'border-crimson text-crimson';
+        } else if (item.type === 'Tutorial') {
+          typeBadgeClass = 'border-amber text-amber';
+        }
+
+        return `
+          <a href="${item.url}" class="search-result-item block p-4 border transition-all duration-200 flex flex-col gap-1.5"
+             data-index="${index}" style="border-color: var(--border); background-color: var(--bg-surface);">
+            <div class="flex items-center justify-between gap-4">
+              <span class="font-mono text-[9px] uppercase tracking-wider border px-1.5 py-0.5 rounded-sm ${typeBadgeClass}">
+                ${item.type}
+              </span>
+              <div class="flex flex-wrap gap-1">
+                ${item.tags.slice(0, 2).map(tag => `
+                  <span class="font-mono text-[9px] opacity-40 uppercase">[${tag}]</span>
+                `).join('')}
+              </div>
+            </div>
+            <h4 class="font-display text-sm font-bold text-[var(--text-primary)]">${item.title}</h4>
+            <p class="font-body text-xs opacity-50 leading-relaxed truncate">${item.description}</p>
+          </a>
+        `;
+      }).join('');
+
+      // Click to navigation closes search
+      document.querySelectorAll('.search-result-item').forEach(item => {
+        item.onclick = () => closeSearch();
+      });
+    };
+
+    // Keyboard navigation inside input
+    searchInput.onkeydown = (e) => {
+      const items = document.querySelectorAll('.search-result-item');
+      if (items.length === 0) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex = (selectedIndex + 1) % items.length;
+        updateSelection(items);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+        updateSelection(items);
+      } else if (e.key === 'Enter') {
+        if (selectedIndex >= 0 && selectedIndex < items.length) {
+          e.preventDefault();
+          items[selectedIndex].click();
+        }
+      }
+    };
+
+    const updateSelection = (items) => {
+      items.forEach((item, index) => {
+        if (index === selectedIndex) {
+          item.style.borderColor = 'var(--text-primary)';
+          item.style.backgroundColor = 'color-mix(in srgb, var(--border) 20%, var(--bg-surface))';
+          item.scrollIntoView({ block: 'nearest' });
+        } else {
+          item.style.borderColor = 'var(--border)';
+          item.style.backgroundColor = 'var(--bg-surface)';
+        }
+      });
+    };
+  }
+
+  document.addEventListener('astro:page-load', initSearchSystem);
+  initSearchSystem();
+</script>

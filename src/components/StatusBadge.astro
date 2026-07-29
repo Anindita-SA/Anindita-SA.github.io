@@ -1,0 +1,21 @@
+---
+export interface Props {
+  status: string;
+}
+
+const { status } = Astro.props;
+
+const statusClass: Record<string, string> = {
+  Concept: 'status-concept',
+  Planned: 'status-planned',
+  Active: 'status-active',
+  Completed: 'status-completed',
+};
+
+const className = `status-badge ${statusClass[status] || ''}`;
+---
+
+<span class={className.trim()}>
+  <span class="status-dot"></span>
+  {status}
+</span>

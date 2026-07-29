@@ -11,11 +11,58 @@
   aspect-ratio: 1440 / 60;
   overflow: visible;
   display: block;
-  font-size: 3rem;
-  fill: #ffffff;
+  font-size: 3.6rem;
+  fill: var(--text-primary);
   -moz-user-select: none;
   -webkit-user-select: none;
   font-weight: 700;
   text-transform: uppercase;
   line-height: 1;
+  transition: opacity 0.3s ease;
+  
+  /* Color variables scoped to SVG */
+  --marquee-amber: var(--amber);
+  --marquee-royal: var(--royal);
+  --marquee-crimson: var(--crimson);
+  --marquee-tools: #0369a1; /* tools light-blue */
+}
+
+.dark .curved-loop-svg {
+  --marquee-royal: #60a5fa; /* light blue/royal for contrast in dark mode */
+  --marquee-tools: #7dd3fc; /* sky-300 light blue in dark mode */
+}
+
+/* Base styles for words and separators */
+.marquee-word {
+  transition: fill 0.25s ease, opacity 0.25s ease, filter 0.25s ease;
+}
+
+/* Colors active by default */
+.marquee-word.hover-amber {
+  fill: var(--marquee-amber);
+}
+
+.marquee-word.hover-royal {
+  fill: var(--marquee-royal);
+}
+
+.marquee-word.hover-crimson {
+  fill: var(--marquee-crimson);
+}
+
+.marquee-word.hover-tools {
+  fill: var(--marquee-tools);
+}
+
+.marquee-sep {
+  fill: var(--amber);
+}
+
+/* Hover dynamic behavior: dim all words slightly except the hovered word */
+.curved-loop-svg:hover .marquee-word {
+  opacity: 0.6;
+}
+
+.curved-loop-svg:hover .marquee-word:hover {
+  opacity: 1;
 }

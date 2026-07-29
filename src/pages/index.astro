@@ -3,14 +3,65 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import CurvedLoop from '../components/CurvedLoop';
 import Tag from '../components/Tag.astro';
+import StatusBadge from '../components/StatusBadge.astro';
 
 const projects = (await getCollection('projects'))
   .filter(p => p.data.featured)
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
   .slice(0, 3);
+
+const tutorials = (await getCollection('tutorials'))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+
+// Fetch live Substack article feed at build time
+let latestSubstackArticle = {
+  title: 'The World Needs Your Weird Little Sketches',
+  subtitle: 'Why Your ART MATTERS',
+  link: 'https://aniinstudio.substack.com/p/the-world-needs-your-weird-little',
+  image: 'https://substackcdn.com/image/fetch/$s_!gbJp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe893846e-8091-481e-bae9-a0647eea334f_9235x5194.jpeg',
+  snippet: "Did you stop making art because you thought your art didn't matter? Maybe you told yourself there were better artists out there. That you weren't good enough. I did too..."
+};
+
+try {
+  const res = await fetch('https://aniinstudio.substack.com/feed');
+  if (res.ok) {
+    const xml = await res.text();
+    const items = xml.split('<item>');
+    if (items.length > 1) {
+      const item = items[1];
+      const titleMatch = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/);
+      const linkMatch = item.match(/<link>(https:\/\/aniinstudio\.substack\.com\/p\/.*?)<\/link>/);
+      const descMatch = item.match(/<description><!\[CDATA\[(.*?)\]\]><\/description>/);
+      const enclosureMatch = item.match(/enclosure\s+url="([^"]+)"/);
+      const contentMatch = item.match(/<content:encoded><!\[CDATA\[([\s\S]*?)\]\]><\/content:encoded>/);
+
+      let cleanText = '';
+      if (contentMatch) {
+        cleanText = contentMatch[1]
+          .replace(/<[^>]*>?/gm, ' ')
+          .replace(/\s+/g, ' ')
+          .replace(/&#8217;/g, "'")
+          .replace(/&#8212;/g, '—')
+          .replace(/&#8230;/g, '...')
+          .trim();
+      }
+
+      latestSubstackArticle = {
+        title: titleMatch ? titleMatch[1].trim() : latestSubstackArticle.title,
+        subtitle: descMatch ? descMatch[1].trim() : latestSubstackArticle.subtitle,
+        link: linkMatch ? linkMatch[1] : latestSubstackArticle.link,
+        image: enclosureMatch ? enclosureMatch[1] : latestSubstackArticle.image,
+        snippet: cleanText ? cleanText.substring(0, 180) + '...' : latestSubstackArticle.snippet
+      };
+    }
+  }
+} catch (e) {
+  console.warn('Substack RSS fetch warning:', e);
+}
 ---
 
-<BaseLayout title="Anindita Sarker Aloka — Engineer & Design Thinker">
+<BaseLayout title="Anindita Sarker Aloka - Engineer & Design Thinker">
 
   <!-- Hero -->
 <section class="min-h-[90vh] max-w-5xl mx-auto px-6 flex flex-col justify-center relative">
@@ -46,7 +97,7 @@ const projects = (await getCollection('projects'))
       </div>
     </div>
 
-    <!-- Right: hex photo — shows on all sizes, stacks below on mobile -->
+    <!-- Right: hex photo - shows on all sizes, stacks below on mobile -->
     <div class="shrink-0">
       <div class="hex-hero-wrap">
         <div class="hex-hero-ring"></div>
@@ -59,23 +110,19 @@ const projects = (await getCollection('projects'))
   </div>
 </section>
 
-<CurvedLoop
-  client:load
-  marqueeItems={[
-    { text: 'Optimistic ✦ ', color: 'var(--text-secondary)' },
-    { text: 'Creative ✦ ', color: 'var(--text-muted)' },
-    { text: 'Kind ✦ ', color: 'var(--border)' },
-    { text: 'Curious ✦ ', color: 'var(--text-muted)' },
-    { text: 'Learning ✦ ', color: 'var(--text-secondary)' }
-  ]}
-  className="font-display opacity-40 hover:opacity-80 transition-opacity duration-500"
-  curveAmount={0}
-  speed={0.8}
-/>
+<div class="py-12 md:py-16">
+  <CurvedLoop
+    client:load
+    words={['Curious', 'Rigorous', 'Deliberate', 'Playful', 'Messy', 'Iterative', 'Bold', 'Honest']}
+    className="font-display opacity-35 hover:opacity-100 transition-opacity duration-500"
+    curveAmount={0}
+    speed={0.8}
+  />
+</div>
 
   <!-- Featured Projects -->
   {projects.length > 0 && (
-    <section class="max-w-5xl mx-auto px-6 py-20">
+    <section class="max-w-5xl mx-auto px-6 pb-20 pt-0">
       <div class="flex items-end justify-between mb-12">
         <div>
           <p class="section-label mb-3">Selected work</p>
@@ -90,14 +137,17 @@ const projects = (await getCollection('projects'))
         {projects.map((project, i) => (
           <a href={`/projects/${project.slug}`}
              class="group block p-6 border transition-all duration-300 hover:border-opacity-100 hover:translate-y-[-2px] animate-on-scroll"
-             style={`border-color: var(--border); animation-delay: ${i * 0.1}s;`}>
+             style={`border-color: var(--border); background-color: var(--bg); animation-delay: ${i * 0.1}s;`}>
+            <div class="flex items-center justify-between gap-2 mb-3 overflow-hidden flex-nowrap">
+              <div class="flex items-center gap-2 overflow-hidden flex-nowrap">
+                {project.data.domain.slice(0, 2).map((d) => (
+                  <Tag name={d} />
+                ))}
+              </div>
+              <StatusBadge status={project.data.status} />
+            </div>
             <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
               <div class="flex-1">
-                <div class="flex flex-wrap gap-2 mb-3">
-                  {project.data.domain.map((d) => (
-                    <Tag name={d} />
-                  ))}
-                </div>
                 <h3 class="font-display text-xl font-bold mb-2 group-hover:opacity-70 transition-opacity">
                   {project.data.title}
                 </h3>
@@ -113,53 +163,365 @@ const projects = (await getCollection('projects'))
     </section>
   )}
 
+  <!-- Featured Resources -->
+  {tutorials.length > 0 && (
+    <section class="max-w-5xl mx-auto px-6 pb-20 pt-0">
+      <div class="flex items-end justify-between mb-12">
+        <div>
+          <p class="section-label mb-3">Resources</p>
+          <h2 class="font-display text-3xl font-bold">Guides & Tutorials</h2>
+        </div>
+        <a href="/resources/tutorials" class="font-mono text-xs opacity-50 hover:opacity-100 transition-opacity hidden md:block">
+          All resources →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {tutorials.map((tutorial, i) => (
+          <a href={`/resources/tutorials/${tutorial.slug}`}
+             class="group block p-6 border transition-all duration-300 hover:border-opacity-100 hover:translate-y-[-2px] animate-on-scroll flex flex-col justify-between h-full"
+             style={`border-color: var(--border); background-color: var(--bg); animation-delay: ${i * 0.1}s;`}>
+            <div>
+              <div class="flex items-center gap-2 mb-4 overflow-hidden flex-nowrap">
+                <div class="flex items-center gap-1.5 overflow-hidden flex-nowrap">
+                  {tutorial.data.tags.slice(0, 1).map((tag: string) => (
+                    <Tag name={tag} />
+                  ))}
+                </div>
+                <span class={`tag shrink-0 diff-${tutorial.data.difficulty.toLowerCase()}`}>
+                  {tutorial.data.difficulty}
+                </span>
+              </div>
+              <h3 class="font-display text-lg font-bold mb-2 group-hover:opacity-70 transition-opacity leading-snug">
+                {tutorial.data.title}
+              </h3>
+              <p class="font-body text-sm leading-relaxed opacity-60">
+                {tutorial.data.description}
+              </p>
+            </div>
+            
+            <div class="flex items-center justify-between mt-6 pt-4 border-t" style="border-color: var(--border);">
+              {tutorial.data.duration ? (
+                <span class="font-mono text-[10px] opacity-40 uppercase tracking-wider">{tutorial.data.duration}</span>
+              ) : (
+                <span></span>
+              )}
+              <span class="font-mono text-xs font-bold transition-all uppercase tracking-wider" style="color: var(--royal);">Read →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
   <!-- Philosophy strip -->
-  <section class="border-y py-16" style="border-color: var(--border); background-color: var(--bg-surface);">
-    <div class="max-w-5xl mx-auto px-6">
-      <blockquote class="font-display text-2xl md:text-3xl font-semibold leading-relaxed max-w-3xl animate-on-scroll">
-        <span class="opacity-30 text-5xl leading-none">"</span>
-        Jack of all trades, master of none — often times better than a master of one.
+  <section class="border-y py-16 relative overflow-hidden transition-colors duration-300"
+           style="border-color: var(--border); background-color: var(--bg-surface);">
+    <div class="absolute left-0 top-0 bottom-0 w-1.5" style="background-color: var(--crimson);"></div>
+    <div class="max-w-5xl mx-auto px-6 relative">
+      <blockquote class="font-display text-2xl md:text-4xl font-extrabold leading-relaxed max-w-3xl animate-on-scroll">
+        <span class="text-6xl leading-none font-serif align-sub select-none mr-1" style="color: var(--crimson);">“</span>
+        <span class="dark:text-blue-400" style="color: var(--royal);">Jack of all trades</span>, master of none - often times <span class="dark:text-rose-400" style="color: var(--crimson);">better than a master of one</span>.
       </blockquote>
-      <p class="font-mono text-xs opacity-30 mt-4 ml-6">The frame through which I work</p>
+      <div class="flex items-center gap-3 mt-6 ml-1 animate-on-scroll" style="animation-delay: 0.1s;">
+        <span class="w-8 h-[2px]" style="background: var(--royal);"></span>
+        <p class="font-mono text-xs font-semibold uppercase tracking-wider opacity-75" style="color: var(--royal);">
+          The frame through which I work
+        </p>
+      </div>
     </div>
   </section>
 
+  <!-- Beyond Tech & Research Teaser Section (3 Cards) -->
+  <section class="max-w-5xl mx-auto px-6 py-20">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+      <div>
+        <p class="section-label mb-2">Beyond Tech & Research</p>
+        <h2 class="font-display text-3xl font-bold">Side Quests & Creative Endeavors</h2>
+      </div>
+      <a href="/side-quests" class="font-mono text-xs opacity-60 hover:opacity-100 transition-opacity flex items-center gap-1 group">
+        Full Curated Gallery <span class="group-hover:translate-x-1 transition-transform inline-block">→</span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+
+      <!-- Card 1: Substack Featured Articles (Auto-Syncing) -->
+      <div class="p-6 border flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 animate-on-scroll"
+           style="border-color: var(--border); background-color: var(--bg-surface);">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 font-semibold"
+                  style="background-color: rgba(253, 21, 27, 0.1); color: var(--crimson); border: 1px solid rgba(253, 21, 27, 0.25);">
+              ESSAYS & WRITING
+            </span>
+            <span class="font-mono text-[10px] opacity-40">Substack</span>
+          </div>
+
+          <!-- Article Cover Image (Enlarged) -->
+          <div class="relative h-52 w-full overflow-hidden border mb-4 bg-black/5 dark:bg-white/5" style="border-color: var(--border);">
+            <img id="substack-img" src={latestSubstackArticle.image} alt={latestSubstackArticle.title} class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
+          </div>
+
+          <p class="font-mono text-[10px] opacity-50 mb-1 uppercase tracking-wider">Latest Dispatch</p>
+          <h3 id="substack-title" class="font-display text-base font-bold mb-1.5 leading-snug">
+            {latestSubstackArticle.title}
+          </h3>
+
+          <p id="substack-subtitle" class="font-display text-xs font-semibold opacity-75 mb-2" style="color: var(--crimson);">
+            {latestSubstackArticle.subtitle}
+          </p>
+
+          <p id="substack-snippet" class="font-body text-xs leading-relaxed opacity-65 mb-4">
+            {latestSubstackArticle.snippet}
+          </p>
+        </div>
+
+        <div class="pt-4 border-t flex flex-col gap-3 mt-4" style="border-color: var(--border);">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[10px] opacity-40 uppercase tracking-wider text-emerald-600 dark:text-emerald-400">● Live Synced</span>
+            <a id="substack-link" href={latestSubstackArticle.link} target="_blank" rel="noopener noreferrer"
+               class="font-mono text-xs font-semibold hover:underline flex items-center gap-1"
+               style="color: var(--crimson);">
+              Read Article ↗
+            </a>
+          </div>
+          <a href="https://aniinstudio.substack.com/" target="_blank" rel="noopener noreferrer"
+             class="h-11 flex items-center justify-center font-display text-xs font-semibold w-full text-center transition-all hover:opacity-85 shadow-sm"
+             style="background: var(--crimson); color: white;">
+            Subscribe on Substack ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2: Art & Sketches Single Image Flipper Card -->
+      <div class="p-6 border flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 animate-on-scroll"
+           style="border-color: var(--border); background-color: var(--bg-surface); animation-delay: 0.1s;">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 font-semibold dark:bg-amber-400/20 dark:text-amber-300 dark:border-amber-400/40"
+                  style="background-color: rgba(252, 186, 4, 0.18); color: #92400e; border: 1px solid rgba(252, 186, 4, 0.35);">
+              ART & SKETCHES
+            </span>
+            <span class="font-mono text-[10px] opacity-40" id="flipper-indicator">1 / 4</span>
+          </div>
+
+          <!-- Single Image Showcase with Flipper transition (Enlarged) -->
+          <div class="relative h-52 w-full overflow-hidden border mb-4 bg-black/5 dark:bg-white/5" style="border-color: var(--border);">
+            <img id="flipper-img" src="/side-quests/david_sketch.jpg" alt="Art preview" class="w-full h-full object-cover transition-opacity duration-700 opacity-100" />
+          </div>
+
+          <p class="font-mono text-[10px] opacity-50 mb-1 uppercase tracking-wider">Studio Showcase</p>
+          <h3 id="flipper-desc" class="font-display text-base font-bold mb-1.5 leading-snug">
+            Michelangelo’s David: ink crosshatch study & sketchbook annotations.
+          </h3>
+
+          <p class="font-display text-xs font-semibold opacity-75 mb-2" style="color: #92400e;">
+            Fine Art & Sketches
+          </p>
+
+          <p class="font-body text-xs leading-relaxed opacity-65 mb-4">
+            A curated collection of exploratory product design sketches, classical ink studies, flora drawings, and kinetic upcycled craft creations.
+          </p>
+        </div>
+
+        <div class="pt-4 border-t flex flex-col gap-3 mt-4" style="border-color: var(--border);">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[10px] opacity-40 uppercase tracking-wider">Preview Flipper</span>
+            <span class="font-mono text-[10px] font-semibold dark:text-amber-400" style="color: #92400e;">4 Sketches</span>
+          </div>
+          <a href="/side-quests"
+             class="h-11 flex items-center justify-center font-display text-xs font-bold w-full text-center transition-all hover:opacity-85 shadow-sm"
+             style="background: #FCBA04; color: #090C14;">
+            Explore Side Quests →
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3: Instagram Account Preview Embed Card -->
+      <div class="p-6 border flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 animate-on-scroll"
+           style="border-color: var(--border); background-color: var(--bg-surface); animation-delay: 0.2s;">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 font-semibold dark:bg-blue-400/20 dark:text-blue-300"
+                  style="background-color: rgba(0, 35, 102, 0.12); color: var(--royal); border: 1px solid rgba(0, 35, 102, 0.25);">
+              INSTAGRAM
+            </span>
+            <span class="font-mono text-[10px] opacity-40">@aniinstudio</span>
+          </div>
+
+          <!-- Instagram Preview Media Image (Enlarged) -->
+          <div class="relative h-52 w-full overflow-hidden border mb-4 group" style="border-color: var(--border);">
+            <img src="/side-quests/david_sketch.jpg" alt="Instagram Post Preview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span class="font-mono text-xs text-white">View on Instagram ↗</span>
+            </div>
+          </div>
+
+          <p class="font-mono text-[10px] opacity-50 mb-1 uppercase tracking-wider">Social Feed</p>
+          <h3 class="font-display text-base font-bold mb-1.5 leading-snug">
+            Follow @aniinstudio on Instagram
+          </h3>
+
+          <p class="font-display text-xs font-semibold opacity-75 mb-2" style="color: var(--royal);">
+            Visual Journal
+          </p>
+
+          <p class="font-body text-xs leading-relaxed opacity-65 mb-4">
+            Follow my daily creative process, quick studies, behind-the-scenes sketches, and studio updates on Instagram.
+          </p>
+
+          <!-- Instagram Profile Header (below description) -->
+          <div class="flex items-center gap-3 p-3 border mb-1" style="border-color: var(--border); background: var(--bg);">
+            <div class="w-10 h-10 rounded-full overflow-hidden shrink-0 border" style="border-color: var(--border);">
+              <img src="/aniinstudio_logo.png" alt="aniinstudio logo" class="w-full h-full object-cover" />
+            </div>
+            <div class="overflow-hidden">
+              <h4 class="font-display text-xs font-bold truncate">aniinstudio</h4>
+              <p class="font-mono text-[10px] opacity-50 truncate">Art, Sketches & Studio Log</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t flex flex-col gap-3 mt-4" style="border-color: var(--border);">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[10px] opacity-40 uppercase tracking-wider">Instagram Feed</span>
+            <span class="font-mono text-[10px] opacity-50" style="color: var(--royal);">Visual Log</span>
+          </div>
+          <a href="https://www.instagram.com/aniinstudio/" target="_blank" rel="noopener noreferrer"
+             class="h-11 flex items-center justify-center font-display text-xs font-semibold w-full text-center transition-all hover:opacity-85 shadow-sm"
+             style="background: var(--royal); color: white;">
+            Follow @aniinstudio on Instagram ↗
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script is:inline>
+    document.addEventListener('astro:page-load', () => {
+      // Live Substack Feed Syncer
+      fetch('https://api.rss2json.com/v1/api.json?rss_url=https://aniinstudio.substack.com/feed')
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.items && data.items.length > 0) {
+            const latest = data.items[0];
+            const titleEl = document.getElementById('substack-title');
+            const subtitleEl = document.getElementById('substack-subtitle');
+            const snippetEl = document.getElementById('substack-snippet');
+            const linkEl = document.getElementById('substack-link');
+            const imgEl = document.getElementById('substack-img');
+
+            if (titleEl && latest.title) titleEl.textContent = latest.title;
+            if (linkEl && latest.link) linkEl.href = latest.link;
+            if (imgEl && latest.thumbnail) imgEl.src = latest.thumbnail;
+            if (subtitleEl && latest.description) {
+              const cleanSub = latest.description.replace(/<[^>]*>?/gm, '').trim();
+              if (cleanSub) subtitleEl.textContent = cleanSub;
+            }
+            if (snippetEl && (latest.content || latest.description)) {
+              const cleanContent = (latest.content || latest.description).replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim();
+              if (cleanContent) snippetEl.textContent = cleanContent.substring(0, 180) + '...';
+            }
+          }
+        })
+        .catch(() => {});
+
+      // Image Flipper Script for Card 2
+      const slides = [
+        { img: '/side-quests/david_sketch.jpg', desc: 'Michelangelo’s David: ink crosshatch study & sketchbook annotations.' },
+        { img: '/side-quests/laurel_portrait.jpg', desc: 'Classical portrait study: ink on paper with floral laurel crown.' },
+        { img: '/side-quests/botanical_sketch.jpg', desc: 'Botanical & flora linework study: pen on paper.' },
+        { img: '/side-quests/eye_sketch.jpg', desc: 'Ballpoint pen eye study on dot grid sketchbook paper.' }
+      ];
+
+      let currentIndex = 0;
+      const imgEl = document.getElementById('flipper-img');
+      const descEl = document.getElementById('flipper-desc');
+      const indicatorEl = document.getElementById('flipper-indicator');
+
+      if (!imgEl || !descEl || !indicatorEl) return;
+
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        imgEl.style.opacity = '0';
+        setTimeout(() => {
+          imgEl.src = slides[currentIndex].img;
+          descEl.textContent = slides[currentIndex].desc;
+          indicatorEl.textContent = `${currentIndex + 1} / ${slides.length}`;
+          imgEl.style.opacity = '1';
+        }, 350);
+      }, 4000);
+    });
+  </script>
+
 </BaseLayout>
+
 <style>
   .hex-hero-wrap {
-  position: relative;
-  width: min(380px, 80vw);
-  height: calc(min(380px, 80vw) * 1.13);
-}
-.hex-hero-wrap {
-  position: relative;
-  width: min(480px, 80vw);
-  height: calc(min(480px, 80vw) * 1.13);
-}
-.hex-hero {
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  width: calc(min(480px, 80vw) - 12px);
-  height: calc((min(480px, 80vw) * 1.13) - 12px);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  overflow: hidden;
-  z-index: 2;
-}
-.hex-hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-}
-.hex-hero-ring {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: min(480px, 80vw);
-  height: calc(min(480px, 80vw) * 1.13);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  background: #FCBA04;
-  z-index: 1;
-}
+    position: relative;
+    width: min(480px, 80vw);
+    height: calc(min(480px, 80vw) * 1.13);
+  }
+  .hex-hero {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: calc(min(480px, 80vw) - 12px);
+    height: calc((min(480px, 80vw) * 1.13) - 12px);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    overflow: hidden;
+    z-index: 2;
+  }
+  .hex-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .hex-hero-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: min(480px, 80vw);
+    height: calc(min(480px, 80vw) * 1.13);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: #FCBA04;
+    z-index: 1;
+  }
+
+  /* Difficulty colors mapping on home */
+  .diff-beginner {
+    background-color: rgba(0, 35, 102, 0.1);
+    color: #002366;
+    border: 1px solid rgba(0, 35, 102, 0.2);
+  }
+  .dark .diff-beginner {
+    background-color: rgba(0, 35, 102, 0.25);
+    color: #93c5fd;
+    border-color: rgba(0, 35, 102, 0.4);
+  }
+
+  .diff-intermediate {
+    background-color: rgba(252, 186, 4, 0.15);
+    color: #92400e;
+    border: 1px solid rgba(252, 186, 4, 0.3);
+  }
+  .dark .diff-intermediate {
+    background-color: rgba(252, 186, 4, 0.1);
+    color: #FCBA04;
+    border-color: rgba(252, 186, 4, 0.3);
+  }
+
+  .diff-advanced {
+    background-color: rgba(253, 21, 27, 0.1);
+    color: #FD151B;
+    border: 1px solid rgba(253, 21, 27, 0.2);
+  }
+  .dark .diff-advanced {
+    background-color: rgba(253, 21, 27, 0.15);
+    color: #fca5a5;
+    border-color: rgba(253, 21, 27, 0.3);
+  }
 </style>

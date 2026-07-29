@@ -13,9 +13,20 @@ const tagClass: Record<string, string> = {
   'UX Design': 'tag-ux',
   'Software Design': 'tag-software',
   'Health Tech': 'tag-health',
+  // Tutorial & Side Quests tags mappings
+  Arduino: 'tag-electronics',
+  Embedded: 'tag-renewables',
+  Debugging: 'tag-research',
+  Hardware: 'tag-product',
+  Firmware: 'tag-software',
+  'Product Sketch': 'tag-product',
+  'Ink Study': 'tag-ink',
+  'Fine Art': 'tag-fineart',
+  'Linework Study': 'tag-linework',
+  'Upcycled Craft': 'tag-product',
 };
 
-const className = `tag ${tagClass[name] || ''}`;
+const className = `tag ${tagClass[name] || 'tag-health'}`;
 ---
 
 <span class={className.trim()}>{name}</span>

@@ -9,7 +9,7 @@ const projects = defineCollection({
     featured: z.boolean().default(false),
     date: z.string(),
     thumbnail: z.string().optional(),
-    status: z.enum(['active', 'complete']).default('complete'),
+    status: z.enum(['Concept', 'Planned', 'Active', 'Completed']).default('Active'),
   }),
 });
 

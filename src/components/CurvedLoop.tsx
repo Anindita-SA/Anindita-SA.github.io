@@ -8,6 +8,7 @@ interface MarqueeItem {
 
 interface CurvedLoopProps {
   marqueeItems?: MarqueeItem[];
+  words?: string[];
   speed?: number;
   className?: string;
   curveAmount?: number;
@@ -17,6 +18,7 @@ interface CurvedLoopProps {
 
 const CurvedLoop: React.FC<CurvedLoopProps> = ({
   marqueeItems = [],
+  words = [],
   speed = 2,
   className,
   curveAmount = 400,
@@ -45,6 +47,26 @@ const CurvedLoop: React.FC<CurvedLoopProps> = ({
   };
 
   const renderItems = (keyPrefix: string) => {
+    if (words && words.length > 0) {
+      return words.flatMap((word, i) => {
+        const cycleIndex = i % 4;
+        const hoverColorClass = 
+          cycleIndex === 0 ? 'hover-amber' : 
+          cycleIndex === 1 ? 'hover-royal' : 
+          cycleIndex === 2 ? 'hover-crimson' : 
+          'hover-tools';
+          
+        return [
+          <tspan key={`${keyPrefix}-w-${i}`} className={`marquee-word ${hoverColorClass}`}>
+            {formatText(word)}
+          </tspan>,
+          <tspan key={`${keyPrefix}-s-${i}`} className="marquee-sep">
+            {'✦\u00A0'}
+          </tspan>
+        ];
+      });
+    }
+
     return marqueeItems.map((item, i) => (
       <tspan key={`${keyPrefix}-${i}`} fill={item.color || 'inherit'}>
         {formatText(item.text)}
@@ -70,7 +92,7 @@ const CurvedLoop: React.FC<CurvedLoopProps> = ({
     
     window.addEventListener('resize', updateSpacing);
     return () => window.removeEventListener('resize', updateSpacing);
-  }, [marqueeItems, className]);
+  }, [marqueeItems, words, className]);
 
   useEffect(() => {
     if (!spacing) return;
@@ -145,7 +167,7 @@ const CurvedLoop: React.FC<CurvedLoopProps> = ({
       onPointerUp={endDrag}
       onPointerLeave={endDrag}
     >
-      <div className="tiny-be-word" style={{ position: 'absolute', top: '-1rem', left: '50%', transform: 'translateX(-50%)', fontSize: '0.9rem', opacity: 0.5, fontStyle: 'italic', pointerEvents: 'none' }}>
+      <div class="tiny-be-word" style={{ position: 'absolute', top: '-1.8rem', left: '50%', transform: 'translateX(-50%)', fontSize: '0.9rem', opacity: 0.5, fontStyle: 'italic', pointerEvents: 'none' }}>
         be
       </div>
       <svg className="curved-loop-svg" viewBox="0 0 1440 60">

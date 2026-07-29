@@ -1,0 +1,609 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Tag from '../components/Tag.astro';
+
+const items = [
+  {
+    id: 'sketch-1',
+    title: 'Kinetic Solar Collector Concept',
+    category: 'Product Design Sketches',
+    tag: 'Product Sketch',
+    featured: true,
+    image: '/side-quests/sketch1.jpg',
+    photos: [
+      '/side-quests/sketch1.jpg',
+      '/side-quests/sketch1_alt1.jpg',
+      '/side-quests/sketch1_alt2.jpg'
+    ],
+    caption: [
+      'Exploratory linework investigating foldable solar arrays, mechanical joints, and exploded assembly callouts.',
+      'Detail study of the double-pivot hinge mechanism and tension spring routing for solar array actuation.',
+      'Exploded architectural orthographic view highlighting components: PCB housing, solar array, and battery compartment.'
+    ]
+  },
+  {
+    id: 'sketch-2',
+    title: 'Modular Desktop Artifact',
+    category: 'Product Design Sketches',
+    tag: 'Product Sketch',
+    featured: true,
+    image: '/side-quests/sketch2.jpg',
+    photos: [
+      '/side-quests/sketch2.jpg',
+      '/side-quests/sketch2_alt1.jpg'
+    ],
+    caption: [
+      'Isometric study for a tactile modular luminaire with integrated capacitive dimmer controls and mood lighting rendering.',
+      'Top and front orthographic projections detailing the snap-fit module connectors and rubber base pads.'
+    ]
+  },
+  {
+    id: 'art-david',
+    title: 'David: Michelangelo Ink Study',
+    category: 'Fine Art & Ink Sketches',
+    tag: 'Ink Study',
+    featured: false,
+    image: '/side-quests/david_sketch.jpg',
+    photos: ['/side-quests/david_sketch.jpg'],
+    caption: 'Crosshatch ink study of Michelangelo’s David with Neoplatonic philosophy annotations in sketchbook.'
+  },
+  {
+    id: 'art-laurel',
+    title: 'Classical Laurel Crown Portrait',
+    category: 'Fine Art & Ink Sketches',
+    tag: 'Fine Art',
+    featured: false,
+    image: '/side-quests/laurel_portrait.jpg',
+    photos: ['/side-quests/laurel_portrait.jpg'],
+    caption: 'Detailed pen & ink classical portrait study with a floral laurel wreath crown.'
+  },
+  {
+    id: 'art-botanical',
+    title: 'Botanical & Flora Linework Study',
+    category: 'Fine Art & Ink Sketches',
+    tag: 'Linework Study',
+    featured: false,
+    image: '/side-quests/botanical_sketch.jpg',
+    photos: ['/side-quests/botanical_sketch.jpg'],
+    caption: 'Hand-drawn botanical composition study featuring coconuts, cocoa, and tropical fruit linework.'
+  },
+  {
+    id: 'art-eye',
+    title: 'Ballpoint Pen Eye Study',
+    category: 'Fine Art & Ink Sketches',
+    tag: 'Ink Study',
+    featured: false,
+    image: '/side-quests/eye_sketch.jpg',
+    photos: ['/side-quests/eye_sketch.jpg'],
+    caption: 'Expressive ballpoint pen eye study drawn on dot grid notebook paper.'
+  }
+];
+
+const primarySketches = items.filter(item => item.category === 'Product Design Sketches');
+const secondaryWork = items.filter(item => item.category !== 'Product Design Sketches');
+---
+
+<BaseLayout title="Side Quests - Anindita Sarker Aloka" description="Curated gallery of product design sketches, upcycled crafts, and fine art.">
+
+  <!-- Header -->
+  <section class="max-w-5xl mx-auto px-6 pt-16 pb-12">
+    <p class="section-label mb-3 animate-on-scroll">Beyond Academics & Engineering</p>
+    <h1 class="font-display text-4xl md:text-6xl font-extrabold tracking-tight mb-6 animate-on-scroll" style="animation-delay: 0.05s;">
+      Side Quests
+    </h1>
+    <p class="font-body text-lg opacity-70 max-w-2xl leading-relaxed animate-on-scroll" style="animation-delay: 0.1s;">
+      A curated visual gallery of product design sketches, material experiments, upcycled artifacts, and studio artwork. Click any sketch card to inspect full multi-angle detail views.
+    </p>
+
+    <!-- Category Overview Badges -->
+    <div class="flex flex-wrap gap-2 mt-8 animate-on-scroll" style="animation-delay: 0.15s;">
+      <span class="font-mono text-xs px-3 py-1.5 border featured-badge">
+        Featured: Product Design Sketches
+      </span>
+      <span class="font-mono text-xs px-3 py-1.5 border" style="border-color: #FCBA04; color: #92400e; background: rgba(252, 186, 4, 0.08);">
+        Crafts & Upcycling
+      </span>
+      <span class="font-mono text-xs px-3 py-1.5 border" style="border-color: var(--crimson); color: var(--crimson); background: rgba(253, 21, 27, 0.05);">
+        Fine Art
+      </span>
+    </div>
+  </section>
+
+  <!-- Main Focal Point: Product Design Sketches -->
+  <section class="max-w-5xl mx-auto px-6 pb-20">
+    <div class="border-b pb-4 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4" style="border-color: var(--border);">
+      <div class="flex items-center gap-3">
+        <div class="shrink-0" style="background: var(--royal); width: 14px; height: 14px; min-width: 14px; min-height: 14px; aspect-ratio: 1/1; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);"></div>
+        <h2 class="font-display text-2xl font-bold">Product Design Sketches</h2>
+      </div>
+      <span class="font-mono text-xs opacity-40 uppercase tracking-wider">Primary Focal Point · Click to Expand</span>
+    </div>
+
+    <!-- Product Filter Tabs -->
+    <div class="flex flex-wrap items-center gap-2 mb-8" id="product-filter-bar">
+      <button class="prod-filter-btn font-mono text-xs px-3 py-1.5 border font-semibold transition-all"
+              style="border-color: var(--royal); color: white; background: var(--royal);" data-tag="all">All</button>
+      <button class="prod-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
+              style="border-color: var(--border);" data-tag="Product Sketch">Product Sketch</button>
+    </div>
+
+    <!-- Hero 2-Column Grid for Product Sketches -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+      {primarySketches.map((item, index) => (
+        <article class="sketch-card product-sketch-card group border flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 animate-on-scroll"
+                 data-item={JSON.stringify(item)}
+                 data-tag={item.tag}
+                 style={`border-color: var(--border); background-color: var(--bg-surface); animation-delay: ${index * 0.1}s;`}>
+          <!-- Image container with auto-flipping preview -->
+          <div class="relative aspect-[4/3] overflow-hidden bg-black/5 dark:bg-white/5 border-b" style="border-color: var(--border);">
+            <img id={`card-img-${item.id}`}
+                 src={item.photos[0]}
+                 alt={item.title}
+                 class="card-cycler w-full h-full object-cover transition-opacity duration-700 group-hover:scale-105"
+                 data-photos={JSON.stringify(item.photos)} />
+            <div class="absolute top-4 left-4">
+              <Tag name={item.tag} />
+            </div>
+            <div class="absolute bottom-3 right-3 bg-black/75 text-white text-[10px] font-mono px-2 py-1 rounded">
+              {item.photos.length} views · Click to view details
+            </div>
+          </div>
+
+          <!-- Minimal caption content -->
+          <div class="p-6">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <h3 class="font-display text-xl font-bold group-hover:opacity-80 transition-opacity">
+                {item.title}
+              </h3>
+              <span class="font-mono text-xs opacity-40">Expand ↗</span>
+            </div>
+            <p class="font-body text-sm opacity-65 leading-relaxed">
+              {item.caption}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Secondary Showcase: Crafts, Upcycling & Fine Art -->
+    <div class="border-b pb-4 mb-6 pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4" style="border-color: var(--border);">
+      <div class="flex items-center gap-3">
+        <div class="shrink-0" style="background: var(--crimson); width: 14px; height: 14px; min-width: 14px; min-height: 14px; aspect-ratio: 1/1; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);"></div>
+        <h2 class="font-display text-2xl font-bold">Crafts, Upcycling & Fine Art</h2>
+      </div>
+      <span class="font-mono text-xs opacity-40 uppercase tracking-wider">Studio Creations</span>
+    </div>
+
+    <!-- Crafts & Fine Art Filter Tabs -->
+    <div class="flex flex-wrap items-center gap-2 mb-8" id="craft-filter-bar">
+      <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border font-semibold transition-all"
+              style="border-color: var(--crimson); color: white; background: var(--crimson);" data-tag="all">All</button>
+      <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
+              style="border-color: var(--border);" data-tag="Ink Study">Ink Study</button>
+      <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
+              style="border-color: var(--border);" data-tag="Fine Art">Fine Art</button>
+      <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
+              style="border-color: var(--border);" data-tag="Linework Study">Linework Study</button>
+      <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
+              style="border-color: var(--border);" data-tag="Upcycled Craft">Upcycled Craft</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {secondaryWork.map((item, index) => (
+        <article class="sketch-card secondary-sketch-card group border flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 animate-on-scroll"
+                 data-item={JSON.stringify(item)}
+                 data-tag={item.tag}
+                 style={`border-color: var(--border); background-color: var(--bg-surface); animation-delay: ${(index + 2) * 0.1}s;`}>
+          <!-- Image container -->
+          <div class="relative aspect-[4/3] overflow-hidden bg-black/5 dark:bg-white/5 border-b" style="border-color: var(--border);">
+            <img src={item.image} alt={item.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div class="absolute top-4 left-4">
+              <Tag name={item.tag} />
+            </div>
+          </div>
+
+          <!-- Minimal caption content -->
+          <div class="p-6">
+            <h3 class="font-display text-xl font-bold mb-2 group-hover:opacity-80 transition-opacity">
+              {item.title}
+            </h3>
+            <p class="font-body text-sm opacity-65 leading-relaxed">
+              {item.caption}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Connect Banner -->
+  <section class="border-t py-10" style="border-color: var(--border); background-color: var(--bg-surface);">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+      <div>
+        <h3 class="font-display text-xl font-bold mb-1">Follow updates on social platforms</h3>
+        <p class="font-body text-sm opacity-60">Read longer essays on Substack or view daily art posts on Instagram.</p>
+      </div>
+      <div class="flex flex-col gap-3 w-full sm:w-auto items-center sm:items-end">
+        <a href="https://aniinstudio.substack.com/" target="_blank" rel="noopener noreferrer"
+           class="font-display text-xs font-semibold w-64 text-center justify-center inline-flex items-center px-5 py-3 transition-all duration-200 hover:opacity-85"
+           style="background: var(--crimson); color: white;">
+          Substack Dispatches ↗
+        </a>
+        <a href="https://www.instagram.com/aniinstudio/" target="_blank" rel="noopener noreferrer"
+           class="font-display text-xs font-semibold w-64 text-center justify-center inline-flex items-center px-5 py-3 transition-all duration-200 hover:opacity-85"
+           style="background: var(--royal); color: white;">
+          Instagram (@aniinstudio) ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Lightbox / Modal for Expanded View -->
+  <div id="sketch-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-16 backdrop-blur-md"
+       style="background-color: rgba(9, 12, 20, 0.85);">
+    
+    <!-- Prev & Next Navigation Buttons (Outside Card, positioned relative to backdrop viewport) -->
+    <button id="modal-prev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-white w-12 h-12 flex items-center justify-center rounded border border-white/15 hover:border-white/30 transition-all hover:scale-105 z-30 shadow-lg" aria-label="Previous artwork">
+      <span class="text-xl font-bold">◀</span>
+    </button>
+    <button id="modal-next" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-white w-12 h-12 flex items-center justify-center rounded border border-white/15 hover:border-white/30 transition-all hover:scale-105 z-30 shadow-lg" aria-label="Next artwork">
+      <span class="text-xl font-bold">▶</span>
+    </button>
+
+    <div class="w-full max-w-6xl border p-6 shadow-2xl relative max-h-[92vh] overflow-y-auto flex flex-col gap-4"
+         style="background-color: var(--bg); border-color: var(--border);">
+
+      <!-- Modal Top Header -->
+      <div class="flex items-center justify-between border-b pb-3" style="border-color: var(--border);">
+        <div class="flex items-center gap-2">
+          <span id="modal-tag" class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border font-semibold" style="border-color: var(--royal); color: var(--royal);">
+            Product Sketch
+          </span>
+          <span class="font-mono text-xs opacity-40">| Multi-Angle Inspector</span>
+        </div>
+        <!-- Simplified CLOSE ✕ button without [ESC] -->
+        <button id="modal-close" class="font-mono text-xs font-semibold hover:opacity-70 transition-opacity px-2.5 py-1 border" style="border-color: var(--border);">
+          CLOSE ✕
+        </button>
+      </div>
+
+      <!-- Modal Body (Thumbnails on Left Side) -->
+      <div class="flex flex-col md:flex-row gap-6">
+        
+        <!-- Left Side Thumbnail Navigation -->
+        <div id="modal-thumbnails" class="flex flex-row md:flex-col gap-2.5 shrink-0 overflow-x-auto md:overflow-y-auto max-h-[420px] pr-1">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Main Expanded Canvas (Interactive Zoom & Pan - Expanded) -->
+        <div class="flex-1 flex flex-col items-center">
+          <div id="image-container" class="relative w-full h-[50vh] md:h-[65vh] border overflow-hidden bg-black/50 flex items-center justify-center cursor-zoom-in" style="border-color: var(--border);">
+            <img id="modal-main-img" src="" alt="Main sketch view" class="w-full h-full object-contain transition-transform duration-150 origin-center" />
+            
+            <div class="absolute bottom-3 right-3 flex items-center gap-2 z-20">
+              <button id="zoom-toggle-btn" class="font-mono text-[10px] bg-black/80 text-white px-2.5 py-1.5 rounded hover:bg-black transition-colors shadow">
+                🔍 Click to Zoom & Pan
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Detail Sidebar -->
+        <div class="w-full md:w-60 flex flex-col justify-between border-t md:border-t-0 md:border-l pt-4 md:pt-0 md:pl-6 shrink-0" style="border-color: var(--border);">
+          <div>
+            <h3 id="modal-title" class="font-display text-xl font-bold mb-3 leading-snug">Title</h3>
+            <p id="modal-caption" class="font-body text-xs opacity-75 leading-relaxed mb-6">Caption description goes here.</p>
+          </div>
+
+          <div class="pt-4 border-t flex flex-col gap-2.5" style="border-color: var(--border);">
+            <span class="font-mono text-[10px] opacity-45 uppercase tracking-wider">Filter by Tag</span>
+            <div id="modal-tags-container" class="flex flex-wrap gap-1.5">
+              <!-- Populated dynamically -->
+            </div>
+            <p class="font-mono text-[10px] opacity-35 leading-tight">
+              Click tag to restrict navigation arrows to matching sketches.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    document.addEventListener('astro:page-load', () => {
+      // 1. Slow Auto-Cycling Preview for Multi-Photo Cards
+      const cyclers = document.querySelectorAll('.card-cycler');
+      cyclers.forEach((img) => {
+        try {
+          const photos = JSON.parse(img.getAttribute('data-photos') || '[]');
+          if (photos.length <= 1) return;
+
+          let index = 0;
+          setInterval(() => {
+            index = (index + 1) % photos.length;
+            img.style.opacity = '0';
+            setTimeout(() => {
+              img.src = photos[index];
+              img.style.opacity = '1';
+            }, 300);
+          }, 3500);
+        } catch (e) {}
+      });
+
+      // 2. Filter Tabs Logic
+      document.querySelectorAll('.prod-filter-btn').forEach(btn => {
+        btn.onclick = () => {
+          const selectedTag = btn.getAttribute('data-tag');
+          document.querySelectorAll('.prod-filter-btn').forEach(b => {
+            b.style.background = '';
+            b.style.color = '';
+            b.style.borderColor = 'var(--border)';
+            b.classList.add('opacity-60');
+          });
+          btn.style.background = 'var(--royal)';
+          btn.style.color = 'white';
+          btn.style.borderColor = 'var(--royal)';
+          btn.classList.remove('opacity-60');
+
+          document.querySelectorAll('.product-sketch-card').forEach(card => {
+            const tag = card.getAttribute('data-tag');
+            if (selectedTag === 'all' || tag === selectedTag) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        };
+      });
+
+      document.querySelectorAll('.craft-filter-btn').forEach(btn => {
+        btn.onclick = () => {
+          const selectedTag = btn.getAttribute('data-tag');
+          document.querySelectorAll('.craft-filter-btn').forEach(b => {
+            b.style.background = '';
+            b.style.color = '';
+            b.style.borderColor = 'var(--border)';
+            b.classList.add('opacity-60');
+          });
+          btn.style.background = 'var(--crimson)';
+          btn.style.color = 'white';
+          btn.style.borderColor = 'var(--crimson)';
+          btn.classList.remove('opacity-60');
+
+          document.querySelectorAll('.secondary-sketch-card').forEach(card => {
+            const tag = card.getAttribute('data-tag');
+            if (selectedTag === 'all' || tag === selectedTag) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        };
+      });
+
+      // 3. Lightbox Modal Logic with Left Thumbnails & Mouse Pan-Zoom
+      const modal = document.getElementById('sketch-modal');
+      const modalClose = document.getElementById('modal-close');
+      const modalMainImg = document.getElementById('modal-main-img');
+      const modalThumbnails = document.getElementById('modal-thumbnails');
+      const modalTitle = document.getElementById('modal-title');
+      const modalCaption = document.getElementById('modal-caption');
+      const modalTag = document.getElementById('modal-tag');
+      const imageContainer = document.getElementById('image-container');
+      const zoomBtn = document.getElementById('zoom-toggle-btn');
+      const prevBtn = document.getElementById('modal-prev');
+      const nextBtn = document.getElementById('modal-next');
+
+      if (!modal || !modalClose || !modalMainImg || !imageContainer) return;
+
+      let isZoomed = false;
+      let allItems = [];
+      let currentItemIndex = -1;
+      let activeModalTagFilter = null;
+
+      // Gather all items for navigation
+      document.querySelectorAll('.sketch-card').forEach(card => {
+        try {
+          const item = JSON.parse(card.getAttribute('data-item'));
+          if (!allItems.some(i => i.id === item.id)) {
+            allItems.push(item);
+          }
+        } catch (e) {}
+      });
+
+      const toggleZoom = (forceState) => {
+        isZoomed = forceState !== undefined ? forceState : !isZoomed;
+        if (isZoomed) {
+          modalMainImg.classList.remove('object-contain');
+          modalMainImg.classList.add('object-cover', 'scale-[2.2]');
+          imageContainer.classList.remove('cursor-zoom-in');
+          imageContainer.classList.add('cursor-grab');
+          if (zoomBtn) zoomBtn.textContent = '🔍 Reset Zoom';
+        } else {
+          modalMainImg.classList.remove('object-cover', 'scale-[2.2]');
+          modalMainImg.classList.add('object-contain');
+          modalMainImg.style.transformOrigin = 'center center';
+          imageContainer.classList.remove('cursor-grab');
+          imageContainer.classList.add('cursor-zoom-in');
+          if (zoomBtn) zoomBtn.textContent = '🔍 Click to Zoom & Pan';
+        }
+      };
+
+      imageContainer.onmousemove = (e) => {
+        if (!isZoomed) return;
+        const rect = imageContainer.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        modalMainImg.style.transformOrigin = `${x}% ${y}%`;
+      };
+
+      imageContainer.onclick = () => toggleZoom();
+      if (zoomBtn) {
+        zoomBtn.onclick = (e) => {
+          e.stopPropagation();
+          toggleZoom();
+        };
+      }
+
+      const openModal = (item) => {
+        currentItemIndex = allItems.findIndex(i => i.id === item.id);
+        toggleZoom(false);
+        modalMainImg.src = item.photos[0] || item.image;
+        modalTitle.textContent = item.title;
+        modalCaption.textContent = Array.isArray(item.caption) ? item.caption[0] : item.caption;
+        modalTag.textContent = item.tag;
+
+        // Theme the top tag style based on category
+        if (item.category.includes('Crafts') || item.category.includes('Fine Art') || item.category.includes('Ink Sketches')) {
+          modalTag.style.borderColor = 'var(--crimson)';
+          modalTag.style.color = 'var(--crimson)';
+        } else {
+          modalTag.style.borderColor = 'var(--royal)';
+          modalTag.style.color = 'var(--royal)';
+        }
+
+        // Render thumbnails on left side
+        modalThumbnails.innerHTML = (item.photos || [item.image]).map((photo, i) => `
+          <button class="thumb-btn w-16 h-16 border overflow-hidden opacity-70 hover:opacity-100 transition-opacity ${i === 0 ? 'border-2 border-royal opacity-100 shadow' : ''}"
+                  data-src="${photo}" data-index="${i}">
+            <img src="${photo}" alt="Thumbnail ${i + 1}" class="w-full h-full object-cover" />
+          </button>
+        `).join('');
+
+        // Thumbnail click listener
+        modalThumbnails.querySelectorAll('.thumb-btn').forEach(btn => {
+          btn.onclick = () => {
+            toggleZoom(false);
+            const src = btn.getAttribute('data-src');
+            const idx = parseInt(btn.getAttribute('data-index') || '0');
+            modalMainImg.src = src;
+            modalThumbnails.querySelectorAll('.thumb-btn').forEach(b => b.classList.remove('border-2', 'border-royal', 'opacity-100', 'shadow'));
+            btn.classList.add('border-2', 'border-royal', 'opacity-100', 'shadow');
+            
+            // Dynamic description update based on selected photo index
+            modalCaption.textContent = Array.isArray(item.caption)
+              ? (item.caption[idx] || item.caption[0])
+              : item.caption;
+          };
+        });
+
+        // Render dynamic tag toggles in sidebar for ALL unique tags
+        const tagsContainer = document.getElementById('modal-tags-container');
+        if (tagsContainer) {
+          const uniqueTags = [...new Set(allItems.map(i => i.tag))];
+          const getTagClass = (tagName) => {
+            const map = {
+              'Ink Study': 'tag-ink',
+              'Fine Art': 'tag-fineart',
+              'Linework': 'tag-linework',
+              'Upcycled Craft': 'tag-product',
+              'Product Sketch': 'tag-product'
+            };
+            return map[tagName] || 'tag-research';
+          };
+
+          tagsContainer.innerHTML = uniqueTags.map(tagName => {
+            const isSelected = activeModalTagFilter === tagName;
+            const tagClass = getTagClass(tagName);
+            return `
+              <button class="modal-tag-btn tag ${tagClass} cursor-pointer transition-all duration-200 border flex items-center gap-1"
+                      data-tag="${tagName}"
+                      style="${isSelected ? 'border-width: 2px; box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px currentColor; font-weight: bold; opacity: 1;' : 'opacity: 0.6;'}">
+                ${tagName} ${isSelected ? '✓' : ''}
+              </button>
+            `;
+          }).join('');
+
+          // Bind click toggles
+          tagsContainer.querySelectorAll('.modal-tag-btn').forEach(btn => {
+            btn.onclick = (e) => {
+              e.stopPropagation();
+              const clickedTag = btn.getAttribute('data-tag');
+              if (activeModalTagFilter === clickedTag) {
+                activeModalTagFilter = null; // Turn off filter
+              } else {
+                activeModalTagFilter = clickedTag; // Filter by clicked tag
+              }
+              openModal(item); // Refresh view
+            };
+          });
+        }
+
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeModal = () => {
+        toggleZoom(false);
+        activeModalTagFilter = null; // Reset filter on close
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      };
+
+      document.querySelectorAll('.sketch-card').forEach(card => {
+        card.onclick = () => {
+          try {
+            const item = JSON.parse(card.getAttribute('data-item'));
+            openModal(item);
+          } catch (e) {}
+        };
+      });
+
+      if (prevBtn) {
+        prevBtn.onclick = (e) => {
+          e.stopPropagation();
+          if (allItems.length === 0) return;
+
+          const filteredList = activeModalTagFilter
+            ? allItems.filter(i => i.tag === activeModalTagFilter)
+            : allItems;
+
+          if (filteredList.length === 0) return;
+
+          let idx = filteredList.findIndex(i => i.id === allItems[currentItemIndex].id);
+          if (idx === -1) {
+            idx = filteredList.length - 1;
+          } else {
+            idx = (idx - 1 + filteredList.length) % filteredList.length;
+          }
+          openModal(filteredList[idx]);
+        };
+      }
+
+      if (nextBtn) {
+        nextBtn.onclick = (e) => {
+          e.stopPropagation();
+          if (allItems.length === 0) return;
+
+          const filteredList = activeModalTagFilter
+            ? allItems.filter(i => i.tag === activeModalTagFilter)
+            : allItems;
+
+          if (filteredList.length === 0) return;
+
+          let idx = filteredList.findIndex(i => i.id === allItems[currentItemIndex].id);
+          if (idx === -1) {
+            idx = 0;
+          } else {
+            idx = (idx + 1) % filteredList.length;
+          }
+          openModal(filteredList[idx]);
+        };
+      }
+
+      modalClose.onclick = closeModal;
+      modal.onclick = (e) => {
+        if (e.target === modal) closeModal();
+      };
+
+      window.onkeydown = (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+        if (!modal.classList.contains('hidden')) {
+          if (e.key === 'ArrowLeft' && prevBtn) prevBtn.click();
+          if (e.key === 'ArrowRight' && nextBtn) nextBtn.click();
+        }
+      };
+    });
+  </script>
+
+</BaseLayout>

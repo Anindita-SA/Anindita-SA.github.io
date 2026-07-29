@@ -4,7 +4,7 @@ description: "A data-dense wellness PWA built from scratch for a body with condi
 domain: ["UX Design", "Software Design", "Health Tech"]
 featured: true
 date: "2026-03-28"
-status: active
+status: Completed
 ---
 
 ## The Itch

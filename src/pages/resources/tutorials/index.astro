@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import Tag from '../../../components/Tag.astro';
 
 const tutorials = (await getCollection('tutorials'))
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
@@ -12,7 +13,7 @@ const difficultyColor: Record<string, string> = {
 };
 ---
 
-<BaseLayout title="Tutorials — Anindita Sarker Aloka" description="Technical guides, concept explainers, and tool walkthroughs.">
+<BaseLayout title="Tutorials - Anindita Sarker Aloka" description="Technical guides, concept explainers, and tool walkthroughs.">
   <section class="max-w-5xl mx-auto px-6 py-16">
     <p class="section-label mb-4">Resources</p>
     <h1 class="font-display text-5xl font-extrabold mb-4">Tutorials</h1>
@@ -25,17 +26,15 @@ const difficultyColor: Record<string, string> = {
         <a
           href={`/resources/tutorials/${tutorial.slug}`}
           class="group block p-6 border transition-all duration-300 hover:translate-y-[-2px] animate-on-scroll"
-          style={`border-color: var(--border); animation-delay: ${i * 0.05}s;`}
+          style={`border-color: var(--border); background-color: var(--bg); animation-delay: ${i * 0.05}s;`}
         >
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div class="flex-1">
-              <div class="flex flex-wrap gap-2 mb-3">
-                {tutorial.data.tags.map((tag: string) => (
-                  <span class="tag" style="background-color: var(--bg-surface); border: 1px solid var(--border);">
-                    {tag}
-                  </span>
+              <div class="flex items-center gap-2 mb-3 overflow-hidden flex-nowrap">
+                {tutorial.data.tags.slice(0, 2).map((tag: string) => (
+                  <Tag name={tag} />
                 ))}
-                <span class="tag" style={difficultyColor[tutorial.data.difficulty]}>
+                <span class="tag shrink-0" style={difficultyColor[tutorial.data.difficulty]}>
                   {tutorial.data.difficulty}
                 </span>
               </div>

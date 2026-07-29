@@ -1,21 +1,47 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const skills = {
-  'Engineering': ['Renewable Energy Systems', 'Circuit Design', 'Embedded Systems', 'Power Electronics'],
-  'Design': ['Design Thinking', 'Systems Design', 'Product Prototyping', 'User Research'],
-  'Tools': ['Python', 'MATLAB', 'KiCad', 'Fusion 360', 'LaTeX'],
-  'Methods': ['First Principles', 'Iterative Prototyping', 'Cross-domain Research'],
+const categoryColors: Record<string, string> = {
+  'Engineering': 'var(--skills-amber)',
+  'Design': 'var(--skills-royal)',
+  'Convergence': 'var(--skills-crimson)',
+  'Tools': 'var(--skills-tools)',
+  'Methods': 'var(--skills-crimson)',
 };
+
+const skillTrees = [
+  {
+    category: 'Engineering',
+    color: 'var(--skills-amber)',
+    items: ['Renewable Energy Systems', 'Circuit Design', 'Embedded Systems', 'Power Electronics']
+  },
+  {
+    category: 'Design',
+    color: 'var(--skills-royal)',
+    items: ['Design Thinking', 'Systems Design', 'Product Prototyping', 'User Research']
+  },
+  {
+    category: 'Methods',
+    color: 'var(--skills-crimson)',
+    items: ['First Principles', 'Iterative Prototyping', 'Cross-domain Research']
+  },
+  {
+    category: 'Tools',
+    color: 'var(--skills-tools)',
+    items: ['Python', 'MATLAB', 'KiCad', 'Fusion 360', 'LaTeX']
+  }
+];
 ---
 
-<BaseLayout title="About — Anindita Sarker Aloka" description="Multidisciplinary engineer and design thinker.">
+<BaseLayout title="About - Anindita Sarker Aloka" description="Multidisciplinary engineer and design thinker.">
 
 
   <section class="max-w-5xl mx-auto px-6 py-16 relative z-10">
-    <div class="grid md:grid-cols-[1fr_2fr] gap-16">
-
-      <!-- Left column -->
+    
+    <!-- Section 1: Biography & Philosophy -->
+    <div class="grid md:grid-cols-[1fr_2fr] gap-16 mb-16">
+      
+      <!-- Left Column: Profile Card -->
       <div>
         <p class="section-label mb-8">About</p>
 
@@ -43,50 +69,266 @@ const skills = {
         </div>
       </div>
 
-      <!-- Right column -->
+      <!-- Right Column: Biography content -->
       <div>
         <div class="space-y-6 mb-12 animate-on-scroll">
           <p class="font-body text-lg leading-relaxed opacity-80">
-            I'm a multidisciplinary engineer who thinks in systems. My work lives at the intersection of renewable energy, electronics, and design — not because I couldn't pick a lane, but because the most interesting problems rarely fit neatly into one.
+            I'm a multidisciplinary engineer who thinks in systems. My work lives at the intersection of renewable energy, electronics, and design - not because I couldn't pick a lane, but because the most interesting problems rarely fit neatly into one.
           </p>
           <p class="font-body text-lg leading-relaxed opacity-80">
-            Design thinking isn't a methodology I apply — it's a lens I can't take off. Whether I'm sizing a solar array, designing a circuit, or prototyping a product, I start with the human context and work outward toward the technical constraints. This tends to produce work that's actually useful, not just technically correct.
+            Design thinking isn't a methodology I apply - it's a lens I can't take off. Whether I'm sizing a solar array, designing a circuit, or prototyping a product, I start with the human context and work outward toward the technical constraints. This tends to produce work that's actually useful, not just technically correct.
           </p>
           <p class="font-body text-lg leading-relaxed opacity-80">
-            I write about ideas that don't fit into research papers over on Substack — the half-formed thoughts, the questions I can't shake, the observations from working across fields. If you're interested in that side, it's worth a read.
+            I write about ideas that don't fit into research papers over on Substack - the half-formed thoughts, the questions I can't shake, the observations from working across fields. If you're interested in that side, it's worth a read.
+          </p>
+        </div>
+
+        <div class="mb-12 animate-on-scroll">
+          <p class="section-label mb-6">Philosophy</p>
+          <p class="font-body text-lg leading-relaxed opacity-80">
+            I call it specialized generalism. The engineering is deep - power systems, embedded firmware, circuit-level design - but I refuse to stop where the discipline boundary tells me to. A solar microgrid is an electronics problem, a materials problem, a human-behaviour problem, and a design problem, all at once. Treating it as only one of those produces mediocre work. I'd rather build the range to hold the full picture: research when the question demands rigour, product design when it demands empathy, craft when it demands care. The depth is what earns the right to go wide.
           </p>
         </div>
 
         <a href="https://aniinstudio.substack.com/" target="_blank" rel="noopener"
-           class="inline-flex items-center gap-3 px-5 py-3 border transition-all hover:opacity-70 mb-12 animate-on-scroll"
+           class="inline-flex items-center gap-3 px-5 py-3 border transition-all hover:opacity-70 animate-on-scroll"
            style="border-color: var(--amber);">
           <span class="font-display text-sm font-semibold">Read the Substack</span>
           <span class="font-mono text-xs opacity-50">Non-technical writing ↗</span>
         </a>
+      </div>
+    </div>
 
-        <div class="animate-on-scroll">
-          <p class="section-label mb-6">Skills & Tools</p>
-          <div class="grid grid-cols-2 gap-6">
-            {Object.entries(skills).map(([category, items]) => (
-              <div>
-                <p class="font-mono text-xs uppercase tracking-widest opacity-40 mb-3">{category}</p>
-                <div class="flex flex-wrap gap-2">
-                  {items.map(skill => (
-                    <span class="font-mono text-xs px-2 py-1 border" style="border-color: var(--border);">
+    <!-- Section 2: Skills Tree (Aligned grid) -->
+    <div class="grid md:grid-cols-[1fr_2fr] gap-16 pt-12 border-t" style="border-color: var(--border);" id="skills-tree-section">
+      
+      <!-- Left Column: Dynamic Skill Description Panel (Desktop Only) -->
+      <div class="relative">
+        <div id="skill-description-panel-left" class="border border-dashed rounded-lg p-5 sticky top-8">
+          <p class="font-mono text-[9px] uppercase tracking-widest opacity-50 mb-1 skill-desc-category">Category</p>
+          <h4 class="font-display text-base font-bold mb-2.5 skill-desc-title">Skill Title</h4>
+          <p class="font-body text-[13px] leading-relaxed opacity-85 mb-4 skill-desc-body">Skill Description goes here...</p>
+          <div class="skill-desc-graphic mt-5 text-current flex justify-center"></div>
+        </div>
+      </div>
+
+      <!-- Right Column: Skills & Tools Trees -->
+      <div>
+        <p class="section-label mb-8">Skills & Tools</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10">
+          {skillTrees.map(tree => (
+            <div 
+              class="skill-tree-group flex flex-col transition-all duration-300"
+              style={`--tree-color: ${tree.color};`}
+              data-id={tree.category.toLowerCase()}
+            >
+              <!-- Category Header -->
+              <div class="flex items-center gap-2 mb-4">
+                <span class="skill-hex" style={`background: ${tree.color};`}></span>
+                <h3 class="font-mono text-xs uppercase tracking-widest opacity-40">{tree.category}</h3>
+              </div>
+              
+              <!-- Cascading list -->
+              <ul class="skill-tree-list relative pl-6 space-y-3.5 select-none">
+                {tree.items.map(skill => (
+                  <li 
+                    class="skill-tree-item relative flex items-center group cursor-pointer"
+                    data-name={skill}
+                  >
+                    <span
+                      class="skill-pill font-mono text-xs px-2.5 py-1 transition-all duration-200 bg-bg"
+                      style={`--skill-accent: ${tree.color};`}
+                    >
                       {skill}
                     </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <!-- Dynamic Skill Description Panel (Mobile Only) -->
+        <div id="skill-description-panel-bottom" class="border border-dashed rounded-lg p-5 mt-10 animate-on-scroll">
+          <p class="font-mono text-[9px] uppercase tracking-widest opacity-50 mb-1 skill-desc-category">Category</p>
+          <h4 class="font-display text-base font-bold mb-2.5 skill-desc-title">Skill Title</h4>
+          <p class="font-body text-[13px] leading-relaxed opacity-85 mb-4 skill-desc-body">Skill Description goes here...</p>
+          <div class="skill-desc-graphic mt-5 text-current flex justify-center"></div>
         </div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
+<script>
+  const skillDescriptions: Record<string, { category: string, desc: string, graphic: string }> = {
+    'Renewable Energy Systems': {
+      category: 'Engineering',
+      desc: 'Blackout prevention at a grid scale. Designing and simulating off-grid solar microgrids, hybrid generation arrays, and battery storage banks. It is about modeling electron flows and weather patterns simultaneously to keep the lights on when the utility grid is miles away. (Warning: Side effects include obsessive checking of solar irradiance maps and calculating panel tilt angles in your sleep.)',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="2" class="w-full max-w-[180px] opacity-70"><path d="M 10,40 C 40,40 40,15 70,15 C 100,15 100,50 130,50 C 160,50 160,25 190,25" stroke-linecap="round" /><circle cx="70" cy="15" r="3.5" fill="currentColor" /><circle cx="130" cy="50" r="3.5" fill="currentColor" /></svg>`
+    },
+    'Circuit Design': {
+      category: 'Engineering',
+      desc: 'Wrangling copper traces. Routing multi-layer PCBs, placing components for optimal signal integrity, and managing power distribution nets. Transforming abstract schematics into physical silicon and fiberglass. It is like solving a 3D puzzle where a single crossed trace can result in magic blue smoke. (Current high score: 0 PCB fires this month.)',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="1.5" class="w-full max-w-[180px] opacity-70"><rect x="15" y="10" width="170" height="45" rx="4" stroke-dasharray="3 3" /><circle cx="45" cy="32" r="5" /><circle cx="100" cy="32" r="5" /><circle cx="155" cy="32" r="5" /><path d="M 45,32 L 95,32 M 105,32 L 150,32" stroke-width="2" /></svg>`
+    },
+    'Embedded Systems': {
+      category: 'Engineering',
+      desc: 'Giving sand a brain. Developing firmware, configuring register maps, and debugging low-level SPI/I2C/UART buses. Writing code that is tightly constrained by clock cycles and bytes of SRAM. It is where software meets the cold, hard physics of registers and pins. (Yes, I speak fluent binary and C.)',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="1.5" class="w-full max-w-[180px] opacity-70"><rect x="65" y="12" width="70" height="40" rx="2" stroke-width="2" /><path d="M 50,22 L 65,22 M 50,32 L 65,32 M 50,42 L 65,42 M 135,22 L 150,22 M 135,32 L 150,32 M 135,42 L 150,42" /><circle cx="100" cy="32" r="3" fill="currentColor" /></svg>`
+    },
+    'Power Electronics': {
+      category: 'Engineering',
+      desc: 'Taming high-voltage beasts. Designing buck-boost converters, switching topologies, inverter stages, and keeping gate drivers happy. It is the art of converting and controlling electrical power with maximum efficiency and minimum thermal dissipation. (If you can\'t stand the heat, add a beefier heatsink.)',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="2" class="w-full max-w-[180px] opacity-70"><path d="M 10,48 L 50,48 L 70,18 L 130,18 L 150,48 L 190,48" stroke-linecap="round" /><line x1="100" y1="18" x2="100" y2="48" stroke-dasharray="3 3" /></svg>`
+    },
+    'Design Thinking': {
+      category: 'Design',
+      desc: 'Solving the right problem before solving the problem right. A structured methodology that begins with deep human empathy, maps out user needs, brainstorms wildly, and refines ideas through direct feedback. It ensures we build things humans actually want, rather than high-tech solutions looking for a problem.',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="2" class="w-full max-w-[180px] opacity-70"><circle cx="65" cy="32" r="20" /><circle cx="135" cy="32" r="20" /><path d="M 85,32 A 20,20 0 0,0 115,32" stroke-dasharray="2 2" /><circle cx="100" cy="32" r="3" fill="currentColor" /></svg>`
+    },
+    'Systems Design': {
+      category: 'Design',
+      desc: 'Connecting the dots across the entire stack. Engineering is useless if the system architecture fails. It\'s the high-level discipline of mapping how hardware, software, physical enclosures, and human operators interact. It\'s about balancing power budgets, signal delays, thermal constraints, and user ergonomics under one unified blueprint.',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="1.5" class="w-full max-w-[180px] opacity-70"><rect x="15" y="15" width="40" height="35" rx="3" /><circle cx="100" cy="32" r="15" /><rect x="145" y="15" width="40" height="35" rx="3" /><path d="M 55,32 L 85,32 M 115,32 L 145,32" stroke-linecap="round" /></svg>`
+    },
+    'Product Prototyping': {
+      category: 'Design',
+      desc: 'Turning CAD pixels into physical parts. Rapid fabrication using 3D printers, laser cutters, CNC mills, and traditional hand tools. Creating functional mechanical enclosures, structural assemblies, and aesthetic forms. If you can dream it in 3D space, we can build it, break it, and build it better by morning.',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="1.5" class="w-full max-w-[180px] opacity-70"><polygon points="100,10 150,22 150,48 100,58 50,48 50,22" stroke-width="2" /><line x1="100" y1="10" x2="100" y2="58" /><line x1="50" y1="22" x2="100" y2="34" /><line x1="150" y1="22" x2="100" y2="34" /></svg>`
+    },
+    'User Research': {
+      category: 'Design',
+      desc: 'Because users will always find a way to use your product wrong. Getting out of the lab and into the field. Conducting structured interviews, qualitative user tests, and behavioral observations to find hidden friction points and design gaps. Translating human behavior into hard engineering requirements.',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="1.5" class="w-full max-w-[180px] opacity-70"><circle cx="75" cy="25" r="12" /><path d="M 55,50 C 55,40 65,40 75,40 C 85,40 95,40 95,50" /><path d="M 120,20 L 155,20 M 120,32 L 145,32 M 120,44 L 135,44" stroke-linecap="round" /></svg>`
+    },
+    'First Principles': {
+      category: 'Methods',
+      desc: 'Rejecting \'that\'s how we\'ve always done it.\' Deconstructing complex problems down to their most fundamental physical and logical truths, then building up a solution from scratch. It is the ultimate antidote to copy-paste engineering and the foundation of true design innovation.',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="2" class="w-full max-w-[180px] opacity-70"><polygon points="100,12 140,52 60,52" stroke-width="2" /><circle cx="100" cy="12" r="3" fill="currentColor" /><circle cx="60" cy="52" r="3" fill="currentColor" /><circle cx="140" cy="52" r="3" fill="currentColor" /></svg>`
+    },
+    'Iterative Prototyping': {
+      category: 'Methods',
+      desc: 'Build to learn, fail fast, and iterate constantly. Accepting that version 1.0 will be flawed, and using it as a diagnostic tool to make version 2.0 superior. It\'s the cycle of designing, making, measuring, and refining until the product is bulletproof. (Failing is just data collection.)',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="2" class="w-full max-w-[180px] opacity-70"><path d="M 100,32 A 18,18 0 1,1 90,14" stroke-linecap="round" /><polygon points="90,14 84,22 96,20" fill="currentColor" /></svg>`
+    },
+    'Cross-domain Research': {
+      category: 'Methods',
+      desc: 'Translating languages between disciplines. Bridging the gap between engineering rigor, design empathy, and business constraints. Digging into academic literature, data sheets, and human behavioral studies to synthesize cohesive solutions. (Fluent in both vector calculus and user-experience mapping.)',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="1.5" class="w-full max-w-[180px] opacity-70"><path d="M 50,15 L 150,15 L 100,50 Z" stroke-width="2" /><circle cx="100" cy="32" r="10" stroke-dasharray="3 3" /></svg>`
+    },
+    'Python': {
+      category: 'Tools',
+      desc: 'The swiss-army knife of computation. Writing scripts to parse data, run simulations, automate workflows, and build quick APIs. It is my go-to tool for math modeling and parsing sensor logs. (Remember: indentation is not optional.)',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="1.5" class="w-full max-w-[180px] opacity-70"><rect x="25" y="12" width="150" height="40" rx="3" /><path d="M 40,25 L 55,32 L 40,39" stroke-width="2" stroke-linecap="round" /><line x1="62" y1="39" x2="77" y2="39" stroke-width="2.5" stroke-linecap="round" /></svg>`
+    },
+    'MATLAB': {
+      category: 'Tools',
+      desc: 'The heavy artillery of matrix math. Simulating power system grids, control feedback loops, and running complex mathematical models. If a system is dynamic and governed by differential equations, MATLAB is where we prove it works on paper before building it in metal.',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="1.5" class="w-full max-w-[180px] opacity-70"><path d="M 20,48 L 50,48 L 70,18 L 100,52 L 120,32 L 150,48 L 180,48" stroke-linecap="round" stroke-linejoin="round" /></svg>`
+    },
+    'KiCad': {
+      category: 'Tools',
+      desc: 'My digital breadboard. Placing components, routing traces, and generating Gerber files for fabrication. From simple sensor boards to dense multi-layer layouts, KiCad is where hardware ideas become physical reality. (Shortcut key \'X\' is my best friend.)',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="1.5" class="w-full max-w-[180px] opacity-70"><circle cx="100" cy="32" r="16" stroke-width="2" /><path d="M 90,32 L 110,32 M 100,22 L 100,42" stroke-linecap="round" /></svg>`
+    },
+    'Fusion 360': {
+      category: 'Tools',
+      desc: 'Sculpting in solid steel. 3D parametric CAD modeling, mechanical assemblies, and finite element stress analysis. It\'s where the housing for my electronics is modeled, joined, and prepared for 3D printing or milling. (May your constraints never turn red.)',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="1.5" class="w-full max-w-[180px] opacity-70"><polygon points="100,12 135,32 100,52 65,32" stroke-width="2" /><line x1="100" y1="12" x2="100" y2="52" /><line x1="65" y1="32" x2="135" y2="32" /></svg>`
+    },
+    'LaTeX': {
+      category: 'Tools',
+      desc: 'Because Word is an insult to typesetting. Writing clean, beautifully formatted academic documents, technical reports, and schematics. If it needs to look like a publication-grade paper with perfectly aligned equations, LaTeX is the only acceptable tool.',
+      graphic: `<svg viewBox="0 0 200 65" fill="none" stroke="currentColor" stroke-width="1.5" class="w-full max-w-[180px] opacity-70"><path d="M 35,45 L 35,20 M 35,32 L 65,32 M 65,45 L 65,20" stroke-width="2" /><path d="M 95,20 L 125,20 M 110,20 L 110,45" stroke-width="2" /><path d="M 155,20 L 175,45 M 175,20 L 155,45" stroke-width="2" /></svg>`
+    }
+  };
+
+  const section = document.getElementById('skills-tree-section');
+  if (section) {
+    const groups = section.querySelectorAll('.skill-tree-group');
+    const items = section.querySelectorAll('.skill-tree-item');
+    const leftPanel = document.getElementById('skill-description-panel-left');
+    const bottomPanel = document.getElementById('skill-description-panel-bottom');
+
+    const updateDescription = (skillName: string) => {
+      const descInfo = skillDescriptions[skillName];
+      if (descInfo && leftPanel && bottomPanel) {
+        [leftPanel, bottomPanel].forEach(panel => {
+          const catEl = panel.querySelector('.skill-desc-category') as HTMLElement;
+          const titleEl = panel.querySelector('.skill-desc-title') as HTMLElement;
+          const bodyEl = panel.querySelector('.skill-desc-body') as HTMLElement;
+          const graphicEl = panel.querySelector('.skill-desc-graphic') as HTMLElement;
+          
+          if (catEl) catEl.innerText = descInfo.category;
+          if (titleEl) titleEl.innerText = skillName;
+          if (bodyEl) bodyEl.innerText = descInfo.desc;
+          if (graphicEl) graphicEl.innerHTML = descInfo.graphic;
+          
+          panel.setAttribute('data-category', descInfo.category.toLowerCase());
+          panel.classList.add('show-panel');
+        });
+      }
+    };
+
+    const clearDescription = () => {
+      if (leftPanel && bottomPanel) {
+        leftPanel.classList.remove('show-panel');
+        bottomPanel.classList.remove('show-panel');
+        leftPanel.removeAttribute('data-category');
+        bottomPanel.removeAttribute('data-category');
+      }
+    };
+
+    items.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        const isAlreadyActive = item.classList.contains('active');
+        const skillName = item.getAttribute('data-name') || '';
+        
+        // Reset states
+        section.classList.remove('has-active-node');
+        groups.forEach(g => g.classList.remove('active-group'));
+        items.forEach(i => i.classList.remove('active'));
+        clearDescription();
+
+        if (!isAlreadyActive) {
+          section.classList.add('has-active-node');
+          item.classList.add('active');
+          updateDescription(skillName);
+          
+          const parentGroup = item.closest('.skill-tree-group');
+          if (parentGroup) {
+            parentGroup.classList.add('active-group');
+          }
+        }
+      });
+    });
+
+    // Reset graph and hide description on clicking section background
+    section.addEventListener('click', () => {
+      section.classList.remove('has-active-node');
+      groups.forEach(g => g.classList.remove('active-group'));
+      items.forEach(i => i.classList.remove('active'));
+      clearDescription();
+    });
+  }
+</script>
+
 <style>
+  :root {
+    --skills-royal: var(--royal);
+    --skills-amber: var(--amber);
+    --skills-crimson: var(--crimson);
+    --skills-tools: #0369a1;
+  }
+  :global(.dark) {
+    --skills-royal: #60a5fa;
+    --skills-tools: #7dd3fc;
+  }
+
   .hex-avatar-wrap {
     position: relative;
     width: 160px;
@@ -117,5 +359,175 @@ const skills = {
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     background: var(--amber);
     z-index: 1;
+  }
+
+  .skill-hex {
+    width: 10px;
+    height: 11px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    flex-shrink: 0;
+  }
+
+  /* original skill pill design from codebase */
+  .skill-pill {
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--skill-accent);
+  }
+  .skill-pill:hover {
+    border-color: var(--skill-accent);
+  }
+
+  /* Cascading vertical trunk */
+  .skill-tree-list::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+    opacity: 0.55;
+    transition: background-color 0.25s, opacity 0.25s, width 0.25s;
+  }
+
+  /* Horizontal branches */
+  .skill-tree-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 2px;
+    background: var(--border);
+    opacity: 0.55;
+    transition: background-color 0.25s, opacity 0.25s, height 0.25s;
+  }
+
+  /* Active node highlighting */
+  .skill-tree-item.active .skill-pill {
+    border-color: var(--skill-accent);
+    background-color: var(--bg-surface);
+    font-weight: 600;
+  }
+  .skill-tree-item.active::before {
+    background: var(--tree-color);
+    opacity: 1;
+    height: 3px;
+  }
+  .skill-tree-group.active-group .skill-tree-list::before {
+    background: var(--tree-color);
+    opacity: 0.8;
+    width: 3px;
+  }
+
+  /* Highlight interactions and dimming */
+  #skills-tree-section.has-active-node .skill-tree-group:not(.active-group) {
+    opacity: 0.35;
+  }
+  #skills-tree-section.has-active-node .skill-tree-group.active-group .skill-tree-item:not(.active) {
+    opacity: 0.35;
+  }
+  #skills-tree-section.has-active-node .skill-tree-item.active {
+    opacity: 1;
+  }
+
+  /* Dynamic Description Panels Styling */
+  #skill-description-panel-left,
+  #skill-description-panel-bottom {
+    display: none;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: slideIn 0.22s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Category color theme mapping */
+  [data-category="engineering"] {
+    background-color: rgba(252, 186, 4, 0.09) !important;
+    border-color: rgba(252, 186, 4, 0.3) !important;
+    border-left: 4px solid var(--skills-amber) !important;
+    color: var(--skills-amber) !important;
+  }
+  [data-category="design"] {
+    background-color: rgba(0, 35, 102, 0.07) !important;
+    border-color: rgba(0, 35, 102, 0.25) !important;
+    border-left: 4px solid var(--skills-royal) !important;
+    color: var(--skills-royal) !important;
+  }
+  [data-category="methods"] {
+    background-color: rgba(253, 21, 27, 0.07) !important;
+    border-color: rgba(253, 21, 27, 0.25) !important;
+    border-left: 4px solid var(--skills-crimson) !important;
+    color: var(--skills-crimson) !important;
+  }
+  [data-category="tools"] {
+    background-color: rgba(14, 165, 233, 0.08) !important;
+    border-color: rgba(14, 165, 233, 0.25) !important;
+    border-left: 4px solid var(--skills-tools) !important;
+    color: var(--skills-tools) !important;
+  }
+
+  /* Dark mode overrides */
+  :global(.dark) [data-category="engineering"] {
+    background-color: rgba(252, 186, 4, 0.06) !important;
+    border-color: rgba(252, 186, 4, 0.2) !important;
+  }
+  :global(.dark) [data-category="design"] {
+    background-color: rgba(96, 165, 250, 0.06) !important;
+    border-color: rgba(96, 165, 250, 0.2) !important;
+    color: #60a5fa !important;
+  }
+  :global(.dark) [data-category="methods"] {
+    background-color: rgba(253, 21, 27, 0.06) !important;
+    border-color: rgba(253, 21, 27, 0.2) !important;
+  }
+  :global(.dark) [data-category="tools"] {
+    background-color: rgba(14, 165, 233, 0.06) !important;
+    border-color: rgba(14, 165, 233, 0.2) !important;
+    color: #7dd3fc !important;
+  }
+
+  /* Ensure text elements remain highly legible */
+  .skill-desc-category {
+    color: var(--text-secondary);
+    opacity: 0.55;
+  }
+  .skill-desc-title {
+    color: var(--text-primary);
+  }
+  .skill-desc-body {
+    color: var(--text-primary) !important;
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+    opacity: 0.9 !important;
+  }
+  .skill-desc-graphic svg {
+    max-height: 55px;
+    width: auto;
+  }
+
+  /* Layout rules using media queries */
+  @media (min-width: 768px) {
+    #skill-description-panel-left.show-panel {
+      display: block;
+    }
+  }
+
+  @media (max-width: 767px) {
+    #skill-description-panel-bottom.show-panel {
+      display: block;
+    }
   }
 </style>
