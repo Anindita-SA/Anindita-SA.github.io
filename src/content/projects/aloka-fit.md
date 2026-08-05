@@ -239,14 +239,14 @@ Adherence scoring is calculated objectively without superficial artificial encou
 <h2 class="font-display text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border)] pb-2 mb-3">Skills & Technologies</h2>
 
 <div class="flex flex-wrap gap-2 my-3">
-<span class="px-3 py-1 text-xs font-mono border border-[var(--royal)] text-[var(--royal)] bg-[var(--royal)]/10 font-semibold">UX Design</span>
-<span class="px-3 py-1 text-xs font-mono border border-[var(--royal)] text-[var(--royal)] bg-[var(--royal)]/10 font-semibold">Information Architecture</span>
-<span class="px-3 py-1 text-xs font-mono border border-[var(--crimson)] text-[var(--crimson)] bg-[var(--crimson)]/10 font-semibold">Prompt Engineering</span>
-<span class="px-3 py-1 text-xs font-mono border border-[var(--amber)] text-[var(--amber)] bg-[var(--amber)]/10 font-semibold">Vanilla JS</span>
-<span class="px-3 py-1 text-xs font-mono border border-[var(--royal)] text-[var(--royal)] bg-[var(--royal)]/10 font-semibold">Supabase (PostgreSQL + RLS)</span>
-<span class="px-3 py-1 text-xs font-mono border border-[var(--amber)] text-[var(--amber)] bg-[var(--amber)]/10 font-semibold">SVG Animation</span>
-<span class="px-3 py-1 text-xs font-mono border border-[var(--crimson)] text-[var(--crimson)] bg-[var(--crimson)]/10 font-semibold">Groq AI Integration</span>
-<span class="px-3 py-1 text-xs font-mono border border-[var(--royal)] text-[var(--royal)] bg-[var(--royal)]/10 font-semibold">Token Optimization</span>
-<span class="px-3 py-1 text-xs font-mono border border-[var(--crimson)] text-[var(--crimson)] bg-[var(--crimson)]/10 font-semibold">Security Hardening</span>
-<span class="px-3 py-1 text-xs font-mono border border-[var(--amber)] text-[var(--amber)] bg-[var(--amber)]/10 font-semibold">Data Visualization</span>
+<span class="tag tag-ux">UX Design</span>
+<span class="tag tag-ux">Information Architecture</span>
+<span class="tag tag-research">Prompt Engineering</span>
+<span class="tag tag-software">Vanilla JS</span>
+<span class="tag tag-health">Supabase (PostgreSQL + RLS)</span>
+<span class="tag tag-product">SVG Animation</span>
+<span class="tag tag-electronics">Groq AI Integration</span>
+<span class="tag tag-software">Token Optimization</span>
+<span class="tag tag-research">Security Hardening</span>
+<span class="tag tag-product">Data Visualization</span>
 </div>
