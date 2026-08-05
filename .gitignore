@@ -3,3 +3,7 @@ dist/
 .astro/
 package-lock.json
 .env
+.gemini/
+.agents/
+.DS_Store
+*.log

@@ -1,116 +1,252 @@
 ---
 title: "Aloka Fit - Precision Health Tracker"
-description: "A data-dense wellness PWA built from scratch for a body with conditions - tracking macros, biomarkers, cycle, and AI-coached insights, because every other app was too fluffy to be useful."
+description: "A data-dense wellness PWA built from scratch for a body with conditions: tracking macros, biomarkers, cycle, and AI-coached insights, because every other app was too fluffy to be useful."
 domain: ["UX Design", "Software Design", "Health Tech"]
 featured: true
 date: "2026-03-28"
 status: Completed
 ---
 
-## The Itch
-
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center my-4 p-5 border border-[var(--border)] bg-[var(--bg-surface)] transition-all">
+<div>
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--amber)] font-bold mb-1">Project Context</div>
+<h2 class="font-display text-2xl font-bold tracking-tight text-[var(--text-primary)] !mt-0 !mb-2">The Itch</h2>
+<p class="leading-relaxed opacity-90 text-sm md:text-base mb-2">
 Every health app I tried made the same assumption: the user is healthy, motivated, and needs gentle nudges.
+</p>
+<p class="leading-relaxed opacity-90 text-sm md:text-base mb-2">
+I am none of those things on a bad week. I have migraines. I live in a college hostel with a fixed mess menu and zero kitchen access. I needed to track whether soy sauce triggered yesterday's headache, whether low sleep correlated with poor protein intake, and whether my cycle phase explained why Tuesday felt impossible. No app on the market does all of that in one place without burying it under gamification badges and push notifications.
+</p>
+<p class="font-semibold text-[var(--amber)] text-sm md:text-base">
+So I built Aloka Fit for myself over seven weeks, and I use it every single day.
+</p>
+</div>
+<div>
+<div class="w-full photo-card-amber rounded cursor-pointer">
+<img src="/projects/aloka-fit/dashboard.gif" alt="Dashboard with macro ring and progress bars" class="w-full h-auto object-contain rounded" />
+<div class="text-xs text-center text-[var(--amber)] mt-2 font-mono flex items-center justify-center gap-1.5 font-medium">
+⚡ Hero Dashboard with macro ring and progress bars
+</div>
+</div>
+</div>
+</div>
 
-I am none of those things on a bad week. I have ADHD and migraines. I live in a college hostel with a fixed mess menu and zero kitchen access. I needed to track whether soy sauce triggered yesterday's headache, whether low sleep correlated with poor protein intake, whether my cycle phase explained why Tuesday felt impossible. No app on the market does all of that in one place without burying it under gamification badges and congratulatory push notifications.
-
-So I built Aloka Fit. For myself. Over seven weeks. And I use it every single day.
-
-![Dashboard with macro ring and progress bars](/projects/aloka-fit/dashboard.png)
-
-## Who It's For
-
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center my-4">
+<div class="order-2 md:order-1">
+<div class="w-full photo-card-crimson rounded cursor-pointer">
+<img src="/projects/aloka-fit/allergy-warning.gif" alt="AI nutrition estimate with inline allergy and migraine warning" class="w-full h-auto object-contain rounded" />
+<div class="text-xs text-center text-[var(--crimson)] mt-2 font-mono flex items-center justify-center gap-1.5 font-medium">
+⚠️ AI nutrition estimate with inline trigger warning
+</div>
+</div>
+</div>
+<div class="order-1 md:order-2 space-y-2.5">
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--crimson)] font-bold">User Persona & Constraints</div>
+<h2 class="font-display text-2xl font-bold tracking-tight text-[var(--text-primary)] !mt-0 !mb-2">Who It's For</h2>
+<p class="leading-relaxed opacity-90 text-sm md:text-base">
 The design brief was specific: one user, known conditions, hostile environment.
+</p>
+<ul class="space-y-2 text-sm md:text-base">
+<li><strong class="text-[var(--crimson)]">ADHD:</strong> Friction is the enemy. Every extra tap is a tap that will not happen. Data entry has to be near-instant or it does not get logged.</li>
+<li><strong class="text-[var(--amber)]">Migraines:</strong> Known dietary triggers like soy, ginger, and caffeine mean food logging is not just about macros: it is a trigger investigation tool.</li>
+<li><strong class="text-[var(--royal)]">Hostel mess food:</strong> No barcodes or packaged nutrition labels exist. Every meal has to be described in natural language and estimated on the fly.</li>
+<li><strong class="text-[var(--amber)]">No kitchen access:</strong> Cost per gram of protein matters directly for deciding what supplementary food to buy outside.</li>
+</ul>
+<div class="text-xs md:text-sm opacity-90 bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--crimson)] shadow-sm">
+The AI inline allergy warning fires automatically when you log a food containing known triggers. It came directly from this context and is the core reason the app exists.
+</div>
+</div>
+</div>
 
-- **ADHD** means friction is the enemy. Every extra tap is a tap that won't happen. Data entry has to be near-instant or it doesn't get logged.
-- **Migraines** with known dietary triggers (soy, ginger, caffeine) mean food logging isn't just about macros - it's a trigger investigation tool.
-- **Hostel mess food** means no barcodes, no packaged nutrition labels. Every meal has to be described in natural language and estimated on the fly.
-- **No kitchen** means cost per gram of protein matters for deciding what to buy outside.
+<div class="flex items-center gap-3 my-4 pt-2">
+<div class="h-0.5 w-12 bg-[var(--royal)]"></div>
+<div class="h-0.5 w-6 bg-[var(--crimson)]"></div>
+<div class="h-0.5 w-3 bg-[var(--amber)]"></div>
+<h2 class="font-display text-2xl font-bold text-[var(--text-primary)] !my-0">The Design Decisions That Mattered</h2>
+</div>
 
-The AI inline allergy warning - which fires automatically when you log a food containing known triggers - came directly from this context. It's not a feature added for completeness. It's the reason the app exists.
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center my-4">
+<div class="space-y-2.5">
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--royal)] font-bold">Interaction Design</div>
+<h3 class="font-display text-xl font-bold text-[var(--text-primary)] !mt-0">Rings Over Bars</h3>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+The initial prototype used standard HTML progress bars stacked vertically for each macro. It worked, but it consumed enormous vertical space and felt passive. You glanced at it, processed nothing, and scrolled past.
+</p>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+The pivot was a circular SVG macro ring tracking protein and calories as the hero element, paired with a compact horizontal grid for the remaining macros. The ring provides a psychological completion anchor: you either see a full circle or you do not. This compact grid reclaimed enough vertical space to fit the food library and daily log on the same screen without scrolling.
+</p>
+<p class="text-xs md:text-sm opacity-80 italic bg-[var(--bg-surface)] p-2.5 border-l-4 border-[var(--royal)] border border-[var(--border)]">
+Water tracking follows the same logic: a plain text counter (1500/3000ml) was replaced with an interactive SVG wave that visually fills as you tap quick-add buttons. It turns mental arithmetic into a single fluid interaction.
+</p>
+</div>
+<div>
+<div class="w-full photo-card-royal rounded cursor-pointer">
+<img src="/projects/aloka-fit/fuel-tab.png" alt="Macro goals panel with SVG ring and compact nutrient grid" class="w-full h-auto object-contain rounded" />
+<div class="text-xs text-center text-[var(--royal)] mt-2 font-mono font-medium">Macro goals panel with SVG ring and compact nutrient grid</div>
+</div>
+</div>
+</div>
 
-![AI nutrition estimate with inline allergy and migraine warning](/projects/aloka-fit/allergy-warning.png)
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center my-4">
+<div class="order-2 md:order-1">
+<div class="w-full photo-card-amber rounded cursor-pointer">
+<img src="/projects/aloka-fit/biomarkers.gif" alt="Mood, energy, and stress sliders with real-time emoji feedback" class="w-full h-auto object-contain rounded" />
+<div class="text-xs text-center text-[var(--amber)] mt-2 font-mono font-medium">Biomarker sliders with real-time emoji feedback</div>
+</div>
+</div>
+<div class="order-1 md:order-2 space-y-2.5">
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--amber)] font-bold">UX Friction Reduction</div>
+<h3 class="font-display text-xl font-bold text-[var(--text-primary)] !mt-0">Sliders Over Dropdowns</h3>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+Biomarker logging for mood, energy, and stress originally used dropdown menus requiring two taps minimum per field. On a high-fatigue or migraine day, two taps per field is two taps too many.
+</p>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+These were replaced with continuous 1 to 5 range sliders paired with emoji faces that update dynamically as you drag. The interaction takes a single fluid gesture while storing clean integer data in the database.
+</p>
+</div>
+</div>
 
-## The Design Decisions That Mattered
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center my-4">
+<div class="space-y-2.5">
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--royal)] font-bold">Prompt Engineering</div>
+<h3 class="font-display text-xl font-bold text-[var(--text-primary)] !mt-0">AI as Information Architecture</h3>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+The AI food estimator is not a chatbot bolted on. It serves as the primary data entry interface for hostel meals without barcode access. Entering "mess dal rice medium portion" generates a complete macro estimate, cost breakdown, per-gram protein score, and health advisories before logging.
+</p>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+To prevent token limit bottlenecks when generating 30-day AI coaching summaries, active supplements are stored in a Supplement Reference Dictionary. Prompt payloads reference supplements by key instead of repeating full definitions, compressing API payload size and cutting latency.
+</p>
+</div>
+<div>
+<div class="w-full photo-card-royal rounded cursor-pointer">
+<img src="/projects/aloka-fit/ai-estimate.png" alt="AI ingredient breakdown with cost grading and health advisory" class="w-full h-auto object-contain rounded" />
+<div class="text-xs text-center text-[var(--royal)] mt-2 font-mono font-medium">AI ingredient breakdown with cost grading and health advisory</div>
+</div>
+</div>
+</div>
 
-### Rings Over Bars
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center my-4">
+<div class="order-2 md:order-1">
+<div class="w-full photo-card-amber rounded cursor-pointer">
+<img src="/projects/aloka-fit/micronutrients.png" alt="Full macro and micronutrient tracking panel" class="w-full h-auto object-contain rounded" />
+<div class="text-xs text-center text-[var(--amber)] mt-2 font-mono font-medium">Full macro and micronutrient tracking panel</div>
+</div>
+</div>
+<div class="order-1 md:order-2 space-y-2.5">
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--amber)] font-bold">Nutritional Data</div>
+<h3 class="font-display text-xl font-bold text-[var(--text-primary)] !mt-0">Micronutrients as First-Class Citizens</h3>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+Most fitness apps treat micronutrients as an afterthought hidden deep in sub-menus. In Aloka Fit, key minerals and vitamins including Iron, Calcium, Vitamin C, Vitamin D, and Vitamin B12 sit directly alongside macros in the main tracking panel.
+</p>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+For managing chronic headaches and hormonal health, these micronutrient metrics provide crucial diagnostic clarity.
+</p>
+</div>
+</div>
 
-The first version used standard HTML progress bars for macros - one bar per nutrient, stacked vertically. It worked, but it consumed enormous vertical space and felt passive. You glanced at it, processed nothing, scrolled past.
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center my-4">
+<div class="space-y-2.5">
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--crimson)] font-bold">Women's Health</div>
+<h3 class="font-display text-xl font-bold text-[var(--text-primary)] !mt-0">The Cycle Journal</h3>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+Hormonal phase directly alters energy levels, recovery rate, and metabolic demand. The application tracks Menstrual, Follicular, Ovulation, and Luteal phases on a dedicated calendar view.
+</p>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+When Cycle Sync is active, current phase data is forwarded to the AI coach so workout intensity and dietary recommendations adjust dynamically based on where you are in your monthly cycle.
+</p>
+</div>
+<div>
+<div class="w-full photo-card-crimson rounded cursor-pointer">
+<img src="/projects/aloka-fit/cycle-journal.png" alt="Cycle journal calendar with phase tracking" class="w-full h-auto object-contain rounded" />
+<div class="text-xs text-center text-[var(--crimson)] mt-2 font-mono font-medium">Cycle journal calendar with phase tracking</div>
+</div>
+</div>
+</div>
 
-The pivot was a circular SVG macro ring tracking protein and calories as the hero element, paired with a compact horizontal grid for the remaining macros. The ring provides a psychological completion anchor - you either see a full circle or you don't. The compact grid reclaimed enough vertical space to fit the food library and daily log on the same screen without scrolling.
+<div class="my-5 border border-[var(--border)] bg-[var(--bg-surface)] p-5 hover:border-[var(--royal)] transition-all">
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--royal)] font-bold mb-1">Brand Identity</div>
+<h2 class="font-display text-2xl font-bold text-[var(--text-primary)] mb-3 border-b border-[var(--border)] pb-2">The Logo & Philosophy</h2>
+<div class="grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-6 items-center">
+<div class="space-y-2.5">
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+The emblem consists of five lotus petals anchored above a single central dot.
+</p>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+In Ayurvedic tradition, the lotus is a cooling Sattvic herb used to soothe excess Pitta and foster mental clarity. In yogic practice, Padmasana symbolizes the grounding connection between physical posture and internal equilibrium.
+</p>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+The five petals represent the five functional pillars of Aloka Fit: Nutrition, Movement, Biomarkers, Cycle Phase, and AI Insights. The dot beneath represents the grounding presence of the mind.
+</p>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="photo-card-amber rounded text-center cursor-pointer">
+<img src="/projects/aloka-fit/logo_sketch.png" alt="Aloka Fit lotus logo sketch" class="w-full h-auto object-contain rounded" />
+<div class="text-xs opacity-80 mt-1 font-mono text-[var(--amber)] font-medium">Initial Sketch</div>
+</div>
+<div class="photo-card-royal rounded text-center cursor-pointer">
+<img src="/projects/aloka-fit/logo_icon.png" alt="Aloka Fit lotus logo" class="w-full h-auto object-contain rounded" />
+<div class="text-xs opacity-80 mt-1 font-mono text-[var(--royal)] font-medium">Vector Icon</div>
+</div>
+</div>
+</div>
+</div>
 
-![Macro goals panel with SVG ring and compact nutrient grid](/projects/aloka-fit/fuel-tab.png)
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center my-4">
+<div class="order-2 md:order-1">
+<div class="w-full photo-card-royal rounded cursor-pointer">
+<img src="/projects/aloka-fit/history-tab.gif" alt="History tab with 30-day summary and daily log" class="w-full h-auto object-contain rounded" />
+<div class="text-xs text-center text-[var(--royal)] mt-2 font-mono font-medium">History tab with 30-day summary and daily log</div>
+</div>
+</div>
+<div class="order-1 md:order-2 space-y-2.5">
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--royal)] font-bold">Analytics & Coaching</div>
+<h2 class="font-display text-2xl font-bold text-[var(--text-primary)] !mt-0">The History View</h2>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+The History tab synthesizes all recorded data into a 30-day timeline: daily meal logs, mood trajectory, habit consistency grades, and the monthly AI Coach summary trigger.
+</p>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+Adherence scoring is calculated objectively without superficial artificial encouragement. If protein targets were achieved on only 4 out of 30 days, the app presents a D grade. Unfiltered data provides authentic self-awareness.
+</p>
+</div>
+</div>
 
-Same logic applied to water tracking: a plain text counter (`1500/3000ml`) was replaced with an interactive SVG wave that visually fills as you tap the quick-add buttons. One fluid interaction instead of a mental arithmetic exercise.
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--crimson)] font-bold mt-5 mb-0.5">Security & Synthesis</div>
+<h2 class="font-display text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border)] pb-2 mb-3">What Worked & Security Audit</h2>
 
-### Sliders Over Dropdowns
+<div class="space-y-2.5 my-3">
+<p class="text-sm md:text-base leading-relaxed">
+<strong class="text-[var(--royal)]">What Worked:</strong> Fast friction-free data logging led to consistent real-world usage. Inline allergen warnings successfully flagged migraine triggers prior to consumption, and cycle-mood correlations became visible over multi-week periods.
+</p>
 
-Biomarker logging - mood, energy, stress - originally used dropdown menus. Two taps minimum. On a bad day, that's two taps too many.
+<div class="bg-[var(--bg-surface)] p-3.5 border-l-4 border-[var(--crimson)] border border-[var(--border)] shadow-sm space-y-2">
+<p class="text-sm md:text-base leading-relaxed !mb-0">
+<strong class="text-[var(--crimson)]">Backend Security Architecture:</strong> During the initial security audit, client-side API key exposure was identified as a critical vulnerability. All AI calls were subsequently migrated to a Supabase Edge Function environment. The Edge Function validates user JWT tokens before forwarding requests to the Groq API, ensuring zero sensitive credentials reside on the client browser.
+</p>
+</div>
+</div>
 
-Replaced with continuous 1-5 HTML range sliders with emoji faces that update in real-time as you drag. One fluid gesture. The data still gets stored as a 1-5 integer; the interaction just stops feeling like a form.
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--amber)] font-bold mt-5 mb-0.5">Next Steps</div>
+<h2 class="font-display text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border)] pb-2 mb-3">Future Roadmap</h2>
 
-![Mood, energy, and stress sliders with real-time emoji feedback](/projects/aloka-fit/biomarkers.png)
+<ul class="space-y-2 my-3 text-sm md:text-base">
+<li>Individual user API key vaults to support self-hosted AI inference.</li>
+<li>Peripheral hardware integration: fetching heart rate and HRV metrics from wearable devices to supplement manual mood sliders.</li>
+<li>Offline-first local storage architecture with automatic background synchronization.</li>
+<li>Ambient physical companion display showing real-time macro progress rings and current cycle phase without screen distractions.</li>
+</ul>
 
-### AI as Information Architecture
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--royal)] font-bold mt-5 mb-0.5">Tech Stack</div>
+<h2 class="font-display text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border)] pb-2 mb-3">Skills & Technologies</h2>
 
-The AI food estimator isn't a chatbot bolted on. It's the primary data entry path for anyone without barcode access. You type "mess dal rice medium portion" and get a full macro breakdown with cost estimate, per-gram protein grade, and any relevant health warnings - all before you log a single item.
-
-The harder design problem was the AI coaching report. Sending 30 days of raw meal logs, mood entries, supplement adherence, sleep hours, and cycle data to a language model is expensive and slow if done naively. The solution was a Supplement Reference Dictionary: active supplements are described once at the top of the prompt, and daily logs only reference them by name. This compressed a payload that would otherwise hit token limits into something fast and affordable.
-
-That's an information architecture decision - what to say once, what to repeat, what to omit entirely.
-
-![AI ingredient breakdown with cost grading and health advisory](/projects/aloka-fit/ai-estimate.png)
-
-### Micronutrients as a Citizen
-
-Most trackers treat micros as an afterthought - a collapsed section you never open. Here, Iron, Calcium, Vitamin C, Vitamin D, and Vitamin B12 sit alongside macros in the same panel, with their own progress indicators. For someone managing migraines and hormonal health, these numbers are not optional.
-
-![Full macro and micronutrient tracking panel](/projects/aloka-fit/micronutrients.png)
-
-### The Cycle Journal
-
-Cycle phase affects energy, recovery capacity, and appetite. The app tracks Menstrual, Follicular, Ovulation, and Luteal phases on a dedicated calendar. With Cycle Sync enabled, the current phase is sent to the AI coach so recipe and nutrient recommendations account for where you are in the month.
-
-This is people-centred design in the most literal sense: acknowledging that the body being tracked is not a generic body.
-
-![Cycle journal calendar with phase tracking](/projects/aloka-fit/cycle-journal.png)
-
-## The Logo
-
-Five petals. One dot beneath.
-
-The lotus in Ayurveda is a cooling, Sattvic herb used to balance excess Pitta and promote mental clarity. In yoga, Padmasana reinforces the connection between physical posture and mental state. The five petals map to the five tracking pillars - nutrition, movement, biomarkers, cycle, and AI insight. The dot below the flower is the mind, grounding the body.
-
-The logo is the product philosophy made visible: mind and body tracked together, neither subordinate to the other.
-
-![Aloka Fit lotus logo sketch](/projects/aloka-fit/logo_sketch.png)
-![Aloka Fit lotus logo](/projects/aloka-fit/logo.png)
-
-## The History View
-
-The History tab aggregates everything: daily logs, mood timeline, 30-day summary with a consistency grade, and the AI Coach trigger. The grade is brutally honest - a D means you hit your protein target 4 out of 30 days. No softening, no "great effort" messaging. The data is the data.
-
-![History tab with 30-day summary and daily log](/projects/aloka-fit/history-tab.png)
-
-## What Worked. What Didn't.
-
-**Worked:** The food logging flow is fast enough that I actually use it. The inline allergy warnings have caught real potential migraine triggers before eating. The cycle-mood correlation is visible in the history view in ways I couldn't see before. The AI coaching report, when it isn't rate-limited, is genuinely useful - not generic.
-
-**Didn't work:** Consistency. The app grades my own adherence a D. That's not a design failure, it's an honest one. The tool works; the habit is still being built.
-
-**Honest gap:** The Groq API key was initially hardcoded client-side - a known vulnerability documented during the security audit. This was resolved by migrating all AI calls to a Supabase Edge Function, where the key lives in server-side environment variables and never reaches the browser. The function verifies the user's Supabase JWT before forwarding any request to Groq, so only authenticated Aloka Fit users can trigger AI calls. The client-side codebase now contains no sensitive credentials.
-
-No physical prototype exists. This is a software product that lives entirely on a screen, which limits what it can demonstrate for hardware-oriented reviewers. The v2 concept addresses this.
-
-## If I Built This Again
-
-- Per-user Groq API key storage - eliminate the shared key vulnerability entirely
-- Supabase Edge Function proxy for AI calls - server-side key management
-- Wrist-worn data input: heart rate and HRV pulled from a peripheral device to replace manual mood/energy sliders with objective data
-- Offline-first architecture with background sync, so logging works without a connection
-- A physical companion device - a small ambient display showing today's macro ring and current cycle phase, no screen required
-
-The bones of this project are solid. The surface has room to grow.
-
-## Skills
-
-UX Design · Information Architecture · Prompt Engineering · Vanilla JS · Supabase (PostgreSQL + RLS) · SVG Animation · AI Integration (Groq) · Token Optimization · Security Hardening · Data Visualization · Constraint-Driven Design · Iterative Design
+<div class="flex flex-wrap gap-2 my-3">
+<span class="px-3 py-1 text-xs font-mono border border-[var(--royal)] text-[var(--royal)] bg-[var(--royal)]/10 font-semibold">UX Design</span>
+<span class="px-3 py-1 text-xs font-mono border border-[var(--royal)] text-[var(--royal)] bg-[var(--royal)]/10 font-semibold">Information Architecture</span>
+<span class="px-3 py-1 text-xs font-mono border border-[var(--crimson)] text-[var(--crimson)] bg-[var(--crimson)]/10 font-semibold">Prompt Engineering</span>
+<span class="px-3 py-1 text-xs font-mono border border-[var(--amber)] text-[var(--amber)] bg-[var(--amber)]/10 font-semibold">Vanilla JS</span>
+<span class="px-3 py-1 text-xs font-mono border border-[var(--royal)] text-[var(--royal)] bg-[var(--royal)]/10 font-semibold">Supabase (PostgreSQL + RLS)</span>
+<span class="px-3 py-1 text-xs font-mono border border-[var(--amber)] text-[var(--amber)] bg-[var(--amber)]/10 font-semibold">SVG Animation</span>
+<span class="px-3 py-1 text-xs font-mono border border-[var(--crimson)] text-[var(--crimson)] bg-[var(--crimson)]/10 font-semibold">Groq AI Integration</span>
+<span class="px-3 py-1 text-xs font-mono border border-[var(--royal)] text-[var(--royal)] bg-[var(--royal)]/10 font-semibold">Token Optimization</span>
+<span class="px-3 py-1 text-xs font-mono border border-[var(--crimson)] text-[var(--crimson)] bg-[var(--crimson)]/10 font-semibold">Security Hardening</span>
+<span class="px-3 py-1 text-xs font-mono border border-[var(--amber)] text-[var(--amber)] bg-[var(--amber)]/10 font-semibold">Data Visualization</span>
+</div>
