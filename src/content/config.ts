@@ -10,6 +10,7 @@ const projects = defineCollection({
     date: z.string(),
     thumbnail: z.string().optional(),
     status: z.enum(['Concept', 'Planned', 'Active', 'Completed']).default('Active'),
+    draft: z.boolean().default(false),
   }),
 });
 
@@ -24,6 +25,7 @@ const publications = defineCollection({
     url: z.string().optional(),
     abstract: z.string(),
     status: z.enum(['published', 'in-progress']).default('published'),
+    draft: z.boolean().default(false),
   }),
 });
 
@@ -37,6 +39,7 @@ const tutorials = defineCollection({
     date: z.string(),
     difficulty: z.enum(['Beginner', 'Intermediate', 'Advanced']).default('Beginner'),
     duration: z.string().optional(),
+    draft: z.boolean().default(false),
   }),
 });
 

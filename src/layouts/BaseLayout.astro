@@ -55,6 +55,18 @@ const { title, description = "Multidisciplinary engineer and design thinker." } 
           });
         }, { threshold: 0.1 });
         document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Image Download Protection: Disable right-click & dragging on images
+        document.addEventListener('contextmenu', (e) => {
+          if (e.target.tagName === 'IMG' || e.target.closest('.sketch-card') || e.target.closest('#image-container')) {
+            e.preventDefault();
+          }
+        });
+        document.addEventListener('dragstart', (e) => {
+          if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+          }
+        });
       });
     </script>
 

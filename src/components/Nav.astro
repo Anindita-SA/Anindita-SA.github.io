@@ -3,9 +3,9 @@ import { getCollection } from 'astro:content';
 
 const currentPath = Astro.url.pathname;
 
-const allProjects = await getCollection('projects');
-const allPublications = await getCollection('publications');
-const allTutorials = await getCollection('tutorials');
+const allProjects = await getCollection('projects', ({ data }) => import.meta.env.DEV || !data.draft);
+const allPublications = await getCollection('publications', ({ data }) => import.meta.env.DEV || !data.draft);
+const allTutorials = await getCollection('tutorials', ({ data }) => import.meta.env.DEV || !data.draft);
 
 const searchIndex = [
   ...allProjects.map(p => ({

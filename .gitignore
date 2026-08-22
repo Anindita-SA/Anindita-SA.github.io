@@ -7,3 +7,5 @@ package-lock.json
 .agents/
 .DS_Store
 *.log
+GEMINI.md
+AGENTS.md

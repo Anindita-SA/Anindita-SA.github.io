@@ -25,7 +25,7 @@ Before wiring up a complex circuit, it's worth knowing which pins on your Arduin
 
 ## Explanation
 
-The sketch cycles through every digital pin (2–13) and analog pin (A0–A5). The test is done by setting the digital D2(used as a test reference pin) high and connecting all the pins one by one to test their functionality as the code cycles through all the pins. 
+The sketch cycles through every digital pin (2-13) and analog pin (A0-A5). The test is done by setting the digital D2(used as a test reference pin) high and connecting all the pins one by one to test their functionality as the code cycles through all the pins.
 
 By connecting a jumper from the test pin to the pin you want to test, the serial monitor will show if it passes or not. If a pin is functional, the serial monitor will show "RESULT: PASS ✅". If a pin is dead, it will show "RESULT: FAIL ❌".
 

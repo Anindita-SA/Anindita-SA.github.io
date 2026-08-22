@@ -5,12 +5,12 @@ import CurvedLoop from '../components/CurvedLoop';
 import Tag from '../components/Tag.astro';
 import StatusBadge from '../components/StatusBadge.astro';
 
-const projects = (await getCollection('projects'))
+const projects = (await getCollection('projects', ({ data }) => import.meta.env.DEV || !data.draft))
   .filter(p => p.data.featured)
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
   .slice(0, 3);
 
-const tutorials = (await getCollection('tutorials'))
+const tutorials = (await getCollection('tutorials', ({ data }) => import.meta.env.DEV || !data.draft))
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
   .slice(0, 3);
 
@@ -42,7 +42,7 @@ try {
           .replace(/<[^>]*>?/gm, ' ')
           .replace(/\s+/g, ' ')
           .replace(/&#8217;/g, "'")
-          .replace(/&#8212;/g, '—')
+          .replace(/&#8212;/g, ' - ')
           .replace(/&#8230;/g, '...')
           .trim();
       }

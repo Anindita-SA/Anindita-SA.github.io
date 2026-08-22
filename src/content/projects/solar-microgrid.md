@@ -5,6 +5,7 @@ domain: ["Renewables", "Research"]
 featured: true
 date: "2026-04-01"
 status: Active
+draft: true
 ---
 
 ## The Problem

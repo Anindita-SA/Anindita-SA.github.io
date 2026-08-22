@@ -20,7 +20,7 @@ So the question became: what if the speakers, the riser, and the aesthetic state
 
 The constraint was real - no workshop, no power tools, no budget beyond locally sourced materials. If this was going to happen, it had to be designed around those limits from the start.
 
-## Why Concrete. Why Wood.
+## Material Reasoning
 
 The material choice wasn't aesthetic-first. It came from thinking through what the enclosure actually needed to do acoustically.
 
@@ -34,36 +34,31 @@ None of this was calculated from equations. It was material reasoning: understan
 
 ## Process
 
-### Sketching
-Started with hand-drawn sketches to establish the proportions, driver placement, and the integrated riser form. The angular side profile came from this stage - a deliberate choice to break away from the rectangular box default.
+### 1. Form & Proportions
+Started with hand-drawn sketches to establish the proportions, driver placement, and the integrated riser form. The angular side profile came from this stage - a deliberate choice to break away from the rectangular box default and angle the acoustic projection toward the listener's ear level.
 
 ![Hand-drawn technical sketches, dimension calculations, and geometric layouts for the speaker housing and monitor riser](/projects/concrete-speaker/sketches.jpg)
 
-### 3D Model in Fusion 360
-Modeled the full assembly digitally before committing to any physical material. This is where the drawer compartment in the riser bridge was planned - a storage partition for pens, sticky notes, and small everyday items. Verified fit and overall proportions in the model first.
+### 2. Digital Prototyping
+Modeled the full assembly digitally in Fusion 360 before committing to any physical material. This allowed me to verify the ergonomic height of the monitor riser and plan a drawer compartment (a storage partition for pens and small everyday items). Verified the fit, tolerances, and overall proportions in CAD first.
 
 ![Fusion 360 isometric 3D CAD model showing the angled concrete speaker housings connected by the monitor riser bridge](/projects/concrete-speaker/cad-model.png)
 
-### Foam Board Molds
-The 3D model couldn't be used directly for casting. I manually measured, cut, and glued foam board strips using all-purpose adhesive and hot glue to construct the molds by hand. No CNC, no laser cutting - just a ruler, a blade, and patience.
+### 3. Constraint-Driven Fabrication
+The 3D model couldn't be used directly for casting without a CNC router. Working within my constraints, I manually measured, cut, and glued foam board strips using all-purpose adhesive and hot glue to construct the negative molds by hand. No laser cutting - just a ruler, a blade, and patience.
 
 ![Hand-cut foam board molds and inner core structures prepared for concrete casting](/projects/concrete-speaker/foam-molds.jpg)
 
-### Concrete Casting
-Mixed and poured concrete into the foam molds. De-molding revealed the raw housing. Surface imperfections from the foam board seams were left as-is - a record of how it was made.
-
-### Assembly
-Cut the wood front baffles, lined the interior with cotton batting, mounted the drivers, and wired the enclosures. Assembled the monitor riser platform between the two speaker housings. Connected to audio source and tested.
+### 4. Casting & Assembly
+Mixed and poured concrete into the foam molds. De-molding revealed the raw housing. Surface imperfections from the foam board seams were deliberately left as-is - a brutalist record of how it was made. Cut the wood front baffles, lined the interior with cotton batting, mounted the drivers, and wired the enclosures. Assembled the monitor riser platform between the two speaker housings. 
 
 ## What Worked. What Didn't.
 
-**Worked:** The integrated form factor. Monitor riser + speakers as one object solved the original brief completely - it lives on my desk and functions daily. The concrete housing does dampen vibration. The cotton lining reduces muddiness. These weren't accidents.
+**Worked:** The integrated form factor. Monitor riser + speakers as one object solved the original brief completely - it lives on my desk and functions daily. The concrete housing does dampen vibration. The cotton lining reduces muddiness. These weren't accidents, they were the result of deliberate design choices.
 
 **Didn't work:** The drawer was never finished. The lower partition visible in the Fusion 360 model wasn't executed - time and tooling ran out before I could get to it cleanly.
 
-**Honest gap:** The enclosure dimensions were sized by eye against my sketches, not calculated from the driver's Thiele-Small parameters. The speaker works, but a v2 would do this properly.
-
-While I didn't take photos during the liquid concrete pour itself, capturing the mold preparation, 3D designs, and final setup documented the core of the build process.
+**Honest gap:** The enclosure dimensions were sized by eye against my sketches and ergonomic needs, not calculated from the driver's Thiele-Small parameters. The speaker works well, but a v2 would do this properly for acoustic optimization.
 
 ## If I Built This Again
 

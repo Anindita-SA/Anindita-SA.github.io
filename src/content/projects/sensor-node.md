@@ -5,6 +5,7 @@ domain: ["Electronics", "Product Design"]
 featured: true
 date: "2024-11-01"
 status: Active
+draft: true
 ---
 
 ## The Itch

@@ -7,7 +7,7 @@ const items = [
     id: 'sketch-1',
     title: 'Kinetic Solar Collector Concept',
     category: 'Product Design Sketches',
-    tag: 'Product Sketch',
+    tags: ['Product Sketch', 'Linework Study'],
     featured: true,
     image: '/side-quests/sketch1.jpg',
     photos: [
@@ -25,7 +25,7 @@ const items = [
     id: 'sketch-2',
     title: 'Modular Desktop Artifact',
     category: 'Product Design Sketches',
-    tag: 'Product Sketch',
+    tags: ['Product Sketch', 'Linework Study'],
     featured: true,
     image: '/side-quests/sketch2.jpg',
     photos: [
@@ -38,10 +38,62 @@ const items = [
     ]
   },
   {
+    id: 'art-botanical',
+    title: 'Botanical & Flora Linework Study',
+    category: 'Fine Art & Ink Sketches',
+    tags: ['Flora', 'Linework Study', 'Ink Study', 'Fine Art'],
+    featured: false,
+    image: '/side-quests/botanical_lilies.png',
+    photos: [
+      '/side-quests/botanical_lilies.png',
+      '/side-quests/botanical_roses_lotus.png'
+    ],
+    caption: [
+      'Pen and ink floral composition study focusing on lily clusters and natural stem curvature.',
+      'Detailed linework composition featuring tea roses and aquatic lotus blossoms with textured foliage.'
+    ]
+  },
+  {
+    id: 'art-fruits',
+    title: 'Fruit & Harvest Linework Study',
+    category: 'Fine Art & Ink Sketches',
+    tags: ['Flora', 'Linework Study', 'Ink Study', 'Fine Art'],
+    featured: false,
+    image: '/side-quests/botanical_fruit_studies.png',
+    photos: [
+      '/side-quests/botanical_fruit_studies.png',
+      '/side-quests/botanical_sketch.jpg'
+    ],
+    caption: [
+      'Six-panel sketchbook linework study detailing citrus branches, grape vines, raspberries, mangoes, pomegranates, and lemons.',
+      'Six-panel botanical linework composition featuring coconuts, grapes, pineapple, cocoa pods, and wax apples.'
+    ]
+  },
+  {
+    id: 'art-clownfish',
+    title: 'Clownfish & Marine Life Linework Study',
+    category: 'Fine Art & Ink Sketches',
+    tags: ['Fauna', 'Linework Study', 'Ink Study', 'Fine Art'],
+    featured: false,
+    image: '/side-quests/fauna_clownfish.png',
+    photos: ['/side-quests/fauna_clownfish.png'],
+    caption: 'Pen and ink marine biology study of clownfish (Amphiprioninae ocellaris) in motion and nested within a sea anemone.'
+  },
+  {
+    id: 'art-manta-butterfly',
+    title: 'Manta Ray & Fauna Linework Study',
+    category: 'Fine Art & Ink Sketches',
+    tags: ['Fauna', 'Linework Study', 'Ink Study', 'Fine Art'],
+    featured: false,
+    image: '/side-quests/fauna_manta_butterfly.png',
+    photos: ['/side-quests/fauna_manta_butterfly.png'],
+    caption: 'Natural history linework study showcasing a giant oceanic manta ray (Mobula birostris), stingray, swallowtail butterfly, moth, and wild fruit branches.'
+  },
+  {
     id: 'art-david',
     title: 'David: Michelangelo Ink Study',
     category: 'Fine Art & Ink Sketches',
-    tag: 'Ink Study',
+    tags: ['Ink Study', 'Linework Study', 'Fine Art'],
     featured: false,
     image: '/side-quests/david_sketch.jpg',
     photos: ['/side-quests/david_sketch.jpg'],
@@ -51,27 +103,17 @@ const items = [
     id: 'art-laurel',
     title: 'Classical Laurel Crown Portrait',
     category: 'Fine Art & Ink Sketches',
-    tag: 'Fine Art',
+    tags: ['Fine Art', 'Ink Study', 'Linework Study', 'Flora'],
     featured: false,
     image: '/side-quests/laurel_portrait.jpg',
     photos: ['/side-quests/laurel_portrait.jpg'],
     caption: 'Detailed pen & ink classical portrait study with a floral laurel wreath crown.'
   },
   {
-    id: 'art-botanical',
-    title: 'Botanical & Flora Linework Study',
-    category: 'Fine Art & Ink Sketches',
-    tag: 'Linework Study',
-    featured: false,
-    image: '/side-quests/botanical_sketch.jpg',
-    photos: ['/side-quests/botanical_sketch.jpg'],
-    caption: 'Hand-drawn botanical composition study featuring coconuts, cocoa, and tropical fruit linework.'
-  },
-  {
     id: 'art-eye',
     title: 'Ballpoint Pen Eye Study',
     category: 'Fine Art & Ink Sketches',
-    tag: 'Ink Study',
+    tags: ['Ink Study', 'Linework Study'],
     featured: false,
     image: '/side-quests/eye_sketch.jpg',
     photos: ['/side-quests/eye_sketch.jpg'],
@@ -79,8 +121,9 @@ const items = [
   }
 ];
 
-const primarySketches = items.filter(item => item.category === 'Product Design Sketches');
-const secondaryWork = items.filter(item => item.category !== 'Product Design Sketches');
+const activeItems = items.filter(item => import.meta.env.DEV || !(item as any).draft);
+const primarySketches = activeItems.filter(item => item.category === 'Product Design Sketches');
+const secondaryWork = activeItems.filter(item => item.category !== 'Product Design Sketches');
 ---
 
 <BaseLayout title="Side Quests - Anindita Sarker Aloka" description="Curated gallery of product design sketches, upcycled crafts, and fine art.">
@@ -88,10 +131,10 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
   <!-- Header -->
   <section class="max-w-5xl mx-auto px-6 pt-16 pb-12">
     <p class="section-label mb-3 animate-on-scroll">Beyond Academics & Engineering</p>
-    <h1 class="font-display text-4xl md:text-6xl font-extrabold tracking-tight mb-6 animate-on-scroll" style="animation-delay: 0.05s;">
+    <h1 class="font-display text-4xl md:text-6xl font-extrabold tracking-tight mb-6 animate-on-scroll text-[var(--text-primary)]" style="animation-delay: 0.05s;">
       Side Quests
     </h1>
-    <p class="font-body text-lg opacity-70 max-w-2xl leading-relaxed animate-on-scroll" style="animation-delay: 0.1s;">
+    <p class="font-body text-lg opacity-75 max-w-2xl leading-relaxed animate-on-scroll" style="animation-delay: 0.1s;">
       A curated visual gallery of product design sketches, material experiments, upcycled artifacts, and studio artwork. Click any sketch card to inspect full multi-angle detail views.
     </p>
 
@@ -114,9 +157,9 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
     <div class="border-b pb-4 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4" style="border-color: var(--border);">
       <div class="flex items-center gap-3">
         <div class="shrink-0" style="background: var(--royal); width: 14px; height: 14px; min-width: 14px; min-height: 14px; aspect-ratio: 1/1; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);"></div>
-        <h2 class="font-display text-2xl font-bold">Product Design Sketches</h2>
+        <h2 class="font-display text-2xl font-bold" style="color: var(--royal);">Product Design Sketches</h2>
       </div>
-      <span class="font-mono text-xs opacity-40 uppercase tracking-wider">Primary Focal Point · Click to Expand</span>
+      <span class="font-mono text-xs opacity-50 uppercase tracking-wider">Primary Focal Point · Click to Expand</span>
     </div>
 
     <!-- Product Filter Tabs -->
@@ -130,36 +173,52 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
     <!-- Hero 2-Column Grid for Product Sketches -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
       {primarySketches.map((item, index) => (
-        <article class="sketch-card product-sketch-card group border flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 animate-on-scroll"
+        <article class="sketch-card product-sketch-card group border border-t-4 border-t-[var(--royal)] flex flex-col overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:border-[var(--royal)] hover:shadow-xl animate-on-scroll rounded-sm"
                  data-item={JSON.stringify(item)}
-                 data-tag={item.tag}
-                 style={`border-color: var(--border); background-color: var(--bg-surface); animation-delay: ${index * 0.1}s;`}>
-          <!-- Image container with auto-flipping preview -->
-          <div class="relative aspect-[4/3] overflow-hidden bg-black/5 dark:bg-white/5 border-b" style="border-color: var(--border);">
+                 data-tags={JSON.stringify(item.tags)}
+                 style={`border-color: var(--border); border-top-color: var(--royal); background-color: var(--bg-surface); animation-delay: ${index * 0.1}s;`}>
+          <!-- Image container with card thumbnail preview -->
+          <div class="relative aspect-[4/3] overflow-hidden bg-black/5 dark:bg-white/5 border-b flex items-center justify-center bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2714%27%20height=%2714%27%20viewBox=%270%200%2014%2014%27%3E%3Ccircle%20cx=%272%27%20cy=%272%27%20r=%271%27%20fill=%27%23002366%27%20fill-opacity=%270.10%27/%3E%3C/svg%3E')] dark:bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2714%27%20height=%2714%27%20viewBox=%270%200%2014%2014%27%3E%3Ccircle%20cx=%272%27%20cy=%272%27%20r=%271%27%20fill=%27%23ffffff%27%20fill-opacity=%270.10%27/%3E%3C/svg%3E')]" style="border-color: var(--border);">
             <img id={`card-img-${item.id}`}
                  src={item.photos[0]}
                  alt={item.title}
-                 class="card-cycler w-full h-full object-cover transition-opacity duration-700 group-hover:scale-105"
-                 data-photos={JSON.stringify(item.photos)} />
-            <div class="absolute top-4 left-4">
-              <Tag name={item.tag} />
+                 class="card-cycler w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                 data-photos={JSON.stringify(item.photos)}
+                 draggable="false"
+                 oncontextmenu="return false;" />
+            <div class="absolute top-4 left-4 z-10 flex items-center gap-1.5">
+              {(item as any).draft && (
+                <span class="font-mono text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 border border-dashed border-[var(--amber)] bg-black/75 text-[var(--amber)] rounded">
+                  Draft
+                </span>
+              )}
+              <div class="card-tag-cycler relative" data-tags={JSON.stringify(item.tags)}>
+                {item.tags.map((t, i) => (
+                  <div class={`tag-slide transition-all duration-500 ${i === 0 ? 'relative opacity-100 block' : 'absolute top-0 left-0 opacity-0 hidden'}`}>
+                    <Tag name={t} />
+                  </div>
+                ))}
+              </div>
             </div>
-            <div class="absolute bottom-3 right-3 bg-black/75 text-white text-[10px] font-mono px-2 py-1 rounded">
+            <div class="absolute bottom-3 right-3 bg-black/80 text-white text-[10px] font-mono px-2 py-1 rounded">
               {item.photos.length} views · Click to view details
             </div>
           </div>
 
-          <!-- Minimal caption content -->
-          <div class="p-6">
-            <div class="flex items-center justify-between gap-2 mb-1">
-              <h3 class="font-display text-xl font-bold group-hover:opacity-80 transition-opacity">
-                {item.title}
-              </h3>
-              <span class="font-mono text-xs opacity-40">Expand ↗</span>
+          <!-- Text box with royal pop of color & hover intensification (flex-1 fills full remaining height with pop of color) -->
+          <div class="flex-1 flex flex-col justify-between p-6 border-t transition-colors duration-300 group-hover:bg-[rgba(0,35,102,0.08)] dark:group-hover:bg-[rgba(96,165,250,0.12)]"
+               style="background-color: rgba(0, 35, 102, 0.04); border-color: var(--border);">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-1">
+                <h3 class="font-display text-xl font-bold tracking-tight transition-colors duration-300" style="color: var(--royal);">
+                  {item.title}
+                </h3>
+                <span class="font-mono text-xs font-semibold opacity-70 group-hover:opacity-100 transition-opacity shrink-0" style="color: var(--royal);">Expand ↗</span>
+              </div>
+              <p class="font-body text-sm opacity-75 leading-relaxed">
+                {item.caption}
+              </p>
             </div>
-            <p class="font-body text-sm opacity-65 leading-relaxed">
-              {item.caption}
-            </p>
           </div>
         </article>
       ))}
@@ -169,9 +228,9 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
     <div class="border-b pb-4 mb-6 pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4" style="border-color: var(--border);">
       <div class="flex items-center gap-3">
         <div class="shrink-0" style="background: var(--crimson); width: 14px; height: 14px; min-width: 14px; min-height: 14px; aspect-ratio: 1/1; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);"></div>
-        <h2 class="font-display text-2xl font-bold">Crafts, Upcycling & Fine Art</h2>
+        <h2 class="font-display text-2xl font-bold" style="color: var(--crimson);">Crafts, Upcycling & Fine Art</h2>
       </div>
-      <span class="font-mono text-xs opacity-40 uppercase tracking-wider">Studio Creations</span>
+      <span class="font-mono text-xs opacity-50 uppercase tracking-wider">Studio Creations</span>
     </div>
 
     <!-- Crafts & Fine Art Filter Tabs -->
@@ -179,37 +238,65 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
       <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border font-semibold transition-all"
               style="border-color: var(--crimson); color: white; background: var(--crimson);" data-tag="all">All</button>
       <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
+              style="border-color: var(--border);" data-tag="Flora">Flora</button>
+      <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
+              style="border-color: var(--border);" data-tag="Fauna">Fauna</button>
+      <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
+              style="border-color: var(--border);" data-tag="Linework Study">Linework Study</button>
+      <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
               style="border-color: var(--border);" data-tag="Ink Study">Ink Study</button>
       <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
               style="border-color: var(--border);" data-tag="Fine Art">Fine Art</button>
-      <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
-              style="border-color: var(--border);" data-tag="Linework Study">Linework Study</button>
       <button class="craft-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
               style="border-color: var(--border);" data-tag="Upcycled Craft">Upcycled Craft</button>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       {secondaryWork.map((item, index) => (
-        <article class="sketch-card secondary-sketch-card group border flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 animate-on-scroll"
+        <article class="sketch-card secondary-sketch-card group border border-t-4 border-t-[var(--crimson)] flex flex-col overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:border-[var(--crimson)] hover:shadow-xl animate-on-scroll rounded-sm"
                  data-item={JSON.stringify(item)}
-                 data-tag={item.tag}
-                 style={`border-color: var(--border); background-color: var(--bg-surface); animation-delay: ${(index + 2) * 0.1}s;`}>
-          <!-- Image container -->
-          <div class="relative aspect-[4/3] overflow-hidden bg-black/5 dark:bg-white/5 border-b" style="border-color: var(--border);">
-            <img src={item.image} alt={item.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-            <div class="absolute top-4 left-4">
-              <Tag name={item.tag} />
+                 data-tags={JSON.stringify(item.tags)}
+                 style={`border-color: var(--border); border-top-color: var(--crimson); background-color: var(--bg-surface); animation-delay: ${(index + 2) * 0.1}s;`}>
+          <!-- Image container with card thumbnail preview -->
+          <div class="relative aspect-[4/3] overflow-hidden bg-black/5 dark:bg-white/5 border-b flex items-center justify-center bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2714%27%20height=%2714%27%20viewBox=%270%200%2014%2014%27%3E%3Ccircle%20cx=%272%27%20cy=%272%27%20r=%271%27%20fill=%27%23002366%27%20fill-opacity=%270.10%27/%3E%3C/svg%3E')] dark:bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2714%27%20height=%2714%27%20viewBox=%270%200%2014%2014%27%3E%3Ccircle%20cx=%272%27%20cy=%272%27%20r=%271%27%20fill=%27%23ffffff%27%20fill-opacity=%270.10%27/%3E%3C/svg%3E')]" style="border-color: var(--border);">
+            <img src={item.photos && item.photos.length > 0 ? item.photos[0] : item.image}
+                 alt={item.title}
+                 class={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 ${item.photos && item.photos.length > 1 ? 'card-cycler' : ''}`}
+                 data-photos={JSON.stringify(item.photos || [item.image])}
+                 draggable="false"
+                 oncontextmenu="return false;" />
+            <div class="absolute top-4 left-4 z-10 flex items-center gap-1.5">
+              {(item as any).draft && (
+                <span class="font-mono text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 border border-dashed border-[var(--amber)] bg-black/75 text-[var(--amber)] rounded">
+                  Draft
+                </span>
+              )}
+              <div class="card-tag-cycler relative" data-tags={JSON.stringify(item.tags)}>
+                {item.tags.map((t, i) => (
+                  <div class={`tag-slide transition-all duration-500 ${i === 0 ? 'relative opacity-100 block' : 'absolute top-0 left-0 opacity-0 hidden'}`}>
+                    <Tag name={t} />
+                  </div>
+                ))}
+              </div>
             </div>
+            {item.photos && item.photos.length > 1 && (
+              <div class="absolute bottom-3 right-3 bg-black/80 text-white text-[10px] font-mono px-2 py-1 rounded">
+                {item.photos.length} views · Click to view details
+              </div>
+            )}
           </div>
 
-          <!-- Minimal caption content -->
-          <div class="p-6">
-            <h3 class="font-display text-xl font-bold mb-2 group-hover:opacity-80 transition-opacity">
-              {item.title}
-            </h3>
-            <p class="font-body text-sm opacity-65 leading-relaxed">
-              {item.caption}
-            </p>
+          <!-- Text box with crimson pop of color & hover intensification (flex-1 fills full remaining height with pop of color) -->
+          <div class="flex-1 flex flex-col justify-between p-6 border-t transition-colors duration-300 group-hover:bg-[rgba(253,21,27,0.08)] dark:group-hover:bg-[rgba(248,113,113,0.12)]"
+               style="background-color: rgba(253, 21, 27, 0.04); border-color: var(--border);">
+            <div>
+              <h3 class="font-display text-xl font-bold mb-2 transition-colors duration-300" style="color: var(--crimson);">
+                {item.title}
+              </h3>
+              <p class="font-body text-sm opacity-75 leading-relaxed">
+                {Array.isArray(item.caption) ? item.caption[0] : item.caption}
+              </p>
+            </div>
           </div>
         </article>
       ))}
@@ -217,20 +304,20 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
   </section>
 
   <!-- Connect Banner -->
-  <section class="border-t py-10" style="border-color: var(--border); background-color: var(--bg-surface);">
+  <section class="border-t py-12" style="border-color: var(--border); background-color: var(--bg-surface);">
     <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
       <div>
-        <h3 class="font-display text-xl font-bold mb-1">Follow updates on social platforms</h3>
-        <p class="font-body text-sm opacity-60">Read longer essays on Substack or view daily art posts on Instagram.</p>
+        <h3 class="font-display text-2xl font-bold mb-1">Follow updates on social platforms</h3>
+        <p class="font-body text-sm opacity-70">Read longer essays on Substack or view daily art posts on Instagram.</p>
       </div>
-      <div class="flex flex-col gap-3 w-full sm:w-auto items-center sm:items-end">
+      <div class="flex flex-col sm:flex-row md:flex-col gap-3 w-full sm:w-auto items-center sm:items-end">
         <a href="https://aniinstudio.substack.com/" target="_blank" rel="noopener noreferrer"
-           class="font-display text-xs font-semibold w-64 text-center justify-center inline-flex items-center px-5 py-3 transition-all duration-200 hover:opacity-85"
+           class="font-display text-xs font-semibold w-64 text-center justify-center inline-flex items-center px-5 py-3 transition-all duration-200 hover:opacity-90"
            style="background: var(--crimson); color: white;">
           Substack Dispatches ↗
         </a>
         <a href="https://www.instagram.com/aniinstudio/" target="_blank" rel="noopener noreferrer"
-           class="font-display text-xs font-semibold w-64 text-center justify-center inline-flex items-center px-5 py-3 transition-all duration-200 hover:opacity-85"
+           class="font-display text-xs font-semibold w-64 text-center justify-center inline-flex items-center px-5 py-3 transition-all duration-200 hover:opacity-90"
            style="background: var(--royal); color: white;">
           Instagram (@aniinstudio) ↗
         </a>
@@ -242,7 +329,7 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
   <div id="sketch-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-16 backdrop-blur-md"
        style="background-color: rgba(9, 12, 20, 0.85);">
     
-    <!-- Prev & Next Navigation Buttons (Outside Card, positioned relative to backdrop viewport) -->
+    <!-- Prev & Next Navigation Buttons -->
     <button id="modal-prev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 bg-black/75 hover:bg-black text-white w-12 h-12 flex items-center justify-center rounded border border-white/15 hover:border-white/30 transition-all hover:scale-105 z-30 shadow-lg" aria-label="Previous artwork">
       <span class="text-xl font-bold">◀</span>
     </button>
@@ -250,7 +337,7 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
       <span class="text-xl font-bold">▶</span>
     </button>
 
-    <div class="w-full max-w-6xl border p-6 shadow-2xl relative max-h-[92vh] overflow-y-auto flex flex-col gap-4"
+    <div class="w-full max-w-6xl border border-t-4 border-t-[var(--royal)] p-6 shadow-2xl relative max-h-[92vh] overflow-y-auto flex flex-col gap-4 rounded-sm"
          style="background-color: var(--bg); border-color: var(--border);">
 
       <!-- Modal Top Header -->
@@ -330,6 +417,34 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
         } catch (e) {}
       });
 
+      // 1b. Smooth Auto-Cycling Tag Badges for Multi-Tag Cards
+      const tagCyclers = document.querySelectorAll('.card-tag-cycler');
+      tagCyclers.forEach((container) => {
+        try {
+          const slides = container.querySelectorAll('.tag-slide');
+          if (slides.length <= 1) return;
+
+          let tagIndex = 0;
+          setInterval(() => {
+            const current = slides[tagIndex];
+            tagIndex = (tagIndex + 1) % slides.length;
+            const next = slides[tagIndex];
+
+            current.style.opacity = '0';
+            setTimeout(() => {
+              current.classList.remove('relative', 'block');
+              current.classList.add('absolute', 'top-0', 'left-0', 'hidden');
+
+              next.classList.remove('absolute', 'top-0', 'left-0', 'hidden');
+              next.classList.add('relative', 'block');
+              setTimeout(() => {
+                next.style.opacity = '1';
+              }, 50);
+            }, 300);
+          }, 3200);
+        } catch (e) {}
+      });
+
       // 2. Filter Tabs Logic
       document.querySelectorAll('.prod-filter-btn').forEach(btn => {
         btn.onclick = () => {
@@ -346,12 +461,14 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
           btn.classList.remove('opacity-60');
 
           document.querySelectorAll('.product-sketch-card').forEach(card => {
-            const tag = card.getAttribute('data-tag');
-            if (selectedTag === 'all' || tag === selectedTag) {
-              card.style.display = 'flex';
-            } else {
-              card.style.display = 'none';
-            }
+            try {
+              const tags = JSON.parse(card.getAttribute('data-tags') || '[]');
+              if (selectedTag === 'all' || tags.includes(selectedTag)) {
+                card.style.display = 'flex';
+              } else {
+                card.style.display = 'none';
+              }
+            } catch (e) {}
           });
         };
       });
@@ -371,12 +488,14 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
           btn.classList.remove('opacity-60');
 
           document.querySelectorAll('.secondary-sketch-card').forEach(card => {
-            const tag = card.getAttribute('data-tag');
-            if (selectedTag === 'all' || tag === selectedTag) {
-              card.style.display = 'flex';
-            } else {
-              card.style.display = 'none';
-            }
+            try {
+              const tags = JSON.parse(card.getAttribute('data-tags') || '[]');
+              if (selectedTag === 'all' || tags.includes(selectedTag)) {
+                card.style.display = 'flex';
+              } else {
+                card.style.display = 'none';
+              }
+            } catch (e) {}
           });
         };
       });
@@ -451,7 +570,9 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
         modalMainImg.src = item.photos[0] || item.image;
         modalTitle.textContent = item.title;
         modalCaption.textContent = Array.isArray(item.caption) ? item.caption[0] : item.caption;
-        modalTag.textContent = item.tag;
+        
+        const itemTags = item.tags || [item.tag];
+        modalTag.textContent = itemTags.join(' · ');
 
         // Theme the top tag style based on category
         if (item.category.includes('Crafts') || item.category.includes('Fine Art') || item.category.includes('Ink Sketches')) {
@@ -490,12 +611,14 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
         // Render dynamic tag toggles in sidebar for ALL unique tags
         const tagsContainer = document.getElementById('modal-tags-container');
         if (tagsContainer) {
-          const uniqueTags = [...new Set(allItems.map(i => i.tag))];
+          const uniqueTags = [...new Set(allItems.flatMap(i => i.tags || [i.tag]))];
           const getTagClass = (tagName) => {
             const map = {
               'Ink Study': 'tag-ink',
               'Fine Art': 'tag-fineart',
-              'Linework': 'tag-linework',
+              'Linework Study': 'tag-linework',
+              'Flora': 'tag-linework',
+              'Fauna': 'tag-renewables',
               'Upcycled Craft': 'tag-product',
               'Product Sketch': 'tag-product'
             };
@@ -555,7 +678,7 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
           if (allItems.length === 0) return;
 
           const filteredList = activeModalTagFilter
-            ? allItems.filter(i => i.tag === activeModalTagFilter)
+            ? allItems.filter(i => (i.tags || [i.tag]).includes(activeModalTagFilter))
             : allItems;
 
           if (filteredList.length === 0) return;
@@ -576,7 +699,7 @@ const secondaryWork = items.filter(item => item.category !== 'Product Design Ske
           if (allItems.length === 0) return;
 
           const filteredList = activeModalTagFilter
-            ? allItems.filter(i => i.tag === activeModalTagFilter)
+            ? allItems.filter(i => (i.tags || [i.tag]).includes(activeModalTagFilter))
             : allItems;
 
           if (filteredList.length === 0) return;
