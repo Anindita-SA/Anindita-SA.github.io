@@ -9,6 +9,7 @@ const items = [
     category: 'Product Design Sketches',
     tags: ['Product Sketch', 'Linework Study'],
     featured: true,
+    draft: true,
     image: '/side-quests/sketch1.jpg',
     photos: [
       '/side-quests/sketch1.jpg',
@@ -27,6 +28,7 @@ const items = [
     category: 'Product Design Sketches',
     tags: ['Product Sketch', 'Linework Study'],
     featured: true,
+    draft: true,
     image: '/side-quests/sketch2.jpg',
     photos: [
       '/side-quests/sketch2.jpg',
@@ -121,7 +123,7 @@ const items = [
   }
 ];
 
-const activeItems = items.filter(item => import.meta.env.DEV || !(item as any).draft);
+const activeItems = items.filter(item => !(item as any).draft);
 const primarySketches = activeItems.filter(item => item.category === 'Product Design Sketches');
 const secondaryWork = activeItems.filter(item => item.category !== 'Product Design Sketches');
 ---
@@ -140,9 +142,11 @@ const secondaryWork = activeItems.filter(item => item.category !== 'Product Desi
 
     <!-- Category Overview Badges -->
     <div class="flex flex-wrap gap-2 mt-8 animate-on-scroll" style="animation-delay: 0.15s;">
-      <span class="font-mono text-xs px-3 py-1.5 border featured-badge">
-        Featured: Product Design Sketches
-      </span>
+      {primarySketches.length > 0 && (
+        <span class="font-mono text-xs px-3 py-1.5 border featured-badge">
+          Featured: Product Design Sketches
+        </span>
+      )}
       <span class="font-mono text-xs px-3 py-1.5 border" style="border-color: #FCBA04; color: #92400e; background: rgba(252, 186, 4, 0.08);">
         Crafts & Upcycling
       </span>
@@ -154,78 +158,82 @@ const secondaryWork = activeItems.filter(item => item.category !== 'Product Desi
 
   <!-- Main Focal Point: Product Design Sketches -->
   <section class="max-w-5xl mx-auto px-6 pb-20">
-    <div class="border-b pb-4 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4" style="border-color: var(--border);">
-      <div class="flex items-center gap-3">
-        <div class="shrink-0" style="background: var(--royal); width: 14px; height: 14px; min-width: 14px; min-height: 14px; aspect-ratio: 1/1; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);"></div>
-        <h2 class="font-display text-2xl font-bold" style="color: var(--royal);">Product Design Sketches</h2>
-      </div>
-      <span class="font-mono text-xs opacity-50 uppercase tracking-wider">Primary Focal Point · Click to Expand</span>
-    </div>
+    {primarySketches.length > 0 && (
+      <div>
+        <div class="border-b pb-4 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4" style="border-color: var(--border);">
+          <div class="flex items-center gap-3">
+            <div class="shrink-0" style="background: var(--royal); width: 14px; height: 14px; min-width: 14px; min-height: 14px; aspect-ratio: 1/1; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);"></div>
+            <h2 class="font-display text-2xl font-bold" style="color: var(--royal);">Product Design Sketches</h2>
+          </div>
+          <span class="font-mono text-xs opacity-50 uppercase tracking-wider">Primary Focal Point · Click to Expand</span>
+        </div>
 
-    <!-- Product Filter Tabs -->
-    <div class="flex flex-wrap items-center gap-2 mb-8" id="product-filter-bar">
-      <button class="prod-filter-btn font-mono text-xs px-3 py-1.5 border font-semibold transition-all"
-              style="border-color: var(--royal); color: white; background: var(--royal);" data-tag="all">All</button>
-      <button class="prod-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
-              style="border-color: var(--border);" data-tag="Product Sketch">Product Sketch</button>
-    </div>
+        <!-- Product Filter Tabs -->
+        <div class="flex flex-wrap items-center gap-2 mb-8" id="product-filter-bar">
+          <button class="prod-filter-btn font-mono text-xs px-3 py-1.5 border font-semibold transition-all text-white dark:text-[#090C14]"
+                  style="border-color: var(--royal); background: var(--royal);" data-tag="all">All</button>
+          <button class="prod-filter-btn font-mono text-xs px-3 py-1.5 border transition-all opacity-60 hover:opacity-100"
+                  style="border-color: var(--border);" data-tag="Product Sketch">Product Sketch</button>
+        </div>
 
-    <!-- Hero 2-Column Grid for Product Sketches -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-      {primarySketches.map((item, index) => (
-        <article class="sketch-card product-sketch-card group border border-t-4 border-t-[var(--royal)] flex flex-col overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:border-[var(--royal)] hover:shadow-xl animate-on-scroll rounded-sm"
-                 data-item={JSON.stringify(item)}
-                 data-tags={JSON.stringify(item.tags)}
-                 style={`border-color: var(--border); border-top-color: var(--royal); background-color: var(--bg-surface); animation-delay: ${index * 0.1}s;`}>
-          <!-- Image container with card thumbnail preview -->
-          <div class="relative aspect-[4/3] overflow-hidden bg-black/5 dark:bg-white/5 border-b flex items-center justify-center bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2714%27%20height=%2714%27%20viewBox=%270%200%2014%2014%27%3E%3Ccircle%20cx=%272%27%20cy=%272%27%20r=%271%27%20fill=%27%23002366%27%20fill-opacity=%270.10%27/%3E%3C/svg%3E')] dark:bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2714%27%20height=%2714%27%20viewBox=%270%200%2014%2014%27%3E%3Ccircle%20cx=%272%27%20cy=%272%27%20r=%271%27%20fill=%27%23ffffff%27%20fill-opacity=%270.10%27/%3E%3C/svg%3E')]" style="border-color: var(--border);">
-            <img id={`card-img-${item.id}`}
-                 src={item.photos[0]}
-                 alt={item.title}
-                 class="card-cycler w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
-                 data-photos={JSON.stringify(item.photos)}
-                 draggable="false"
-                 oncontextmenu="return false;" />
-            <div class="absolute top-4 left-4 z-10 flex items-center gap-1.5">
-              {(item as any).draft && (
-                <span class="font-mono text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 border border-dashed border-[var(--amber)] bg-black/75 text-[var(--amber)] rounded">
-                  Draft
-                </span>
-              )}
-              <div class="card-tag-cycler relative" data-tags={JSON.stringify(item.tags)}>
-                {item.tags.map((t, i) => (
-                  <div class={`tag-slide transition-all duration-500 ${i === 0 ? 'relative opacity-100 block' : 'absolute top-0 left-0 opacity-0 hidden'}`}>
-                    <Tag name={t} />
+        <!-- Hero 2-Column Grid for Product Sketches -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          {primarySketches.map((item, index) => (
+            <article class="sketch-card product-sketch-card group border border-t-4 border-t-[var(--royal)] flex flex-col overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:border-[var(--royal)] hover:shadow-xl animate-on-scroll rounded-sm"
+                     data-item={JSON.stringify(item)}
+                     data-tags={JSON.stringify(item.tags)}
+                     style={`border-color: var(--border); border-top-color: var(--royal); background-color: var(--bg-surface); animation-delay: ${index * 0.1}s;`}>
+              <!-- Image container with card thumbnail preview -->
+              <div class="relative aspect-[4/3] overflow-hidden bg-black/5 dark:bg-white/5 border-b flex items-center justify-center bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2714%27%20height=%2714%27%20viewBox=%270%200%2014%2014%27%3E%3Ccircle%20cx=%272%27%20cy=%272%27%20r=%271%27%20fill=%27%23002366%27%20fill-opacity=%270.10%27/%3E%3C/svg%3E')] dark:bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%2714%27%20height=%2714%27%20viewBox=%270%200%2014%2014%27%3E%3Ccircle%20cx=%272%27%20cy=%272%27%20r=%271%27%20fill=%27%23ffffff%27%20fill-opacity=%270.10%27/%3E%3C/svg%3E')]" style="border-color: var(--border);">
+                <img id={`card-img-${item.id}`}
+                     src={item.photos[0]}
+                     alt={item.title}
+                     class="card-cycler w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                     data-photos={JSON.stringify(item.photos)}
+                     draggable="false"
+                     oncontextmenu="return false;" />
+                <div class="absolute top-4 left-4 z-10 flex items-center gap-1.5">
+                  {(item as any).draft && (
+                    <span class="font-mono text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 border border-dashed border-[var(--amber)] bg-black/75 text-[var(--amber)] rounded">
+                      Draft
+                    </span>
+                  )}
+                  <div class="card-tag-cycler relative" data-tags={JSON.stringify(item.tags)}>
+                    {item.tags.map((t, i) => (
+                      <div class={`tag-slide transition-all duration-500 ${i === 0 ? 'relative opacity-100 block' : 'absolute top-0 left-0 opacity-0 hidden'}`}>
+                        <Tag name={t} />
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+                <div class="absolute bottom-3 right-3 bg-black/80 text-white text-[10px] font-mono px-2 py-1 rounded">
+                  {item.photos.length} views · Click to view details
+                </div>
               </div>
-            </div>
-            <div class="absolute bottom-3 right-3 bg-black/80 text-white text-[10px] font-mono px-2 py-1 rounded">
-              {item.photos.length} views · Click to view details
-            </div>
-          </div>
 
-          <!-- Text box with royal pop of color & hover intensification (flex-1 fills full remaining height with pop of color) -->
-          <div class="flex-1 flex flex-col justify-between p-6 border-t transition-colors duration-300 group-hover:bg-[rgba(0,35,102,0.08)] dark:group-hover:bg-[rgba(96,165,250,0.12)]"
-               style="background-color: rgba(0, 35, 102, 0.04); border-color: var(--border);">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1">
-                <h3 class="font-display text-xl font-bold tracking-tight transition-colors duration-300" style="color: var(--royal);">
-                  {item.title}
-                </h3>
-                <span class="font-mono text-xs font-semibold opacity-70 group-hover:opacity-100 transition-opacity shrink-0" style="color: var(--royal);">Expand ↗</span>
+              <!-- Text box with royal pop of color & hover intensification (flex-1 fills full remaining height with pop of color) -->
+              <div class="flex-1 flex flex-col justify-between p-6 border-t transition-colors duration-300 group-hover:bg-[rgba(0,35,102,0.08)] dark:group-hover:bg-[rgba(96,165,250,0.12)]"
+                   style="background-color: rgba(0, 35, 102, 0.04); border-color: var(--border);">
+                <div>
+                  <div class="flex items-center justify-between gap-2 mb-1">
+                    <h3 class="font-display text-xl font-bold tracking-tight transition-colors duration-300" style="color: var(--royal);">
+                      {item.title}
+                    </h3>
+                    <span class="font-mono text-xs font-semibold opacity-70 group-hover:opacity-100 transition-opacity shrink-0" style="color: var(--royal);">Expand ↗</span>
+                  </div>
+                  <p class="font-body text-sm opacity-75 leading-relaxed">
+                    {item.caption}
+                  </p>
+                </div>
               </div>
-              <p class="font-body text-sm opacity-75 leading-relaxed">
-                {item.caption}
-              </p>
-            </div>
-          </div>
-        </article>
-      ))}
-    </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
 
     <!-- Secondary Showcase: Crafts, Upcycling & Fine Art -->
-    <div class="border-b pb-4 mb-6 pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4" style="border-color: var(--border);">
+    <div class={`border-b pb-4 mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4 ${primarySketches.length > 0 ? 'pt-6' : ''}`} style="border-color: var(--border);">
       <div class="flex items-center gap-3">
         <div class="shrink-0" style="background: var(--crimson); width: 14px; height: 14px; min-width: 14px; min-height: 14px; aspect-ratio: 1/1; clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);"></div>
         <h2 class="font-display text-2xl font-bold" style="color: var(--crimson);">Crafts, Upcycling & Fine Art</h2>
@@ -317,8 +325,8 @@ const secondaryWork = activeItems.filter(item => item.category !== 'Product Desi
           Substack Dispatches ↗
         </a>
         <a href="https://www.instagram.com/aniinstudio/" target="_blank" rel="noopener noreferrer"
-           class="font-display text-xs font-semibold w-64 text-center justify-center inline-flex items-center px-5 py-3 transition-all duration-200 hover:opacity-90"
-           style="background: var(--royal); color: white;">
+           class="font-display text-xs font-semibold w-64 text-center justify-center inline-flex items-center px-5 py-3 transition-all duration-200 hover:opacity-90 text-white dark:text-[#090C14]"
+           style="background: var(--royal);">
           Instagram (@aniinstudio) ↗
         </a>
       </div>

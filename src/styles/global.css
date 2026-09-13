@@ -25,6 +25,7 @@
   }
 
   .dark {
+    --royal: #60a5fa;
     --bg: #090C14;
     --bg-surface: #111827;
     --text-primary: #F0EDE8;

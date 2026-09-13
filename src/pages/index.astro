@@ -5,12 +5,12 @@ import CurvedLoop from '../components/CurvedLoop';
 import Tag from '../components/Tag.astro';
 import StatusBadge from '../components/StatusBadge.astro';
 
-const projects = (await getCollection('projects', ({ data }) => import.meta.env.DEV || !data.draft))
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
   .filter(p => p.data.featured)
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
   .slice(0, 3);
 
-const tutorials = (await getCollection('tutorials', ({ data }) => import.meta.env.DEV || !data.draft))
+const tutorials = (await getCollection('tutorials', ({ data }) => !data.draft))
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
   .slice(0, 3);
 
@@ -85,8 +85,8 @@ try {
 
       <div class="flex flex-wrap gap-4 animate-on-scroll" style="animation-delay: 0.3s;">
         <a href="/projects"
-           class="font-display font-semibold text-sm px-6 py-3 transition-all duration-200 hover:opacity-80"
-           style="background: var(--royal); color: white;">
+           class="font-display font-semibold text-sm px-6 py-3 transition-all duration-200 hover:opacity-80 text-white dark:text-[#090C14]"
+           style="background: var(--royal);">
           View Projects →
         </a>
         <a href="/about"
@@ -389,8 +389,8 @@ try {
             <span class="font-mono text-[10px] opacity-50" style="color: var(--royal);">Visual Log</span>
           </div>
           <a href="https://www.instagram.com/aniinstudio/" target="_blank" rel="noopener noreferrer"
-             class="h-11 flex items-center justify-center font-display text-xs font-semibold w-full text-center transition-all hover:opacity-85 shadow-sm"
-             style="background: var(--royal); color: white;">
+             class="h-11 flex items-center justify-center font-display text-xs font-semibold w-full text-center transition-all hover:opacity-85 shadow-sm text-white dark:text-[#090C14]"
+             style="background: var(--royal);">
             Follow @aniinstudio on Instagram ↗
           </a>
         </div>

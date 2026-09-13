@@ -5,7 +5,7 @@ import Tag from '../../components/Tag.astro';
 import StatusBadge from '../../components/StatusBadge.astro';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects', ({ data }) => import.meta.env.DEV || !data.draft);
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
   return projects.map(project => ({
     params: { slug: project.slug },
     props: { project },

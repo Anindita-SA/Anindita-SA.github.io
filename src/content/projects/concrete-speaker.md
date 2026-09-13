@@ -73,6 +73,16 @@ A v2 has been sitting in my head since the day I finished v1:
 
 The bones of this project are worth doing properly. One day.
 
-## Skills
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--royal)] font-bold mt-8 mb-0.5">Core Disciplines</div>
+<h2 class="font-display text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border)] pb-2 mb-3">Skills & Applied Methods</h2>
 
-Autodesk Fusion 360 · Concrete Casting · Acoustic Damping · Materials Reasoning · Hand Fabrication · Speaker Wiring · Constraint-Driven Design · Iterative Design
+<div class="flex flex-wrap gap-2 my-3">
+<span class="tag tag-product">Autodesk Fusion 360</span>
+<span class="tag tag-craft">Concrete Casting</span>
+<span class="tag tag-research">Acoustic Damping</span>
+<span class="tag tag-renewables">Materials Reasoning</span>
+<span class="tag tag-craft">Hand Fabrication</span>
+<span class="tag tag-electronics">Speaker Wiring</span>
+<span class="tag tag-ux">Constraint-Driven Design</span>
+<span class="tag tag-product">Iterative Design</span>
+</div>
