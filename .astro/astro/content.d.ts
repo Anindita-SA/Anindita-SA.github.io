@@ -179,6 +179,13 @@ declare module 'astro:content' {
   collection: "projects";
   data: InferEntrySchema<"projects">
 } & { render(): Render[".md"] };
+"twelve-pulse-dab.md": {
+	id: "twelve-pulse-dab.md";
+  slug: "twelve-pulse-dab";
+  body: string;
+  collection: "projects";
+  data: InferEntrySchema<"projects">
+} & { render(): Render[".md"] };
 };
 "publications": {
 "microgrid-load-modeling.md": {
