@@ -56,15 +56,47 @@ const { title, description = "Multidisciplinary engineer and design thinker." } 
         }, { threshold: 0.1 });
         document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-        // Image Download Protection: Disable right-click & dragging on images
+        // Comprehensive Image Protection: Block right-click, dragging, saving, and copy on all media
         document.addEventListener('contextmenu', (e) => {
-          if (e.target.tagName === 'IMG' || e.target.closest('.sketch-card') || e.target.closest('#image-container')) {
+          const target = e.target;
+          if (
+            target.tagName === 'IMG' ||
+            target.tagName === 'CANVAS' ||
+            target.tagName === 'PICTURE' ||
+            target.closest('.sketch-card') ||
+            target.closest('#image-container') ||
+            target.closest('#image-lightbox') ||
+            target.closest('[class*="photo-card-"]') ||
+            target.closest('.prose-content')
+          ) {
+            e.preventDefault();
+            return false;
+          }
+        });
+
+        document.addEventListener('dragstart', (e) => {
+          if (e.target.tagName === 'IMG' || e.target.closest('[class*="photo-card-"]')) {
+            e.preventDefault();
+            return false;
+          }
+        });
+
+        document.addEventListener('copy', (e) => {
+          const sel = window.getSelection();
+          if (sel && sel.anchorNode && (sel.anchorNode.parentElement?.closest('[class*="photo-card-"]') || sel.anchorNode.parentElement?.closest('#image-lightbox'))) {
             e.preventDefault();
           }
         });
-        document.addEventListener('dragstart', (e) => {
-          if (e.target.tagName === 'IMG') {
+
+        // Block Save Page (Ctrl+S/Cmd+S), Print (Ctrl+P/Cmd+P), and PrintScreen
+        document.addEventListener('keydown', (e) => {
+          if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S' || e.key === 'p' || e.key === 'P')) {
             e.preventDefault();
+          }
+          if (e.key === 'PrintScreen') {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText('');
+            }
           }
         });
       });

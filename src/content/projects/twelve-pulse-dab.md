@@ -1,6 +1,6 @@
 ---
-title: "Three-Phase 12-Pulse Dual Active Bridge Converter"
-description: "Modeling, simulation, and FPGA-based hardware realization of a 12-pulse DAB converter for offshore wind DC collection systems with harmonic cancellation and ZVS validation."
+title: "Three-Phase Twelve-Pulse Dual Active Bridge Converter"
+description: "Modeling, simulation, and FPGA-based hardware realization of a twelve-pulse converter for offshore wind DC collection systems with geometric harmonic cancellation and ZVS validation."
 domain: ["Electronics", "Renewables", "Research"]
 featured: true
 date: "2026-05-30"
@@ -23,11 +23,18 @@ In offshore wind platforms, eliminating bulky line-frequency transformers reduce
 During a summer research internship at IIT Kharagpur, I modeled three-phase Dual Active Bridge (DAB) topologies, extended the architecture into a 12-pulse configuration for harmonic cancellation, and implemented real-time gate pulse generation on a Xilinx Virtex-5 FPGA with hardware testbed validation.
 </p>
 </div>
-<div>
+<div class="space-y-4">
 <div class="w-full photo-card-amber rounded cursor-pointer">
-<img src="/projects/twelve-pulse-dab/dab-topology.png" alt="Single-phase Dual Active Bridge topology with intermediate AC link" class="w-full h-auto object-contain rounded" />
+<img src="/projects/twelve-pulse-dab/dab-topology.png" alt="Single-phase Dual Active Bridge topology with intermediate AC link" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--amber)] mt-2 font-mono flex items-center justify-center gap-1.5 font-medium">
-⚡ Baseline DAB converter structure with intermediate AC link
+⚡ Baseline single-phase DAB structure with intermediate AC link
+</div>
+</div>
+
+<div class="w-full photo-card-royal rounded cursor-pointer">
+<img src="/projects/twelve-pulse-dab/twelve-pulse-topology.png" alt="Three-phase twelve-pulse converter topology with Y-Y and Delta-Y parallel-series bridges" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
+<div class="text-xs text-center text-[var(--royal)] mt-2 font-mono flex items-center justify-center gap-1.5 font-medium">
+⚡ Twelve-pulse configuration: Y-Y and Δ-Y parallel-series bridges
 </div>
 </div>
 </div>
@@ -105,7 +112,7 @@ Theoretical Modeling
 <td class="py-3 px-4 opacity-70">Compensates line-to-phase relation</td>
 </tr>
 <tr class="bg-[var(--bg)] text-[var(--amber)] font-bold">
-<td class="py-3 px-4">12-Pulse DAB</td>
+<td class="py-3 px-4">12-Pulse Converter</td>
 <td class="py-3 px-4">12<em>k</em> ± 1</td>
 <td class="py-3 px-4">0 to π/3</td>
 <td class="py-3 px-4">Combined (1:1 + √3:1)</td>
@@ -128,7 +135,7 @@ Theoretical Modeling
 <h2 class="font-display text-2xl font-bold text-[var(--text-primary)] !my-0">Simulation & Control Architecture</h2>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center my-6">
+<div class="space-y-6 my-6">
 <div class="space-y-4">
 <div class="font-mono text-xs uppercase tracking-wider text-[var(--royal)] font-bold">MATLAB / Simscape Modeling</div>
 <h3 class="font-display text-xl font-bold text-[var(--text-primary)] !mt-0">Closed-Loop Control & Stiff Solvers</h3>
@@ -143,14 +150,44 @@ The complete 12-pulse converter model was constructed in MATLAB/Simulink utilizi
 </ul>
 </div>
 
-<div class="space-y-4">
+<div class="my-6">
 <div class="photo-card-royal rounded cursor-pointer">
-<img src="/projects/twelve-pulse-dab/simulink-zero-power.png" alt="Simulink output waveforms showing zero power transfer at phi = 0" class="w-full h-auto object-contain rounded" />
-<div class="text-xs text-center text-[var(--royal)] mt-2 font-mono font-medium">12-pulse primary output waveforms at φ = 0 (Zero power transfer)</div>
+<img src="/projects/twelve-pulse-dab/simulink-pi-control-diagram.png" alt="Simulink PI voltage control loop architecture with feedforward compensation" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
+<div class="text-xs text-center text-[var(--royal)] mt-2 font-mono font-medium">
+⚡ Outer voltage PI regulation loop with feed-forward buck current compensation (Ifed)
 </div>
-<div class="photo-card-amber rounded cursor-pointer">
-<img src="/projects/twelve-pulse-dab/simulink-power-transfer.png" alt="Simulink output waveforms showing active power transfer at phi = -15 degrees" class="w-full h-auto object-contain rounded" />
-<div class="text-xs text-center text-[var(--amber)] mt-2 font-mono font-medium">12-pulse primary output waveforms at φ = -15° (Active power transfer)</div>
+</div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch my-6">
+<div class="flex flex-col justify-between space-y-3 h-full">
+<div class="photo-card-royal rounded cursor-pointer flex-1 flex flex-col justify-between">
+<img src="/projects/twelve-pulse-dab/simulink-zero-power.png" alt="Simulink output waveforms showing zero power transfer at phi = 0" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
+<div class="text-xs text-center text-[var(--royal)] mt-2 font-mono font-medium">12-pulse primary output at φ = 0</div>
+</div>
+<div class="bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--royal)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+Zero power transfer: Symmetrical primary voltages without inter-bridge displacement.
+</div>
+</div>
+
+<div class="flex flex-col justify-between space-y-3 h-full">
+<div class="photo-card-amber rounded cursor-pointer flex-1 flex flex-col justify-between">
+<img src="/projects/twelve-pulse-dab/simulink-power-transfer.png" alt="Simulink output waveforms showing active power transfer at phi = -15 degrees" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
+<div class="text-xs text-center text-[var(--amber)] mt-2 font-mono font-medium">12-pulse primary output at φ = -15°</div>
+</div>
+<div class="bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--amber)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+Active power transfer: Phase shift φ = -15° establishes steady circulating power throughput.
+</div>
+</div>
+
+<div class="flex flex-col justify-between space-y-3 h-full">
+<div class="photo-card-crimson rounded cursor-pointer flex-1 flex flex-col justify-between">
+<img src="/projects/twelve-pulse-dab/simulink-r-phase-waveforms.png" alt="Simulink R-phase voltage, current, and instantaneous power waveforms" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
+<div class="text-xs text-center text-[var(--crimson)] mt-2 font-mono font-medium">R-Phase voltage, current & power</div>
+</div>
+<div class="bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--crimson)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+Multilevel stepped R-phase voltage, current, and continuous active power (~ -95 W).
+</div>
 </div>
 </div>
 </div>
@@ -162,7 +199,7 @@ The complete 12-pulse converter model was constructed in MATLAB/Simulink utilizi
 <h2 class="font-display text-2xl font-bold text-[var(--text-primary)] !my-0">FPGA Digital Control Implementation</h2>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start my-6">
+<div class="space-y-6 my-6">
 <div class="space-y-4">
 <div class="font-mono text-xs uppercase tracking-wider text-[var(--amber)] font-bold">Xilinx System Generator</div>
 <h3 class="font-display text-xl font-bold text-[var(--text-primary)] !mt-0">Virtex-5 Hardware Architecture</h3>
@@ -185,13 +222,29 @@ Conventional CORDIC square-root blocks introduced high FPGA slice consumption an
 </p>
 </div>
 
-<div class="space-y-4">
-<div class="photo-card-crimson rounded cursor-pointer">
-<img src="/projects/twelve-pulse-dab/zvs-oscilloscope.png" alt="Oscilloscope capture showing Zero Voltage Switching validation with lagging transformer current" class="w-full h-auto object-contain rounded" />
-<div class="text-xs text-center text-[var(--crimson)] mt-2 font-mono font-medium">Oscilloscope capture verifying Zero Voltage Switching (ZVS) under lagging current</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch my-6">
+<div class="flex flex-col justify-between space-y-3 h-full">
+<div class="photo-card-amber rounded cursor-pointer flex-1 flex flex-col justify-between">
+<img src="/projects/twelve-pulse-dab/fpga-carrier-primary-gate-diagram.png" alt="FPGA sawtooth carrier generation and primary bridge gate logic" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
+<div class="text-xs text-center text-[var(--amber)] mt-2 font-mono font-medium">
+⚡ Carrier generator & primary bridge channel logic (q_n, q_n+3)
 </div>
-<div class="bg-[var(--bg-surface)] p-4 border-l-4 border-[var(--crimson)] border border-[var(--border)] text-xs md:text-sm leading-relaxed">
-<strong class="text-[var(--crimson)]">Zero Voltage Switching (ZVS) Verification:</strong> Soft-switching requires the transformer leakage current to be flowing in the reverse direction prior to switch turn-on to forward-bias the anti-parallel diode. As captured on the oscilloscope above, the R-phase current (C3) transitions negative immediately before the zero-crossing of the pole voltage (C2), verifying complete ZVS operation.
+</div>
+<div class="bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--amber)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+Up-counter generates master sawtooth carriers (θ and θ2 = θ + 30°), modulated by 3-phase offsets (0, 2π/3, 4π/3).
+</div>
+</div>
+
+<div class="flex flex-col justify-between space-y-3 h-full">
+<div class="photo-card-royal rounded cursor-pointer flex-1 flex flex-col justify-between">
+<img src="/projects/twelve-pulse-dab/fpga-secondary-gate-diagram.png" alt="FPGA secondary bridge gate logic with phase shift phi" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
+<div class="text-xs text-center text-[var(--royal)] mt-2 font-mono font-medium">
+⚡ Secondary bridge channel logic with phase-shift φ (qs_n, qs_n+3)
+</div>
+</div>
+<div class="bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--royal)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+Secondary channels incorporate phase angle φ to establish bidirectional power flow across 24 total gate lines.
+</div>
 </div>
 </div>
 </div>
@@ -203,10 +256,75 @@ Conventional CORDIC square-root blocks introduced high FPGA slice consumption an
 <h2 class="font-display text-2xl font-bold text-[var(--text-primary)] !my-0">Hardware Experimental Validation</h2>
 </div>
 
-<div class="space-y-6 my-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center my-6">
+<div class="space-y-3">
+<div class="font-mono text-xs uppercase tracking-wider text-[var(--royal)] font-bold">Circulating-Power Test Architecture</div>
+<h3 class="font-display text-xl font-bold text-[var(--text-primary)] !mt-0">Back-to-Back Hardware Testbed</h3>
 <p class="text-sm md:text-base leading-relaxed opacity-90">
-The physical experimental setup connected two 12-pulse converters back-to-back in a circulating-power test loop. Power circulated between the two converter stages while an auxiliary buck converter supplied only the system losses (<em>P<sub>buck</sub></em> = <em>V<sub>CP</sub></em> × <em>I<sub>buck</sub></em>). This enabled full-power throughput evaluation with minimal supply draw.
+The physical experimental setup connected two 12-pulse converters back-to-back across their AC transformer secondaries in a closed circulating-power test loop.
 </p>
+<p class="text-sm md:text-base leading-relaxed opacity-90">
+Power circulated continuously between the two converter stages while an auxiliary buck converter supplied only the cumulative system losses (<em>P<sub>buck</sub></em> = <em>V<sub>CP</sub></em> × <em>I<sub>buck</sub></em>). At φ = 0, only miniscule baseline losses were drawn from the supply, enabling full 592 W circulating throughput testing with minimal supply draw.
+</p>
+</div>
+
+<div>
+<div class="photo-card-royal rounded cursor-pointer">
+<img src="/projects/twelve-pulse-dab/circulating-power-testbed.png" alt="Circulating-power hardware testbed with dual 12-pulse converters and auxiliary buck loss supply" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
+<div class="text-xs text-center text-[var(--royal)] mt-2 font-mono flex items-center justify-center gap-1.5 font-medium">
+⚡ Dual 12-pulse converter circulating-power testbed with auxiliary buck loss supply
+</div>
+</div>
+</div>
+</div>
+
+<!-- Hardware Waveforms Grid: +15°, -15° Phase Shift & ZVS Soft-Switching Verification -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch my-6">
+<div class="flex flex-col justify-between space-y-3 h-full">
+<div class="photo-card-amber rounded cursor-pointer flex-1 flex flex-col justify-between">
+<img src="/projects/twelve-pulse-dab/hardware-waveform-pos15.png" alt="Oscilloscope hardware measurement of 12-pulse converter at phi = +15 degrees" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
+<div class="text-xs text-center text-[var(--amber)] mt-2 font-mono font-medium">
+Capture at φ = +15° (Forward Power Flow)
+</div>
+</div>
+<div class="bg-[var(--bg-surface)] p-3.5 border-l-4 border-[var(--amber)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+<strong>Channel Legend (+15°):</strong><br />
+C1: Vcp bus input (102.7 V)<br />
+C2: R-phase voltage (123.6 V RMS)<br />
+C3: R-phase current (2.779 A RMS)<br />
+C4: Loss current (260.7 mA → 26.77 W)
+</div>
+</div>
+
+<div class="flex flex-col justify-between space-y-3 h-full">
+<div class="photo-card-royal rounded cursor-pointer flex-1 flex flex-col justify-between">
+<img src="/projects/twelve-pulse-dab/hardware-waveform-neg15.png" alt="Oscilloscope hardware measurement of 12-pulse converter at phi = -15 degrees" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
+<div class="text-xs text-center text-[var(--royal)] mt-2 font-mono font-medium">
+Capture at φ = -15° (Reverse Power Flow)
+</div>
+</div>
+<div class="bg-[var(--bg-surface)] p-3.5 border-l-4 border-[var(--royal)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+<strong>Channel Legend (-15°):</strong><br />
+C1: Vcp bus input (102.7 V)<br />
+C2: R-phase voltage (121.0 V Amp)<br />
+C3: R-phase current (2.740 A RMS)<br />
+C4: Loss current (232.1 mA → 23.84 W)
+</div>
+</div>
+
+<div class="flex flex-col justify-between space-y-3 h-full">
+<div class="photo-card-crimson rounded cursor-pointer flex-1 flex flex-col justify-between">
+<img src="/projects/twelve-pulse-dab/zvs-oscilloscope.png" alt="Oscilloscope capture showing Zero Voltage Switching validation with lagging transformer current" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
+<div class="text-xs text-center text-[var(--crimson)] mt-2 font-mono font-medium">
+Zero Voltage Switching (ZVS) Verification
+</div>
+</div>
+<div class="bg-[var(--bg-surface)] p-3.5 border-l-4 border-[var(--crimson)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+<strong>Soft-Switching Condition:</strong><br />
+Transformer current (C3) transitions negative immediately prior to pole voltage zero-crossing (C2), confirming complete soft-switching.
+</div>
+</div>
+</div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
 <div class="bg-[var(--bg-surface)] p-5 border border-[var(--border)] flex flex-col justify-between">
@@ -284,7 +402,7 @@ Bridging theoretical power equations, discrete simulation, and physical FPGA har
 </thead>
 <tbody class="divide-y divide-[var(--border)] opacity-90">
 <tr class="hover:bg-[var(--bg)] transition-colors">
-<td class="p-3.5 font-semibold">Excessive circulating current in Delta-Y DAB branch</td>
+<td class="p-3.5 font-semibold">Excessive circulating current in Delta-Y converter branch</td>
 <td class="p-3.5 leading-relaxed">Transformer turns ratio mismatch and leakage inductance disparity between Y-Y and Δ-Y branches.</td>
 <td class="p-3.5 leading-relaxed">Adjusted Δ-Y turns ratio to compensate for line-to-phase voltage relationships; balanced branch currents on mean rather than uncorrected RMS.</td>
 </tr>

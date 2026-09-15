@@ -43,14 +43,22 @@
     transition: background-color 0.3s, color 0.3s;
   }
 
-  img {
+  img, picture, canvas, svg, figure, .photo-card, [class*="photo-card-"] {
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
+    -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
     -webkit-user-drag: none;
     -webkit-touch-callout: none;
+  }
+
+  @media print {
+    img, picture, canvas, figure, [class*="photo-card-"], #image-lightbox {
+      display: none !important;
+      visibility: hidden !important;
+    }
   }
 
   ::selection { background: #FCBA04; color: #000; }

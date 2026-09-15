@@ -165,6 +165,13 @@ declare module 'astro:content' {
   collection: "projects";
   data: InferEntrySchema<"projects">
 } & { render(): Render[".md"] };
+"quadrature-oscillator.md": {
+	id: "quadrature-oscillator.md";
+  slug: "quadrature-oscillator";
+  body: string;
+  collection: "projects";
+  data: InferEntrySchema<"projects">
+} & { render(): Render[".md"] };
 "sensor-node.md": {
 	id: "sensor-node.md";
   slug: "sensor-node";
