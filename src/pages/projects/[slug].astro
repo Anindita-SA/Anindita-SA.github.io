@@ -196,7 +196,10 @@ const { Content } = await project.render();
     margin-bottom: 0.5rem;
     transition: transform 0.2s ease, border-color 0.2s ease;
   }
-  .prose-content :global(figure img) {
+  .prose-content :global(figure img),
+  .prose-content :global(.photo-card-royal img),
+  .prose-content :global(.photo-card-crimson img),
+  .prose-content :global(.photo-card-amber img) {
     margin-top: 0;
     margin-bottom: 0;
     border: none;
