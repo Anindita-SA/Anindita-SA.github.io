@@ -25,7 +25,7 @@ So I built Aloka Fit for myself over seven weeks, and I use it every single day.
 <div class="w-full photo-card-amber rounded cursor-pointer">
 <img src="/projects/aloka-fit/dashboard.gif" alt="Dashboard with macro ring and progress bars" class="w-full h-auto object-contain rounded" />
 <div class="text-xs text-center text-[var(--amber)] mt-2 font-mono flex items-center justify-center gap-1.5 font-medium">
-⚡ Hero Dashboard with macro ring and progress bars
+ Hero Dashboard with macro ring and progress bars
 </div>
 </div>
 </div>
@@ -36,7 +36,7 @@ So I built Aloka Fit for myself over seven weeks, and I use it every single day.
 <div class="w-full photo-card-crimson rounded cursor-pointer">
 <img src="/projects/aloka-fit/allergy-warning.gif" alt="AI nutrition estimate with inline allergy and migraine warning" class="w-full h-auto object-contain rounded" />
 <div class="text-xs text-center text-[var(--crimson)] mt-2 font-mono flex items-center justify-center gap-1.5 font-medium">
-⚠️ AI nutrition estimate with inline trigger warning
+ AI nutrition estimate with inline trigger warning
 </div>
 </div>
 </div>

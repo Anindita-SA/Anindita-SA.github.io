@@ -27,14 +27,14 @@ During a summer research internship at IIT Kharagpur, I modeled three-phase Dual
 <div class="w-full photo-card-amber rounded cursor-pointer">
 <img src="/projects/twelve-pulse-dab/dab-topology.png" alt="Single-phase Dual Active Bridge topology with intermediate AC link" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--amber)] mt-2 font-mono flex items-center justify-center gap-1.5 font-medium">
-⚡ Baseline single-phase DAB structure with intermediate AC link
+ Baseline single-phase DAB structure with intermediate AC link
 </div>
 </div>
 
 <div class="w-full photo-card-royal rounded cursor-pointer">
 <img src="/projects/twelve-pulse-dab/twelve-pulse-topology.png" alt="Three-phase twelve-pulse converter topology with Y-Y and Delta-Y parallel-series bridges" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--royal)] mt-2 font-mono flex items-center justify-center gap-1.5 font-medium">
-⚡ Twelve-pulse configuration: Y-Y and Δ-Y parallel-series bridges
+ Twelve-pulse configuration: Y-Y and Δ-Y parallel-series bridges
 </div>
 </div>
 </div>
@@ -52,7 +52,7 @@ During a summer research internship at IIT Kharagpur, I modeled three-phase Dual
 <div class="font-mono text-xs uppercase tracking-wider text-[var(--royal)] font-bold">First Principles</div>
 <h3 class="font-display text-xl font-bold text-[var(--text-primary)] !mt-0">12-Pulse Geometric Cancellation</h3>
 <p class="text-sm md:text-base leading-relaxed opacity-90">
-A standard single-phase DAB produces high per-device current stress. Moving to a three-phase DAB with six-step operation distributes power across three bridge legs, reducing RMS current per switch but introducing characteristic 5th and 7th harmonics (<em>h</em> = 6<em>k</em> ± 1).
+A standard single-phase DAB produces high per-device current stress. A three-phase DAB with six-step operation distributes power across three bridge legs. This reduces RMS current per switch but introduces characteristic 5th and 7th harmonics (<em>h</em> = 6<em>k</em> ± 1).
 </p>
 <p class="text-sm md:text-base leading-relaxed opacity-90">
 The twelve-pulse configuration overcomes this by combining two three-phase bridges:
@@ -63,7 +63,7 @@ The twelve-pulse configuration overcomes this by combining two three-phase bridg
 <li><strong>Interconnection:</strong> Primary windings connected in parallel, secondary windings connected in series.</li>
 </ul>
 <p class="text-sm md:text-base leading-relaxed opacity-90">
-The delta winding introduces an inherent 30° geometric phase displacement (Yd1 vector group). This natural displacement causes the 5th and 7th harmonic voltages and currents from the two converter groups to cancel each other out completely, leaving only higher-order characteristic harmonics of order <em>h</em> = 12<em>k</em> ± 1 (11th, 13th, 23rd, 25th, etc.) without requiring active controller phase delays.
+The delta winding introduces an inherent 30° geometric phase displacement (Yd1 vector group). This natural displacement causes the 5th and 7th harmonic voltages and currents from the two converter groups to cancel each other out completely. This leaves only higher-order characteristic harmonics of order <em>h</em> = 12<em>k</em> ± 1 (11th, 13th, 23rd, 25th, etc.) without requiring active controller phase delays.
 </p>
 </div>
 
@@ -78,52 +78,52 @@ Theoretical Modeling
 </span>
 </div>
 
-<div class="overflow-x-auto">
-<table class="w-full text-xs md:text-sm font-mono text-left border-collapse min-w-[550px]">
+<div class="w-full">
+<table class="w-full text-xs font-mono text-left border-collapse">
 <thead>
 <tr class="border-b border-[var(--border)] text-[var(--text-primary)] bg-[var(--bg)]">
-<th class="py-3 px-4">Topology</th>
-<th class="py-3 px-4">Harmonics (<em>h</em>)</th>
-<th class="py-3 px-4">Valid Phase Shift Range (φ)</th>
-<th class="py-3 px-4">Transformer Turns Ratio</th>
-<th class="py-3 px-4">kVA Rating Impact</th>
+<th class="py-3 px-2 md:px-3">Topology</th>
+<th class="py-3 px-2 md:px-3">Harmonics (<em>h</em>)</th>
+<th class="py-3 px-2 md:px-3">Valid Phase Shift Range (φ)</th>
+<th class="py-3 px-2 md:px-3">Transformer Turns Ratio</th>
+<th class="py-3 px-2 md:px-3">kVA Rating Impact</th>
 </tr>
 </thead>
 <tbody class="opacity-90 divide-y divide-[var(--border)]">
 <tr class="hover:bg-[var(--bg)] transition-colors">
-<td class="py-3 px-4 font-semibold">1-Phase DAB</td>
-<td class="py-3 px-4">2<em>k</em> ± 1</td>
-<td class="py-3 px-4">0 to π</td>
-<td class="py-3 px-4">1 : 1</td>
-<td class="py-3 px-4 opacity-70">Baseline</td>
+<td class="py-3 px-2 md:px-3 font-semibold">1-Phase DAB</td>
+<td class="py-3 px-2 md:px-3">2<em>k</em> ± 1</td>
+<td class="py-3 px-2 md:px-3">0 to π</td>
+<td class="py-3 px-2 md:px-3">1 : 1</td>
+<td class="py-3 px-2 md:px-3 opacity-70">Baseline</td>
 </tr>
 <tr class="hover:bg-[var(--bg)] transition-colors">
-<td class="py-3 px-4 font-semibold">3-Phase Y-Y</td>
-<td class="py-3 px-4">6<em>k</em> ± 1</td>
-<td class="py-3 px-4">0 to π</td>
-<td class="py-3 px-4">1 : 1</td>
-<td class="py-3 px-4 opacity-70">Lower device current stress</td>
+<td class="py-3 px-2 md:px-3 font-semibold">3-Phase Y-Y</td>
+<td class="py-3 px-2 md:px-3">6<em>k</em> ± 1</td>
+<td class="py-3 px-2 md:px-3">0 to π</td>
+<td class="py-3 px-2 md:px-3">1 : 1</td>
+<td class="py-3 px-2 md:px-3 opacity-70">Lower device current stress</td>
 </tr>
 <tr class="hover:bg-[var(--bg)] transition-colors">
-<td class="py-3 px-4 font-semibold">3-Phase Δ-Y</td>
-<td class="py-3 px-4">6<em>k</em> ± 1</td>
-<td class="py-3 px-4">0 to π</td>
-<td class="py-3 px-4">√3 : 1</td>
-<td class="py-3 px-4 opacity-70">Compensates line-to-phase relation</td>
+<td class="py-3 px-2 md:px-3 font-semibold">3-Phase Δ-Y</td>
+<td class="py-3 px-2 md:px-3">6<em>k</em> ± 1</td>
+<td class="py-3 px-2 md:px-3">0 to π</td>
+<td class="py-3 px-2 md:px-3">√3 : 1</td>
+<td class="py-3 px-2 md:px-3 opacity-70">Compensates line-to-phase relation</td>
 </tr>
 <tr class="bg-[var(--bg)] text-[var(--amber)] font-bold">
-<td class="py-3 px-4">12-Pulse Converter</td>
-<td class="py-3 px-4">12<em>k</em> ± 1</td>
-<td class="py-3 px-4">0 to π/3</td>
-<td class="py-3 px-4">Combined (1:1 + √3:1)</td>
-<td class="py-3 px-4 text-[var(--amber)]">~10% Total VA Reduction</td>
+<td class="py-3 px-2 md:px-3">12-Pulse Converter</td>
+<td class="py-3 px-2 md:px-3">12<em>k</em> ± 1</td>
+<td class="py-3 px-2 md:px-3">0 to π/3</td>
+<td class="py-3 px-2 md:px-3">Combined (1:1 + √3:1)</td>
+<td class="py-3 px-2 md:px-3 text-[var(--amber)]">~10% Total VA Reduction</td>
 </tr>
 </tbody>
 </table>
 </div>
 
 <div class="text-xs md:text-sm bg-[var(--bg)] p-3.5 border-l-4 border-[var(--amber)] border border-[var(--border)] text-[var(--text-secondary)] leading-relaxed">
-<strong class="text-[var(--amber)]">Key Harmonic Benefit:</strong> Canceling the 5th, 7th, 17th, and 19th harmonic orders reduces the resultant secondary winding RMS current, yielding an inherent ~10% reduction in required transformer kVA rating.
+<strong class="text-[var(--amber)]">Key Harmonic Benefit:</strong> Canceling the 5th, 7th, 17th, and 19th harmonic orders reduces the resultant secondary winding RMS current, which yields an inherent ~10% reduction in required transformer kVA rating.
 </div>
 </div>
 </div>
@@ -140,13 +140,13 @@ Theoretical Modeling
 <div class="font-mono text-xs uppercase tracking-wider text-[var(--royal)] font-bold">MATLAB / Simscape Modeling</div>
 <h3 class="font-display text-xl font-bold text-[var(--text-primary)] !mt-0">Closed-Loop Control & Stiff Solvers</h3>
 <p class="text-sm md:text-base leading-relaxed opacity-90">
-The complete 12-pulse converter model was constructed in MATLAB/Simulink utilizing Simscape Electrical Specialized Power Systems blocks, simulating both Y-Y and Delta-Y bridges operating in tandem.
+The complete 12-pulse converter model was built in MATLAB/Simulink using Simscape Electrical Specialized Power Systems blocks. The model simulates both Y-Y and Delta-Y bridges operating in tandem.
 </p>
 <ul class="space-y-2.5 text-sm md:text-base">
 <li><strong>Two-Stage Control Hierarchy:</strong> An outer voltage regulation loop calculates error <em>e(t)</em> = <em>V<sub>ref</sub></em> - <em>V<sub>o,meas</sub></em> and feeds a PI controller (<em>K<sub>p</sub></em> = 0.04, <em>K<sub>i</sub></em> = 2.35) to generate current reference <em>I<sub>dab,ref</sub></em>. The inner stage maps this current into the required phase-shift angle φ.</li>
 <li><strong>Feed-Forward Current Compensation:</strong> To enhance dynamic response during rapid load transitions, feed-forward current (<em>I<sub>fed</sub></em>) from the buck converter is directly subtracted: <em>I<sub>dab,ref</sub></em> = <em>I<sub>PI</sub></em> - <em>I<sub>fed</sub></em>.</li>
 <li><strong>Low-Pass Ripple Attenuation:</strong> Switching ripple on the measured feed-forward current initially caused loop instability. Adding a discrete low-pass filter on <em>I<sub>fed</sub></em> stabilized the loop without degrading response time.</li>
-<li><strong>Stiff Solver Selection (ODE23TB vs ODE45):</strong> Standard variable-step ODE45 produced severe numerical stiffness issues, triggering fictitious multi-kV spikes and excessively slow step times. Switching to ODE23TB (a trapezoidal rule stiff solver with backward differentiation formulas) restored numerical stability and clean waveform generation.</li>
+<li><strong>Stiff Solver Selection (ODE23TB vs ODE45):</strong> Standard variable-step ODE45 produced severe numerical stiffness issues that triggered fictitious multi-kV spikes and excessively slow step times. Switching to ODE23TB (a trapezoidal rule stiff solver with backward differentiation formulas) restored numerical stability and clean waveform generation.</li>
 </ul>
 </div>
 
@@ -154,38 +154,38 @@ The complete 12-pulse converter model was constructed in MATLAB/Simulink utilizi
 <div class="photo-card-royal rounded cursor-pointer">
 <img src="/projects/twelve-pulse-dab/simulink-pi-control-diagram.png" alt="Simulink PI voltage control loop architecture with feedforward compensation" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--royal)] mt-2 font-mono font-medium">
-⚡ Outer voltage PI regulation loop with feed-forward buck current compensation (Ifed)
+ Outer voltage PI regulation loop with feed-forward buck current compensation (Ifed)
 </div>
 </div>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch my-6">
-<div class="flex flex-col justify-between space-y-3 h-full">
-<div class="photo-card-royal rounded cursor-pointer flex-1 flex flex-col justify-between">
+<div class="flex flex-col space-y-3 h-full">
+<div class="photo-card-royal rounded cursor-pointer">
 <img src="/projects/twelve-pulse-dab/simulink-zero-power.png" alt="Simulink output waveforms showing zero power transfer at phi = 0" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--royal)] mt-2 font-mono font-medium">12-pulse primary output at φ = 0</div>
 </div>
-<div class="bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--royal)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+<div class="flex-1 bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--royal)] border border-[var(--border)] text-xs font-mono leading-relaxed">
 Zero power transfer: Symmetrical primary voltages without inter-bridge displacement.
 </div>
 </div>
 
-<div class="flex flex-col justify-between space-y-3 h-full">
-<div class="photo-card-amber rounded cursor-pointer flex-1 flex flex-col justify-between">
+<div class="flex flex-col space-y-3 h-full">
+<div class="photo-card-amber rounded cursor-pointer">
 <img src="/projects/twelve-pulse-dab/simulink-power-transfer.png" alt="Simulink output waveforms showing active power transfer at phi = -15 degrees" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--amber)] mt-2 font-mono font-medium">12-pulse primary output at φ = -15°</div>
 </div>
-<div class="bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--amber)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+<div class="flex-1 bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--amber)] border border-[var(--border)] text-xs font-mono leading-relaxed">
 Active power transfer: Phase shift φ = -15° establishes steady circulating power throughput.
 </div>
 </div>
 
-<div class="flex flex-col justify-between space-y-3 h-full">
-<div class="photo-card-crimson rounded cursor-pointer flex-1 flex flex-col justify-between">
+<div class="flex flex-col space-y-3 h-full">
+<div class="photo-card-crimson rounded cursor-pointer">
 <img src="/projects/twelve-pulse-dab/simulink-r-phase-waveforms.png" alt="Simulink R-phase voltage, current, and instantaneous power waveforms" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--crimson)] mt-2 font-mono font-medium">R-Phase voltage, current & power</div>
 </div>
-<div class="bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--crimson)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+<div class="flex-1 bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--crimson)] border border-[var(--border)] text-xs font-mono leading-relaxed">
 Multilevel stepped R-phase voltage, current, and continuous active power (~ -95 W).
 </div>
 </div>
@@ -223,26 +223,26 @@ Conventional CORDIC square-root blocks introduced high FPGA slice consumption an
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch my-6">
-<div class="flex flex-col justify-between space-y-3 h-full">
-<div class="photo-card-amber rounded cursor-pointer flex-1 flex flex-col justify-between">
+<div class="flex flex-col space-y-3 h-full">
+<div class="photo-card-amber rounded cursor-pointer">
 <img src="/projects/twelve-pulse-dab/fpga-carrier-primary-gate-diagram.png" alt="FPGA sawtooth carrier generation and primary bridge gate logic" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--amber)] mt-2 font-mono font-medium">
-⚡ Carrier generator & primary bridge channel logic (q_n, q_n+3)
+ Carrier generator & primary bridge channel logic (q_n, q_n+3)
 </div>
 </div>
-<div class="bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--amber)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+<div class="flex-1 bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--amber)] border border-[var(--border)] text-xs font-mono leading-relaxed">
 Up-counter generates master sawtooth carriers (θ and θ2 = θ + 30°), modulated by 3-phase offsets (0, 2π/3, 4π/3).
 </div>
 </div>
 
-<div class="flex flex-col justify-between space-y-3 h-full">
-<div class="photo-card-royal rounded cursor-pointer flex-1 flex flex-col justify-between">
+<div class="flex flex-col space-y-3 h-full">
+<div class="photo-card-royal rounded cursor-pointer">
 <img src="/projects/twelve-pulse-dab/fpga-secondary-gate-diagram.png" alt="FPGA secondary bridge gate logic with phase shift phi" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--royal)] mt-2 font-mono font-medium">
-⚡ Secondary bridge channel logic with phase-shift φ (qs_n, qs_n+3)
+ Secondary bridge channel logic with phase-shift φ (qs_n, qs_n+3)
 </div>
 </div>
-<div class="bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--royal)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+<div class="flex-1 bg-[var(--bg-surface)] p-3 border-l-4 border-[var(--royal)] border border-[var(--border)] text-xs font-mono leading-relaxed">
 Secondary channels incorporate phase angle φ to establish bidirectional power flow across 24 total gate lines.
 </div>
 </div>
@@ -264,7 +264,7 @@ Secondary channels incorporate phase angle φ to establish bidirectional power f
 The physical experimental setup connected two 12-pulse converters back-to-back across their AC transformer secondaries in a closed circulating-power test loop.
 </p>
 <p class="text-sm md:text-base leading-relaxed opacity-90">
-Power circulated continuously between the two converter stages while an auxiliary buck converter supplied only the cumulative system losses (<em>P<sub>buck</sub></em> = <em>V<sub>CP</sub></em> × <em>I<sub>buck</sub></em>). At φ = 0, only miniscule baseline losses were drawn from the supply, enabling full 592 W circulating throughput testing with minimal supply draw.
+Power circulated continuously between the two converter stages while an auxiliary buck converter supplied only the cumulative system losses (<em>P<sub>buck</sub></em> = <em>V<sub>CP</sub></em> × <em>I<sub>buck</sub></em>). At φ = 0, only miniscule baseline losses were drawn from the supply. This enabled full 592 W circulating throughput testing with minimal supply draw.
 </p>
 </div>
 
@@ -272,22 +272,22 @@ Power circulated continuously between the two converter stages while an auxiliar
 <div class="photo-card-royal rounded cursor-pointer">
 <img src="/projects/twelve-pulse-dab/circulating-power-testbed.png" alt="Circulating-power hardware testbed with dual 12-pulse converters and auxiliary buck loss supply" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--royal)] mt-2 font-mono flex items-center justify-center gap-1.5 font-medium">
-⚡ Dual 12-pulse converter circulating-power testbed with auxiliary buck loss supply
+ Dual 12-pulse converter circulating-power testbed with auxiliary buck loss supply
 </div>
 </div>
 </div>
 </div>
 
 <!-- Hardware Waveforms Grid: +15°, -15° Phase Shift & ZVS Soft-Switching Verification -->
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch my-6">
-<div class="flex flex-col justify-between space-y-3 h-full">
-<div class="photo-card-amber rounded cursor-pointer flex-1 flex flex-col justify-between">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch my-6">
+<div class="flex flex-col space-y-3 h-full">
+<div class="photo-card-amber rounded cursor-pointer">
 <img src="/projects/twelve-pulse-dab/hardware-waveform-pos15.png" alt="Oscilloscope hardware measurement of 12-pulse converter at phi = +15 degrees" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--amber)] mt-2 font-mono font-medium">
 Capture at φ = +15° (Forward Power Flow)
 </div>
 </div>
-<div class="bg-[var(--bg-surface)] p-3.5 border-l-4 border-[var(--amber)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+<div class="flex-1 bg-[var(--bg-surface)] p-3.5 border-l-4 border-[var(--amber)] border border-[var(--border)] text-xs font-mono leading-relaxed">
 <strong>Channel Legend (+15°):</strong><br />
 C1: Vcp bus input (102.7 V)<br />
 C2: R-phase voltage (123.6 V RMS)<br />
@@ -296,14 +296,14 @@ C4: Loss current (260.7 mA → 26.77 W)
 </div>
 </div>
 
-<div class="flex flex-col justify-between space-y-3 h-full">
-<div class="photo-card-royal rounded cursor-pointer flex-1 flex flex-col justify-between">
+<div class="flex flex-col space-y-3 h-full">
+<div class="photo-card-royal rounded cursor-pointer">
 <img src="/projects/twelve-pulse-dab/hardware-waveform-neg15.png" alt="Oscilloscope hardware measurement of 12-pulse converter at phi = -15 degrees" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--royal)] mt-2 font-mono font-medium">
 Capture at φ = -15° (Reverse Power Flow)
 </div>
 </div>
-<div class="bg-[var(--bg-surface)] p-3.5 border-l-4 border-[var(--royal)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+<div class="flex-1 bg-[var(--bg-surface)] p-3.5 border-l-4 border-[var(--royal)] border border-[var(--border)] text-xs font-mono leading-relaxed">
 <strong>Channel Legend (-15°):</strong><br />
 C1: Vcp bus input (102.7 V)<br />
 C2: R-phase voltage (121.0 V Amp)<br />
@@ -312,14 +312,14 @@ C4: Loss current (232.1 mA → 23.84 W)
 </div>
 </div>
 
-<div class="flex flex-col justify-between space-y-3 h-full">
-<div class="photo-card-crimson rounded cursor-pointer flex-1 flex flex-col justify-between">
+<div class="flex flex-col space-y-3 h-full">
+<div class="photo-card-crimson rounded cursor-pointer">
 <img src="/projects/twelve-pulse-dab/zvs-oscilloscope.png" alt="Oscilloscope capture showing Zero Voltage Switching validation with lagging transformer current" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--crimson)] mt-2 font-mono font-medium">
 Zero Voltage Switching (ZVS) Verification
 </div>
 </div>
-<div class="bg-[var(--bg-surface)] p-3.5 border-l-4 border-[var(--crimson)] border border-[var(--border)] text-xs font-mono leading-relaxed">
+<div class="flex-1 bg-[var(--bg-surface)] p-3.5 border-l-4 border-[var(--crimson)] border border-[var(--border)] text-xs font-mono leading-relaxed">
 <strong>Soft-Switching Condition:</strong><br />
 Transformer current (C3) transitions negative immediately prior to pole voltage zero-crossing (C2), confirming complete soft-switching.
 </div>
@@ -347,31 +347,31 @@ Validated across positive and negative phase shifts
 <div class="bg-[var(--bg-surface)] p-5 border border-[var(--border)] flex flex-col justify-between">
 <div>
 <div class="font-mono text-xs uppercase tracking-wider text-[var(--royal)] font-bold mb-3">Efficiency & Power Loop Results</div>
-<div class="overflow-x-auto">
-<table class="w-full text-xs md:text-sm font-mono text-left border-collapse">
+<div class="overflow-x-auto overflow-y-hidden" style="scrollbar-width: none;">
+<table class="w-full text-xs font-mono text-left border-collapse">
 <thead>
 <tr class="border-b border-[var(--border)] bg-[var(--bg)]">
-<th class="py-2 px-3">Test Point</th>
-<th class="py-2 px-3"><em>V<sub>CP</sub></em></th>
-<th class="py-2 px-3"><em>P<sub>buck</sub></em> (Loss)</th>
-<th class="py-2 px-3"><em>P<sub>circ</sub></em></th>
-<th class="py-2 px-3">Efficiency</th>
+<th class="py-2 px-1.5 md:px-2">Shift</th>
+<th class="py-2 px-1.5 md:px-2"><em>V<sub>CP</sub></em></th>
+<th class="py-2 px-1.5 md:px-2">Loss</th>
+<th class="py-2 px-1.5 md:px-2"><em>P<sub>circ</sub></em></th>
+<th class="py-2 px-1.5 md:px-2">Efficiency</th>
 </tr>
 </thead>
 <tbody class="opacity-90 divide-y divide-[var(--border)]">
 <tr class="hover:bg-[var(--bg)]">
-<td class="py-2 px-3 font-semibold">+15° Shift</td>
-<td class="py-2 px-3">102.7 V</td>
-<td class="py-2 px-3">26.77 W</td>
-<td class="py-2 px-3">592 W</td>
-<td class="py-2 px-3 text-[var(--amber)] font-bold">95.6%</td>
+<td class="py-2 px-1.5 md:px-2 font-semibold">+15°</td>
+<td class="py-2 px-1.5 md:px-2">102.7V</td>
+<td class="py-2 px-1.5 md:px-2">26.8W</td>
+<td class="py-2 px-1.5 md:px-2">592W</td>
+<td class="py-2 px-1.5 md:px-2 text-[var(--amber)] font-bold">95.6%</td>
 </tr>
 <tr class="hover:bg-[var(--bg)]">
-<td class="py-2 px-3 font-semibold">-15° Shift</td>
-<td class="py-2 px-3">102.7 V</td>
-<td class="py-2 px-3">23.84 W</td>
-<td class="py-2 px-3">592 W</td>
-<td class="py-2 px-3 text-[var(--amber)] font-bold">96.1%</td>
+<td class="py-2 px-1.5 md:px-2 font-semibold">-15°</td>
+<td class="py-2 px-1.5 md:px-2">102.7V</td>
+<td class="py-2 px-1.5 md:px-2">23.8W</td>
+<td class="py-2 px-1.5 md:px-2">592W</td>
+<td class="py-2 px-1.5 md:px-2 text-[var(--amber)] font-bold">96.1%</td>
 </tr>
 </tbody>
 </table>
@@ -384,6 +384,79 @@ Total converter losses accounted for under 5% of circulating throughput power ac
 </div>
 </div>
 
+<div class="my-16 border border-[var(--border)] bg-[var(--bg-surface)] rounded-sm overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<!-- Header Bar -->
+<div class="flex flex-wrap items-center justify-between px-5 py-4 border-b border-[var(--border)] bg-[var(--bg)]">
+<div class="flex items-center gap-4">
+<div class="flex gap-1.5 items-center">
+<div class="h-[1.5px] w-8 bg-[var(--royal)]"></div>
+<div class="h-[1.5px] w-4 bg-[var(--crimson)]"></div>
+<div class="h-[1.5px] w-2 bg-[var(--amber)]"></div>
+</div>
+<h2 class="font-display text-sm md:text-base font-bold tracking-[0.15em] text-[var(--text-primary)] uppercase !my-0">
+Hardware Setup & Physical Realization
+</h2>
+</div>
+<div class="font-mono text-[10px] opacity-40 uppercase tracking-widest hidden sm:block">Sys_Testbed_v1.0</div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-0 relative">
+
+<!-- Left Column: Image -->
+<div class="lg:col-span-6 p-6 md:p-8 border-b lg:border-b-0 lg:border-r border-[var(--border)] flex flex-col justify-center bg-[var(--bg)] relative group">
+<div class="photo-card-royal rounded-sm w-full p-2 relative z-10 transition-transform duration-500 group-hover:-translate-y-1 group-hover:-translate-x-1">
+<img src="/projects/twelve-pulse-dab/hardware-setup.jpg" alt="Experimental Hardware Setup for 12-Pulse DAB" class="w-full h-auto object-cover rounded-sm grayscale-[15%] group-hover:grayscale-0 transition-all duration-500" draggable="false" />
+</div>
+<div class="mt-5 flex items-center justify-between font-mono text-xs text-[var(--text-primary)] opacity-60 z-10">
+<span class="tracking-widest">FIG. 1.0</span>
+<span>Complete hardware testbed layout</span>
+</div>
+</div>
+
+<!-- Right Column: Specs -->
+<div class="lg:col-span-6 p-6 md:p-8 flex flex-col bg-[var(--bg-surface)]">
+<h3 class="font-display text-lg font-bold text-[var(--text-primary)] uppercase tracking-widest !mt-0 !mb-6 border-b border-[var(--border)] pb-4 opacity-90">
+Equipment List
+</h3>
+
+<div class="space-y-0 font-mono text-[13px] leading-relaxed flex-1 flex flex-col justify-center">
+<div class="py-3 border-b border-[var(--border)] border-opacity-50 flex items-start gap-3 hover:bg-[var(--bg)] transition-colors px-2 -mx-2 rounded-sm">
+<span class="text-[var(--crimson)] font-bold shrink-0">→</span>
+<span class="opacity-90"><strong class="text-[var(--text-primary)] opacity-80 mr-1">(a)</strong> Genesys Virtex-5 FPGA development board</span>
+</div>
+<div class="py-3 border-b border-[var(--border)] border-opacity-50 flex items-start gap-3 hover:bg-[var(--bg)] transition-colors px-2 -mx-2 rounded-sm">
+<span class="text-[var(--crimson)] font-bold shrink-0">→</span>
+<span class="opacity-90"><strong class="text-[var(--text-primary)] opacity-80 mr-1">(b)</strong> Digital oscilloscope for waveform capture</span>
+</div>
+<div class="py-3 border-b border-[var(--border)] border-opacity-50 flex items-start gap-3 hover:bg-[var(--bg)] transition-colors px-2 -mx-2 rounded-sm">
+<span class="text-[var(--crimson)] font-bold shrink-0">→</span>
+<span class="opacity-90"><strong class="text-[var(--text-primary)] opacity-80 mr-1">(c)</strong> ADC module for voltage & current measurement</span>
+</div>
+<div class="py-3 border-b border-[var(--border)] border-opacity-50 flex items-start gap-3 hover:bg-[var(--bg)] transition-colors px-2 -mx-2 rounded-sm">
+<span class="text-[var(--crimson)] font-bold shrink-0">→</span>
+<span class="opacity-90"><strong class="text-[var(--text-primary)] opacity-80 mr-1">(d)</strong> DAC module & Signal Conditioning Board</span>
+</div>
+<div class="py-3 border-b border-[var(--border)] border-opacity-50 flex items-start gap-3 hover:bg-[var(--bg)] transition-colors px-2 -mx-2 rounded-sm">
+<span class="text-[var(--crimson)] font-bold shrink-0">→</span>
+<span class="opacity-90"><strong class="text-[var(--text-primary)] opacity-80 mr-1">(e)</strong> Inverter (bridge) blocks for converter realization</span>
+</div>
+<div class="py-3 border-b border-[var(--border)] border-opacity-50 flex items-start gap-3 hover:bg-[var(--bg)] transition-colors px-2 -mx-2 rounded-sm">
+<span class="text-[var(--crimson)] font-bold shrink-0">→</span>
+<span class="opacity-90"><strong class="text-[var(--text-primary)] opacity-80 mr-1">(f)</strong> Transformers (Y-Y and Delta-Y, 12-pulse structure)</span>
+</div>
+<div class="py-3 border-b border-[var(--border)] border-opacity-50 flex items-start gap-3 hover:bg-[var(--bg)] transition-colors px-2 -mx-2 rounded-sm">
+<span class="text-[var(--crimson)] font-bold shrink-0">→</span>
+<span class="opacity-90 text-pretty"><strong class="text-[var(--text-primary)] opacity-80 mr-1">(g)</strong> Buck converter block, controlling <em>V<sub>CP</sub></em></span>
+</div>
+<div class="py-3 flex items-start gap-3 hover:bg-[var(--bg)] transition-colors px-2 -mx-2 rounded-sm">
+<span class="text-[var(--crimson)] font-bold shrink-0">→</span>
+<span class="opacity-90"><strong class="text-[var(--text-primary)] opacity-80 mr-1">(1)</strong> Autotransformer</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 <div class="font-mono text-xs uppercase tracking-wider text-[var(--crimson)] font-bold mt-10 mb-1">Engineering Diagnosis</div>
 <h2 class="font-display text-2xl font-bold text-[var(--text-primary)] border-b border-[var(--border)] pb-2 mb-4">Failure Analysis & Debugging Log</h2>
 
@@ -391,8 +464,8 @@ Total converter losses accounted for under 5% of circulating throughput power ac
 Bridging theoretical power equations, discrete simulation, and physical FPGA hardware exposed several practical engineering challenges:
 </p>
 
-<div class="overflow-x-auto my-6">
-<table class="w-full text-xs md:text-sm font-body border border-[var(--border)] bg-[var(--bg-surface)] min-w-[650px]">
+<div class="w-full my-6">
+<table class="w-full text-xs md:text-sm font-body border border-[var(--border)] bg-[var(--bg-surface)]">
 <thead class="bg-[var(--bg)] font-mono text-xs uppercase border-b border-[var(--border)]">
 <tr>
 <th class="p-3.5 text-left text-[var(--crimson)] w-1/3">Issue Encountered</th>

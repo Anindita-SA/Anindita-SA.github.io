@@ -27,7 +27,7 @@ This project designs, simulates in LTSpice, and prototypes a 1 kHz state-variabl
 <div class="w-full max-w-[320px] md:max-w-[340px] photo-card-amber rounded cursor-pointer">
 <img src="/projects/quadrature-oscillator/pcb-3d.png" alt="3D CAD render of the 1 kHz Quadrature Oscillator PCB" class="w-full h-auto object-contain rounded" draggable="false" oncontextmenu="return false;" />
 <div class="text-xs text-center text-[var(--amber)] mt-2 font-mono flex items-center justify-center gap-1.5 font-medium">
-⚡ 3D KiCad PCB render for the state-variable oscillator board
+ 3D KiCad PCB render for the state-variable oscillator board
 </div>
 </div>
 </div>

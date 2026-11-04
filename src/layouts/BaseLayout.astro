@@ -5,8 +5,8 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
 interface Props {
-  title: string;
-  description?: string;
+ title: string;
+ description?: string;
 }
 
 const { title, description = "Multidisciplinary engineer and design thinker." } = Astro.props;
@@ -14,310 +14,310 @@ const { title, description = "Multidisciplinary engineer and design thinker." } 
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/player/essential_audio.css" />
-    <title>{title}</title>
-    <ViewTransitions />
-  </head>
-  <body class="hex-bg-body">
-    <div class="hex-fade" aria-hidden="true"></div>
-    <Nav />
-    <main>
-      <slot />
-    </main>
-    <Footer />
+ <head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta name="description" content={description} />
+ <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+ <link rel="stylesheet" href="/player/essential_audio.css" />
+ <title>{title}</title>
+ <ViewTransitions />
+ </head>
+ <body class="hex-bg-body">
+ <div class="hex-fade" aria-hidden="true"></div>
+ <Nav />
+ <main>
+ <slot />
+ </main>
+ <Footer />
 
-    <script is:inline>
-      const applyTheme = () => {
-        const stored = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (stored === 'dark' || (!stored && prefersDark)) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      };
+ <script is:inline>
+ const applyTheme = () => {
+ const stored = localStorage.getItem('theme');
+ const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+ if (stored === 'dark' || (!stored && prefersDark)) {
+ document.documentElement.classList.add('dark');
+ } else {
+ document.documentElement.classList.remove('dark');
+ }
+ };
 
-      // Apply theme on early parse
-      applyTheme();
+ // Apply theme on early parse
+ applyTheme();
 
-      // Apply theme after page swap transition
-      document.addEventListener('astro:after-swap', applyTheme);
+ // Apply theme after page swap transition
+ document.addEventListener('astro:after-swap', applyTheme);
 
-      document.addEventListener('astro:page-load', () => {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
-          });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+ document.addEventListener('astro:page-load', () => {
+ const observer = new IntersectionObserver((entries) => {
+ entries.forEach(entry => {
+ if (entry.isIntersecting) entry.target.classList.add('visible');
+ });
+ }, { threshold: 0.1 });
+ document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-        // Comprehensive Image Protection: Block right-click, dragging, saving, and copy on all media
-        document.addEventListener('contextmenu', (e) => {
-          const target = e.target;
-          if (
-            target.tagName === 'IMG' ||
-            target.tagName === 'CANVAS' ||
-            target.tagName === 'PICTURE' ||
-            target.closest('.sketch-card') ||
-            target.closest('#image-container') ||
-            target.closest('#image-lightbox') ||
-            target.closest('[class*="photo-card-"]') ||
-            target.closest('.prose-content')
-          ) {
-            e.preventDefault();
-            return false;
-          }
-        });
+ // Comprehensive Image Protection: Block right-click, dragging, saving, and copy on all media
+ document.addEventListener('contextmenu', (e) => {
+ const target = e.target;
+ if (
+ target.tagName === 'IMG' ||
+ target.tagName === 'CANVAS' ||
+ target.tagName === 'PICTURE' ||
+ target.closest('.sketch-card') ||
+ target.closest('#image-container') ||
+ target.closest('#image-lightbox') ||
+ target.closest('[class*="photo-card-"]') ||
+ target.closest('.prose-content')
+ ) {
+ e.preventDefault();
+ return false;
+ }
+ });
 
-        document.addEventListener('dragstart', (e) => {
-          if (e.target.tagName === 'IMG' || e.target.closest('[class*="photo-card-"]')) {
-            e.preventDefault();
-            return false;
-          }
-        });
+ document.addEventListener('dragstart', (e) => {
+ if (e.target.tagName === 'IMG' || e.target.closest('[class*="photo-card-"]')) {
+ e.preventDefault();
+ return false;
+ }
+ });
 
-        document.addEventListener('copy', (e) => {
-          const sel = window.getSelection();
-          if (sel && sel.anchorNode && (sel.anchorNode.parentElement?.closest('[class*="photo-card-"]') || sel.anchorNode.parentElement?.closest('#image-lightbox'))) {
-            e.preventDefault();
-          }
-        });
+ document.addEventListener('copy', (e) => {
+ const sel = window.getSelection();
+ if (sel && sel.anchorNode && (sel.anchorNode.parentElement?.closest('[class*="photo-card-"]') || sel.anchorNode.parentElement?.closest('#image-lightbox'))) {
+ e.preventDefault();
+ }
+ });
 
-        // Block Save Page (Ctrl+S/Cmd+S), Print (Ctrl+P/Cmd+P), and PrintScreen
-        document.addEventListener('keydown', (e) => {
-          if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S' || e.key === 'p' || e.key === 'P')) {
-            e.preventDefault();
-          }
-          if (e.key === 'PrintScreen') {
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              navigator.clipboard.writeText('');
-            }
-          }
-        });
-      });
-    </script>
+ // Block Save Page (Ctrl+S/Cmd+S), Print (Ctrl+P/Cmd+P), and PrintScreen
+ document.addEventListener('keydown', (e) => {
+ if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S' || e.key === 'p' || e.key === 'P')) {
+ e.preventDefault();
+ }
+ if (e.key === 'PrintScreen') {
+ if (navigator.clipboard && navigator.clipboard.writeText) {
+ navigator.clipboard.writeText('');
+ }
+ }
+ });
+ });
+ </script>
 
-    <!-- Music Player -->
-    <button id="music-btn" transition:persist aria-label="Now Playing" style="
-      position: fixed !important;
-      bottom: 24px !important;
-      left: 24px !important;
-      z-index: 99999 !important;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #002366;
-      border: 2px solid #FCBA04;
-      cursor: pointer;
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      outline: none;
-      transition: transform 0.2s;
-    ">
-      <!-- Music note icon (shown when stopped/paused) -->
-      <span id="btn-note" style="font-size:20px;">🎵</span>
-      <!-- Animated bars (shown when playing) -->
-      <div id="btn-bars" style="display:none;align-items:flex-end;gap:2px;height:20px;">
-        <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;animation:musicBar 0.8s ease-in-out infinite alternate;animation-delay:0s;"></span>
-        <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;animation:musicBar 0.8s ease-in-out infinite alternate;animation-delay:0.2s;"></span>
-        <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;animation:musicBar 0.8s ease-in-out infinite alternate;animation-delay:0.4s;"></span>
-        <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;animation:musicBar 0.8s ease-in-out infinite alternate;animation-delay:0.1s;"></span>
-      </div>
-    </button>
+ <!-- Music Player -->
+ <button id="music-btn" transition:persist aria-label="Now Playing" style="
+ position: fixed !important;
+ bottom: 24px !important;
+ left: 24px !important;
+ z-index: 99999 !important;
+ width: 48px;
+ height: 48px;
+ border-radius: 50%;
+ background: #002366;
+ border: 2px solid #FCBA04;
+ cursor: pointer;
+ display: flex !important;
+ align-items: center;
+ justify-content: center;
+ box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+ outline: none;
+ transition: transform 0.2s;
+ ">
+ <!-- Music note icon (shown when stopped/paused) -->
+ <span id="btn-note" style="font-size:20px;"></span>
+ <!-- Animated bars (shown when playing) -->
+ <div id="btn-bars" style="display:none;align-items:flex-end;gap:2px;height:20px;">
+ <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;animation:musicBar 0.8s ease-in-out infinite alternate;animation-delay:0s;"></span>
+ <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;animation:musicBar 0.8s ease-in-out infinite alternate;animation-delay:0.2s;"></span>
+ <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;animation:musicBar 0.8s ease-in-out infinite alternate;animation-delay:0.4s;"></span>
+ <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;animation:musicBar 0.8s ease-in-out infinite alternate;animation-delay:0.1s;"></span>
+ </div>
+ </button>
 
-    <div id="music-popup" transition:persist style="
-      position: fixed !important;
-      bottom: 84px !important;
-      left: 24px !important;
-      z-index: 99999 !important;
-      width: 260px;
-      padding: 1.25rem;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      display: none;
-      flex-direction: column;
-      gap: 0.75rem;
-    ">
-      <!-- Header -->
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <p style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;opacity:0.4;margin:0;">Now Playing</p>
-        <button id="close-popup" style="background:none;border:none;cursor:pointer;opacity:0.4;font-size:1rem;line-height:1;padding:0;" aria-label="Close">✕</button>
-      </div>
+ <div id="music-popup" transition:persist style="
+ position: fixed !important;
+ bottom: 84px !important;
+ left: 24px !important;
+ z-index: 99999 !important;
+ width: 260px;
+ padding: 1.25rem;
+ border: 1px solid var(--border);
+ background: var(--bg);
+ box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+ display: none;
+ flex-direction: column;
+ gap: 0.75rem;
+ ">
+ <!-- Header -->
+ <div style="display:flex;align-items:center;justify-content:space-between;">
+ <p style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;text-transform:uppercase;letter-spacing:0.15em;opacity:0.4;margin:0;">Now Playing</p>
+ <button id="close-popup" style="background:none;border:none;cursor:pointer;opacity:0.4;font-size:1rem;line-height:1;padding:0;" aria-label="Close">✕</button>
+ </div>
 
-      <!-- Track info -->
-      <div style="display:flex;align-items:center;gap:0.75rem;">
-        <div id="popup-bars" style="display:flex;align-items:flex-end;gap:2px;height:20px;">
-          <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;height:8px;"></span>
-          <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;height:14px;"></span>
-          <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;height:10px;"></span>
-          <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;height:16px;"></span>
-        </div>
-        <div>
-          <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin:0;color:var(--text-primary);">Smooth Lovin</p>
-          <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;opacity:0.5;margin:0;">Kevin MacLeod</p>
-        </div>
-      </div>
+ <!-- Track info -->
+ <div style="display:flex;align-items:center;gap:0.75rem;">
+ <div id="popup-bars" style="display:flex;align-items:flex-end;gap:2px;height:20px;">
+ <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;height:8px;"></span>
+ <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;height:14px;"></span>
+ <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;height:10px;"></span>
+ <span style="display:block;width:3px;background:#FCBA04;border-radius:2px;height:16px;"></span>
+ </div>
+ <div>
+ <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin:0;color:var(--text-primary);">Smooth Lovin</p>
+ <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;opacity:0.5;margin:0;">Kevin MacLeod</p>
+ </div>
+ </div>
 
-      <!-- Essential Audio Player -->
-      <div class="essential_audio" id="eap-player" data-url="/music/Smooth Lovin.mp3" data-loop></div>
+ <!-- Essential Audio Player -->
+ <div class="essential_audio" id="eap-player" data-url="/music/Smooth Lovin.mp3" data-loop></div>
 
-      <!-- Credit -->
-      <p style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;opacity:0.3;margin:0;">Licensed under Creative Commons Attribution</p>
-    </div>
+ <!-- Credit -->
+ <p style="font-family:'JetBrains Mono',monospace;font-size:0.55rem;opacity:0.3;margin:0;">Licensed under Creative Commons Attribution</p>
+ </div>
 
-    <script is:inline src="/player/essential_audio.js"></script>
+ <script is:inline src="/player/essential_audio.js"></script>
 
-    <script is:inline>
-      function initMusicPlayer() {
-        const btn = document.getElementById('music-btn');
-        const popup = document.getElementById('music-popup');
-        const closeBtn = document.getElementById('close-popup');
-        const btnNote = document.getElementById('btn-note');
-        const btnBars = document.getElementById('btn-bars');
-        const popupBars = document.getElementById('popup-bars');
-        if (!btn || !popup) return;
+ <script is:inline>
+ function initMusicPlayer() {
+ const btn = document.getElementById('music-btn');
+ const popup = document.getElementById('music-popup');
+ const closeBtn = document.getElementById('close-popup');
+ const btnNote = document.getElementById('btn-note');
+ const btnBars = document.getElementById('btn-bars');
+ const popupBars = document.getElementById('popup-bars');
+ if (!btn || !popup) return;
 
-        // Toggle popup open/close
-        btn.onclick = function(e) {
-          e.stopPropagation();
-          popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
-        };
+ // Toggle popup open/close
+ btn.onclick = function(e) {
+ e.stopPropagation();
+ popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
+ };
 
-        // Close button
-        if (closeBtn) {
-          closeBtn.onclick = function(e) {
-            e.stopPropagation();
-            popup.style.display = 'none';
-          };
-        }
+ // Close button
+ if (closeBtn) {
+ closeBtn.onclick = function(e) {
+ e.stopPropagation();
+ popup.style.display = 'none';
+ };
+ }
 
-        // Close when clicking outside
-        document.addEventListener('click', function(e) {
-          if (!btn.contains(e.target) && !popup.contains(e.target)) {
-            popup.style.display = 'none';
-          }
-        });
+ // Close when clicking outside
+ document.addEventListener('click', function(e) {
+ if (!btn.contains(e.target) && !popup.contains(e.target)) {
+ popup.style.display = 'none';
+ }
+ });
 
-        // Watch for play state changes via Essential Audio Player API
-        function updatePlayState() {
-          const isPlaying = Essential_Audio && Essential_Audio.active();
-          if (isPlaying) {
-            // Show animated bars in button
-            btnNote.style.display = 'none';
-            btnBars.style.display = 'flex';
-            // Animate popup bars
-            popupBars.querySelectorAll('span').forEach((s, i) => {
-              s.style.animation = 'musicBar 0.8s ease-in-out infinite alternate';
-              s.style.animationDelay = (i * 0.15) + 's';
-            });
-          } else {
-            // Show music note in button
-            btnNote.style.display = 'block';
-            btnBars.style.display = 'none';
-            // Stop popup bars animation
-            popupBars.querySelectorAll('span').forEach(s => s.style.animation = 'none');
-          }
-        }
+ // Watch for play state changes via Essential Audio Player API
+ function updatePlayState() {
+ const isPlaying = Essential_Audio && Essential_Audio.active();
+ if (isPlaying) {
+ // Show animated bars in button
+ btnNote.style.display = 'none';
+ btnBars.style.display = 'flex';
+ // Animate popup bars
+ popupBars.querySelectorAll('span').forEach((s, i) => {
+ s.style.animation = 'musicBar 0.8s ease-in-out infinite alternate';
+ s.style.animationDelay = (i * 0.15) + 's';
+ });
+ } else {
+ // Show music note in button
+ btnNote.style.display = 'block';
+ btnBars.style.display = 'none';
+ // Stop popup bars animation
+ popupBars.querySelectorAll('span').forEach(s => s.style.animation = 'none');
+ }
+ }
 
-        // Poll play state every 500ms
-        if (window._musicPollInterval) clearInterval(window._musicPollInterval);
-        window._musicPollInterval = setInterval(updatePlayState, 500);
-      }
+ // Poll play state every 500ms
+ if (window._musicPollInterval) clearInterval(window._musicPollInterval);
+ window._musicPollInterval = setInterval(updatePlayState, 500);
+ }
 
-      // Nav init
-      function initNav() {
-        const themeBtn = document.getElementById('theme-toggle');
-        const menuBtn = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const resourcesBtn = document.getElementById('resources-btn');
-        const resourcesDropdown = document.getElementById('resources-dropdown');
-        const resourcesMenu = document.getElementById('resources-menu');
+ // Nav init
+ function initNav() {
+ const themeBtn = document.getElementById('theme-toggle');
+ const menuBtn = document.getElementById('menu-toggle');
+ const mobileMenu = document.getElementById('mobile-menu');
+ const resourcesBtn = document.getElementById('resources-btn');
+ const resourcesDropdown = document.getElementById('resources-dropdown');
+ const resourcesMenu = document.getElementById('resources-menu');
 
-        if (themeBtn) {
-          themeBtn.onclick = () => {
-            const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-          };
-        }
-        if (menuBtn && mobileMenu) {
-          menuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
-        }
-        if (resourcesBtn && resourcesDropdown) {
-          resourcesBtn.onclick = () => resourcesDropdown.classList.toggle('hidden');
-          document.addEventListener('click', (e) => {
-            if (resourcesMenu && !resourcesMenu.contains(e.target)) {
-              resourcesDropdown.classList.add('hidden');
-            }
-          });
-        }
-      }
+ if (themeBtn) {
+ themeBtn.onclick = () => {
+ const isDark = document.documentElement.classList.toggle('dark');
+ localStorage.setItem('theme', isDark ? 'dark' : 'light');
+ };
+ }
+ if (menuBtn && mobileMenu) {
+ menuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
+ }
+ if (resourcesBtn && resourcesDropdown) {
+ resourcesBtn.onclick = () => resourcesDropdown.classList.toggle('hidden');
+ document.addEventListener('click', (e) => {
+ if (resourcesMenu && !resourcesMenu.contains(e.target)) {
+ resourcesDropdown.classList.add('hidden');
+ }
+ });
+ }
+ }
 
-      document.addEventListener('astro:page-load', () => {
-        initNav();
-        initMusicPlayer();
-        // Re-init Essential Audio Player on page transition
-        if (typeof Essential_Audio !== 'undefined') {
-          Essential_Audio.init();
-        }
-      });
+ document.addEventListener('astro:page-load', () => {
+ initNav();
+ initMusicPlayer();
+ // Re-init Essential Audio Player on page transition
+ if (typeof Essential_Audio !== 'undefined') {
+ Essential_Audio.init();
+ }
+ });
 
-      initNav();
-      initMusicPlayer();
-    </script>
+ initNav();
+ initMusicPlayer();
+ </script>
 
-    <style>
-      @keyframes musicBar {
-        from { transform: scaleY(0.4); }
-        to { transform: scaleY(2); }
-      }
-      #music-btn:hover { transform: scale(1.1); }
+ <style>
+ @keyframes musicBar {
+ from { transform: scaleY(0.4); }
+ to { transform: scaleY(2); }
+ }
+ #music-btn:hover { transform: scale(1.1); }
 
-      /* Style Essential Audio Player to match site */
-      #eap-player > div:nth-child(1) div {
-        background-color: #002366 !important;
-        width: 32px !important;
-        height: 32px !important;
-        margin-top: -15px !important;
-      }
-      #eap-player > div:nth-child(1) div.play {
-        background-color: #002366 !important;
-      }
-      #eap-player > div:nth-child(2):after {
-        background-color: var(--border) !important;
-        opacity: 1 !important;
-      }
-      #eap-player > div:nth-child(2) div {
-        background-color: #FCBA04 !important;
-      }
+ /* Style Essential Audio Player to match site */
+ #eap-player > div:nth-child(1) div {
+ background-color: #002366 !important;
+ width: 32px !important;
+ height: 32px !important;
+ margin-top: -15px !important;
+ }
+ #eap-player > div:nth-child(1) div.play {
+ background-color: #002366 !important;
+ }
+ #eap-player > div:nth-child(2):after {
+ background-color: var(--border) !important;
+ opacity: 1 !important;
+ }
+ #eap-player > div:nth-child(2) div {
+ background-color: #FCBA04 !important;
+ }
 
-      body.hex-bg-body {
-        background-color: #F7F5F0;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='90' viewBox='0 0 52 90'%3E%3Cpath d='M26 0L0 15v30l26 15 26-15V15zM26 60v30' fill='none' stroke='%23fcba04' stroke-opacity='0.15' stroke-width='3'/%3E%3C/svg%3E");
-      }
-      html.dark body.hex-bg-body {
-        background-color: #090C14;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='90' viewBox='0 0 52 90'%3E%3Cpath d='M26 0L0 15v30l26 15 26-15V15zM26 60v30' fill='none' stroke='%23002366' stroke-opacity='0.25' stroke-width='3'/%3E%3C/svg%3E");
-      }
-      .hex-fade {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        pointer-events: none;
-        z-index: 0;
-        background: linear-gradient(to bottom right, var(--bg) 40%, transparent 120%);
-      }
-      main { position: relative; z-index: 1; }
-    </style>
-    <!-- Cloudflare Web Analytics -->
-    <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "3a5507c5cd3845b1940bbfa19dc0db3b"}'></script>
-    <!-- End Cloudflare Web Analytics -->
-  </body>
+ body.hex-bg-body {
+ background-color: #F7F5F0;
+ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='90' viewBox='0 0 52 90'%3E%3Cpath d='M26 0L0 15v30l26 15 26-15V15zM26 60v30' fill='none' stroke='%23fcba04' stroke-opacity='0.15' stroke-width='3'/%3E%3C/svg%3E");
+ }
+ html.dark body.hex-bg-body {
+ background-color: #090C14;
+ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='90' viewBox='0 0 52 90'%3E%3Cpath d='M26 0L0 15v30l26 15 26-15V15zM26 60v30' fill='none' stroke='%23002366' stroke-opacity='0.25' stroke-width='3'/%3E%3C/svg%3E");
+ }
+ .hex-fade {
+ position: fixed;
+ top: 0; left: 0;
+ width: 100%; height: 100%;
+ pointer-events: none;
+ z-index: 0;
+ background: linear-gradient(to bottom right, var(--bg) 40%, transparent 120%);
+ }
+ main { position: relative; z-index: 1; }
+ </style>
+ <!-- Cloudflare Web Analytics -->
+ <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "3a5507c5cd3845b1940bbfa19dc0db3b"}'></script>
+ <!-- End Cloudflare Web Analytics -->
+ </body>
 </html>
