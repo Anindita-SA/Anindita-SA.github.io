@@ -47,7 +47,9 @@ const searchIndex = [
     <div class="hidden md:flex items-center gap-6">
       <a href="/" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Home</a>
       <a href="/projects" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Projects</a>
-      <a href="/publications" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Publications</a>
+      {import.meta.env.DEV && (
+        <a href="/publications" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Publications</a>
+      )}
       <a href="/side-quests" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Side Quests</a>
 
       <!-- Resources dropdown -->
@@ -111,7 +113,9 @@ const searchIndex = [
     <div class="max-w-5xl mx-auto px-6 py-4 flex flex-col gap-4">
       <a href="/" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Home</a>
       <a href="/projects" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Projects</a>
-      <a href="/publications" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Publications</a>
+      {import.meta.env.DEV && (
+        <a href="/publications" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Publications</a>
+      )}
       <a href="/side-quests" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">Side Quests</a>
       <a href="/resources/tutorials" class="font-body text-sm opacity-50 hover:opacity-100 transition-all pl-3 border-l" style="border-color: var(--amber);">↳ Tutorials</a>
       <a href="/about" class="font-body text-sm opacity-50 hover:opacity-100 transition-all">About</a>
